@@ -1,0 +1,133 @@
+close all;
+%Rand R
+R = [0,0;
+    15,0;
+    15,1;
+    1,1;
+    1,9;
+    15,9;
+    15,10;
+    0,10
+    0,0];
+
+%Objekt O
+O = [2,4;
+    3,4;
+    3,6;
+    2,6;
+    2,4];
+
+%Hindernis H
+H = [7,2;
+    8,2;
+    8,8;
+    7,8;
+    7,2];
+
+%Zielfläche Z
+Z = [14,4;
+    15,4;
+    15,6;
+    14,6;
+    14,4];
+
+%Struct F mit allen Flächen
+F.R=R;
+F.H=H;
+F.O=O;
+F.Z=Z;
+
+%Startkonfigurationenen K_r K_o und K_h
+K_r=[0,0,0];
+K_h=[7.5,5,0];
+K_o=[2.5,5,0];
+
+%Zielkonfiguration Z_o
+K_z=[14.5,5,0];
+
+%struct K mit allen Konfigurationen
+K.R = K_r;
+K.H = K_h;
+K.O = K_o;
+K.Z = K_z;
+
+%Zeichen Startkonfiguration
+figure;
+%zeichne figuren
+plot(R(:,1),R(:,2),'black',O(:,1),O(:,2),'g',H(:,1),H(:,2),'b',Z(:,1),Z(:,2),'r');
+hold on;
+%zeichne 'mittel'-punkte
+plot(K_r(1,1),K_r(1,2),'*black');
+plot(K_h(1,1),K_h(1,2),'*b');
+plot(K_o(1,1),K_o(1,2),'*g');
+plot(K_z(1,1),K_z(1,2),'*r');
+axis([-2,17,-2,12]);
+hold off;
+
+%KR=config(K,F);
+
+%Zeichne Konfigurationsräume
+
+%mit Hand berechnet
+KR.O=[1.5 2;
+    15.5 2;
+    15.5 8;
+    1.5 8;
+    1.5 2];
+
+KR_o=[];
+KKR_oh=[];
+
+%Berechnen der Kollision von O mit H
+%mit Hand für eine Rotation
+Koll_oh = [7.5,1;
+        8.5,1;
+        8.5,9;
+        7.5,9;
+        7.5,1];
+    
+%Berechnen der Lage des Hindernisses für jeder Rotation
+for x=0:360
+    KKR_oh=[KKR_oh;[Rot(x,Koll_oh,K.H(1:2)),ones(length(H),1)*x]];
+    KR_o=[KR_o;[KR.O,ones(length(KR.O),1)*x]];
+end
+
+%Eckpunkte verbinden von KR_o zum Zeichnen
+KR_o_plotvert = [KR_o(KR_o(:,3)==0|KR_o(:,3)==360,1),...
+KR_o(KR_o(:,3)==0|KR_o(:,3)==360,2),...
+KR_o(KR_o(:,3)==0|KR_o(:,3)==360,3)];
+
+KR_o_plothor = [KR_o_plotvert(1,:);KR_o_plotvert(6,:);KR_o_plotvert(1,:);...
+    KR_o_plotvert(2,:);KR_o_plotvert(7,:);KR_o_plotvert(2,:);...
+    KR_o_plotvert(3,:);KR_o_plotvert(8,:);KR_o_plotvert(3,:);...
+    KR_o_plotvert(4,:);KR_o_plotvert(9,:);KR_o_plotvert(4,:)];
+    
+%Eckpunkte verbinden von KKR_oh zum Zeichnen
+% KKR_oh_plotvert1 =[KKR_oh(KKR_oh(:,3)==0,1),KKR_oh(KR_o(:,3)==0,2),KKR_oh(KR_o(:,3)==0,3)];
+% KKR_oh_plotvert2 =[KKR_oh(KKR_oh(:,3)==360,1),KKR_oh(KKR_oh(:,3)==360,2),KKR_oh(KKR_oh(:,3)==360,3)];
+% 
+% KKR_oh_plothor1 = [KKR_oh(1:5:length(KKR_oh),1),KKR_oh(1:5:length(KKR_oh),2),KKR_oh(1:5:length(KKR_oh),3)];
+% KKR_oh_plothor2 = [KKR_oh(2:5:length(KKR_oh),1),KKR_oh(2:5:length(KKR_oh),2),KKR_oh(2:5:length(KKR_oh),3)];
+% KKR_oh_plothor3 = [KKR_oh(3:5:length(KKR_oh),1),KKR_oh(3:5:length(KKR_oh),2),KKR_oh(3:5:length(KKR_oh),3)];
+% KKR_oh_plothor4 = [KKR_oh(4:5:length(KKR_oh),1),KKR_oh(4:5:length(KKR_oh),2),KKR_oh(4:5:length(KKR_oh),3)];
+
+
+figure;
+hold on;
+plot3(KKR_oh(:,1),KKR_oh(:,2),KKR_oh(:,3));%Hindernis
+plot3( KR_o_plotvert(:,1),KR_o_plotvert(:,2),KR_o_plotvert(:,3),'g');%linien vertikal
+plot3( KR_o_plothor(:,1),KR_o_plothor(:,2),KR_o_plothor(:,3),'g');%linien horizontal
+plot3(K.O(1),K.O(2),K.O(3),'g*');
+plot3(K.Z(1),K.Z(2),K.Z(3),'r*');
+print(1,'png');
+
+%TODO:
+%Wegsuche
+
+%Zylindric algebraic decomposition
+
+%Path = path_by_grassfire([K.O],KR_o,KKR_oh,K.O,K.Z);
+tic
+Path = path_by_dijkstra(KR_o,KKR_oh,K.O,K.Z);
+toc
+plot3(Path(:,1),Path(:,2),Path(:,3),'black');

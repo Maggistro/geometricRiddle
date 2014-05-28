@@ -1,0 +1,7 @@
+function R = R( phi )
+%returns rotation Matrix of phi
+R=[cos(x) -sin(x);sin)
+
+
+end
+

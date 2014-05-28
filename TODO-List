@@ -1,0 +1,28 @@
+polyeder representation:
+
+NEXT:
+- Get configuration spaces from object to objects ( basically collision ) 
+-- test with multiple objects *
+-- test with concave objects *
+---- test getRims *
+----- test getConvexPolygon *
+------ sorting bug in getConvexPolygon -> returning mask leads to unsorted
+        hulls *
+----- test putting together of multiple convex subsets for getting 
+        concave rims *
+-- test with rotation
+--- get rotations combinations ( works only till <5 objects )*
+--- put spaces together ( each object adds 3 dimensions )
+
+TODO:
+- find a way to express the main rim ( border ) of the full puzzle
+
+
+
+Ideas:
+
+- split the configurationspace in tiles by expanding the vectors of
+  the non-mainrim rims in the direction they are pointing ( excluding the
+  connection vectors beetween the convex subsets ). Each tile can then be
+  seen as a valid position in the search graph.
+
