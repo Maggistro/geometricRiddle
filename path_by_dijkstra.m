@@ -1,24 +1,25 @@
-function Path = path_by_dijkstra(CS_Main,CS_Obstacle,start,target,figureData)
-%suche auf einem grid. keine direkte erstellung von knoten und
-%distanzmatrix, alles wird lokal erstellt
+function Path = path_by_dijkstra(riddle,figureData)
+%path_by_dijkstra calculates the path for mainObject from start to target
+%border of the complete riddle
+%object contains ALL objects except mainobject
+%start mainobject which needs to pass trough the puzzle
+%target target configuration for mainobject
+%figureData set of information for replotting the riddle on-the-fly
 
-%Speedup:
-%erstellen der verbotenen zone als markierte punkte auf dem grid
-%Zusammenführen von schritten für weniger speicher
-%adaptive schrittgröße ( wie? )
-%verbesserung der heuristik
+%create initial collision borders for mainObject to others
+initial_Collision_set = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
 
+%get size of direction vector ( 3 parameters per object and mainobject ) 
+direction = zeros(1,length(riddle.o)*3);
 
-%suchrichtungen
-stepsize=1/2;
-xp=[stepsize,0,0];
-xm=[-stepsize,0,0];
-yp=[0,stepsize,0];
-ym=[0,-stepsize,0];
-zp=[0,0,5];
-zm=[0,0,-5];
-directions=[xp;xm;yp;ym;zp;zm];
-
+%initial configuration vector for start and target
+start = riddle.m.mid;
+target = riddle.t.mid;
+for i=length(riddle.o)
+    start = [start,riddle.o{i}.mid];
+    target = [target,riddle.o{i}.mid];
+end
+[nextVec] = isValid(start,riddle.b,riddle.o);
 
 %initialwerte
 %Rand
@@ -46,8 +47,8 @@ while(~sum(ismember(R,target,'rows')))
     
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
-        possible_next = next+directions(i,:); % berechne nächsten knoten
-        if isValid(possible_next,CS_Main,CS_Obstacle) % when der knoten erlaubt ist
+        possible_next = oneStep(next,i); % berechne nächsten knoten
+        if isValid(possible_next,border,objects) % when der knoten erlaubt ist
             if ~sum(ismember(R,possible_next,'rows')) % und nicht im Rand ist
                 R=[R;next+directions(i,:)]; %füge ihn hinzu
                 D=[D;D(next_position)+0.1]; %und trage seine distanz zum start ein

@@ -1,20 +1,25 @@
-function valid = isValid(start,K_o,KKR_oh)
+function valid = isValid(configPoint,border,objects)
 %checks for collision
 
-%check if inside K_o regarding x and y
-valid = start(1) >= K_o(1,1) && start(1) <=K_o(2,1) &&...
-        start(2) >= K_o(1,2) && start(2) <=K_o(3,2);
+valid = 1;
+%check if inside border regarding x and y
+for i=1:3:length(configPoint)
+valid = valid && configPoint(i) >= border(1,1) && configPoint(i) <=border(2,1) &&...
+        configPoint(i+1) >= border(1,2) && configPoint(i+1) <=border(3,2);
+end
+%check if inside any object
 
-%check if inside KKR_oh
-%get rectangle for current rotation
-K_oh_part = [KKR_oh(KKR_oh(:,3)==start(3),1),KKR_oh(KKR_oh(:,3)==start(3),2)];
-if ~isempty(K_oh_part)
+%loop over objects
+for object=objects
+objectPoints = object{1}.data;
+if ~isempty(objectPoints)
 valid = valid && ~(...
-        start(1) >= min(K_oh_part(:,1)) && start(1) <= max(K_oh_part(:,1)) &&...
-        start(2) >= min(K_oh_part(:,2)) && start(2) <= max(K_oh_part(:,2))); 
+        configPoint(1) >= min(objectPoints(:,1)) && configPoint(1) <= max(objectPoints(:,1)) &&...
+        configPoint(2) >= min(objectPoints(:,2)) && configPoint(2) <= max(objectPoints(:,2))); 
 else valid = 0;
 end
     
+end
 
 
 end
