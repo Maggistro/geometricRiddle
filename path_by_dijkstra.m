@@ -10,7 +10,14 @@ function Path = path_by_dijkstra(riddle,figureData)
 initial_Collision_set = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
 
 %get size of direction vector ( 3 parameters per object and mainobject ) 
-direction = zeros(1,length(riddle.o)*3);
+directions = zeros(1,(length(riddle.o)*3 + 3)*2);
+for i=1:(length(riddle.o)*3 + 3)*2
+    directions(i) = floor((i+1)/2);
+    if ~mod(i,2)
+        directions(i) = directions(i)*(-1);
+    end
+end
+
 
 %initial configuration vector for start and target
 start = riddle.m.mid;
@@ -47,10 +54,10 @@ while(~sum(ismember(R,target,'rows')))
     
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
-        possible_next = oneStep(next,i); % berechne nächsten knoten
+        possible_next = oneStep(next,directions(i),initial_Collision_set); % berechne nächsten knoten
         if isValid(possible_next,border,objects) % when der knoten erlaubt ist
             if ~sum(ismember(R,possible_next,'rows')) % und nicht im Rand ist
-                R=[R;next+directions(i,:)]; %füge ihn hinzu
+                R=[R;possible_next]; %füge ihn hinzu
                 D=[D;D(next_position)+0.1]; %und trage seine distanz zum start ein
                 P=[P;next]; %und trage als vorgänger betrachteten knoten ein
                 H=[H;heuristic(possible_next,target)]; %berechne abstand zum ziel

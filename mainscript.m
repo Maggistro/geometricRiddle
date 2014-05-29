@@ -1,7 +1,7 @@
 %mainscript with initial riddle
 
 close all;
-clear all;
+clear variables;
 
 %Rim R
 R.data = [0,0; 15,0; 15,1; 1,1; 1,9; 15,9; 15,10; 0,10; 0,0];
