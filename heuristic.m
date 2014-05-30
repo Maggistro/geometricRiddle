@@ -1,9 +1,9 @@
 function value = heuristic( current, target )
-%berechnet einen heuristicwert für den Momentanen Punkt
-current(3)=current(3)*0.01;
-target(3)=target(3)*0.01;
-value=norm(current-target,2);
-
-
+%heuristic function for calculating "goodness" of a specifig point
+diff = current - target;
+% make object movement less expensive. ( better move something than search
+% complete space )
+diff(4:length(diff)) = diff(4:length(diff))*0.01; 
+value=norm(diff,2);
 end
 
