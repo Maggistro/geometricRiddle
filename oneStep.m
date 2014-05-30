@@ -1,21 +1,36 @@
-function nextNode = oneStep(node,direction,objects)
+function [nextNode, newCollSet] = oneStep(node,direction,collSet,riddle)
 %calculates the next node in the direction on an extended vector from 
 %objects' bordervectors
 
 %check an object other than the main object is moved. If so just return the
 %same point. Valid check will elimate it later.
 if abs(direction) > 2
+    %create new node
     tempAdd = zeros(1,length(node));
-    tempAdd(abs(direction))=direction;
+    tempAdd(abs(direction))=sign(direction)*1;
     nextNode = node + tempAdd;
+    
+    if(abs(direction) == 3)
+        %rotate main object and recalculate collSet
+        %TODO
+        newCollSet = collSet;
+        return;
+    end
+    
+    %change objects according to new configuration
+    %find object that changed
+    objectPos = floor((abs(direction)-1)/3); %substract main object
+    riddle.o{objectPos} = changeOneObject(direction,riddle.o{objectPos});
+    newCollSet = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
     return;
 end
 
 %if main object was moved, iterate trough objects and calculate extended
 %vectors
+newCollSet = collSet;
 min_dist = inf;
 nextNode = node;
-for object=objects
+for object=collSet
     points = object{1};
     for i=1:length(points)
         %calculate line from points
@@ -49,7 +64,7 @@ for object=objects
         %save new minimum and new point on line
         if d < min_dist
             min_dist = min(min_dist,d);
-            nextNode(1:2) = p;
+            nextNode(1:2) = p + 0.001*node_to_point;
         end
     end
 end

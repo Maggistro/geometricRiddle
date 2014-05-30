@@ -15,7 +15,7 @@ figureData.Target =riddle.t.data;
 figureData.start = riddle.m.mid;
 figureData.current = riddle.m.mid;
 
-drawMainObject(figureData);
+%drawMainObject(figureData);
 
 Path = path_by_dijkstra(riddle,figureData);
 

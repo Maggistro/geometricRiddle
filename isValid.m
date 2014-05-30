@@ -11,7 +11,7 @@ end
 
 %loop over objects
 for object=objects
-objectPoints = object{1}.data;
+objectPoints = object{1};
 if ~isempty(objectPoints)
 valid = valid && ~(...
         configPoint(1) >= min(objectPoints(:,1)) && configPoint(1) <= max(objectPoints(:,1)) &&...

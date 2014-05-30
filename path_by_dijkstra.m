@@ -7,8 +7,8 @@ function Path = path_by_dijkstra(riddle,figureData)
 %figureData set of information for replotting the riddle on-the-fly
 
 %create initial collision borders for mainObject to others
-initial_Collision_set = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
-
+collision_set = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
+%collision_set{length(collision_set)+1} = riddle.b;
 %get size of direction vector ( 3 parameters per object and mainobject ) 
 directions = zeros(1,(length(riddle.o)*3 + 3)*2);
 for i=1:(length(riddle.o)*3 + 3)*2
@@ -26,7 +26,7 @@ for i=length(riddle.o)
     start = [start,riddle.o{i}.mid];
     target = [target,riddle.o{i}.mid];
 end
-[nextVec] = isValid(start,riddle.b,riddle.o);
+[nextVec] = isValid(start,riddle.b,collision_set);
 
 %initialwerte
 %Rand
@@ -54,8 +54,8 @@ while(~sum(ismember(R,target,'rows')))
     
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
-        possible_next = oneStep(next,directions(i),initial_Collision_set); % berechne nächsten knoten
-        if isValid(possible_next,border,objects) % when der knoten erlaubt ist
+        [possible_next,collision_set] = oneStep(next,directions(i),collision_set,riddle); % berechne nächsten knoten
+        if isValid(possible_next,riddle.b,collision_set) % when der knoten erlaubt ist
             if ~sum(ismember(R,possible_next,'rows')) % und nicht im Rand ist
                 R=[R;possible_next]; %füge ihn hinzu
                 D=[D;D(next_position)+0.1]; %und trage seine distanz zum start ein
@@ -76,6 +76,7 @@ while(~sum(ismember(R,target,'rows')))
     figureData.current = next;
     figureData.start = start;
     drawMainObject(figureData);
+    size(R)
 end
 
 %weg berechnen ausgehend vom target im Rand
