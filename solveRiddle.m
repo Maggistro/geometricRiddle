@@ -8,8 +8,8 @@ msg = 0;
 
 figureData.fig = 1;
 figureData.Rim = riddle.r{1}.data;
-figureData.Obstacle = riddle.o{1}.data;
-figureData.ConfObstacle = riddle.o{1}.mid;
+figureData.Obstacle = riddle.o{2}.data;
+figureData.ConfObstacle = riddle.o{2}.mid;
 figureData.Main = riddle.m.data;
 figureData.Target =riddle.t.data;
 figureData.start = riddle.m.mid;

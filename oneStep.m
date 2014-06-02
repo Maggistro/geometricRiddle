@@ -4,6 +4,7 @@ function [nextNode, newCollSet] = oneStep(node,direction,collSet,riddle)
 
 %check an object other than the main object is moved. If so just return the
 %same point. Valid check will elimate it later.
+newCollSet = collSet;
 if abs(direction) > 2
     %create new node
     tempAdd = zeros(1,length(node));
@@ -19,18 +20,22 @@ if abs(direction) > 2
     
     %change objects according to new configuration
     %find object that changed
-    objectPos = floor((abs(direction)-1)/3); %substract main object
+    objectPos = floor((abs(direction)-1)/3)+1; %substract main object
     riddle.o{objectPos} = changeOneObject(direction,riddle.o{objectPos});
-    newCollSet = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
+    temp = riddle.o;
+    temp(objectPos) = [];
+    newCollSet{objectPos} = getRims(riddle.o{objectPos}.data,temp,...
+        length(riddle.o{objectPos}.data),riddle.o{objectPos}.mid);
     return;
 end
 
 %if main object was moved, iterate trough objects and calculate extended
 %vectors
-newCollSet = collSet;
 min_dist = inf;
 nextNode = node;
-for object=collSet
+collSet(1)=[];
+collSet{length(collSet)+1} = riddle.t;
+for object=collSet{1}
     points = object{1};
     for i=1:length(points)
         %calculate line from points

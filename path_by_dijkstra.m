@@ -6,12 +6,18 @@ function Path = path_by_dijkstra(riddle,figureData)
 %target target configuration for mainobject
 %figureData set of information for replotting the riddle on-the-fly
 
-%create initial collision borders for mainObject to others
-collision_set = getRims(riddle.m.data,riddle.o,length(riddle.m.data),riddle.m.mid);
+collision_set = cell(1, length(riddle.o));
+%create initial collision borders for each object
+for i=1:length(riddle.o)
+    temp = riddle.o; %generate set of other objects to collide with
+    temp(i) = [];
+    collision_set{i} = getRims(riddle.o{i}.data,temp,length(riddle.o{i}.data),riddle.o{i}.mid);
+end
+
 %collision_set{length(collision_set)+1} = riddle.b;
-%get size of direction vector ( 3 parameters per object and mainobject ) 
-directions = zeros(1,(length(riddle.o)*3 + 3)*2);
-for i=1:(length(riddle.o)*3 + 3)*2
+%get size of direction vector ( 3 parameters per object) 
+directions = zeros(1,(length(riddle.o)*3)*2);
+for i=1:(length(riddle.o)*3)*2
     directions(i) = floor((i+1)/2);
     if ~mod(i,2)
         directions(i) = directions(i)*(-1);
@@ -22,7 +28,7 @@ end
 %initial configuration vector for start and target
 start = riddle.m.mid;
 target = riddle.t.mid;
-for i=length(riddle.o)
+for i=2:length(riddle.o)
     start = [start,riddle.o{i}.mid];
     target = [target,riddle.o{i}.mid];
 end
@@ -43,7 +49,7 @@ H=[heuristic(start,target)];
 Path=[];
 
 while(~sum(ismember(R,target,'rows')))
-    %Wähle nächsten noch unbesuchten knoten nach Heuristik/Weglänge
+    %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
     unvisited_D= H;
     unvisited_D(V==1)=inf;
     [~ ,next_position]= min(unvisited_D);
@@ -72,11 +78,10 @@ while(~sum(ismember(R,target,'rows')))
         end %wenn knoten nicht erlaubt ist nicht betrachten        
     end
     
-    
     figureData.current = next;
     figureData.start = start;
     drawMainObject(figureData);
-    size(R)
+    %size(R)
 end
 
 %weg berechnen ausgehend vom target im Rand

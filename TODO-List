@@ -12,10 +12,14 @@ NEXT:
         concave rims *
 -- test with rotation
 --- get rotations combinations ( works only till <5 objects )*
---- put spaces together ( each object adds 3 dimensions )
+--- put spaces together ( each object adds 3 dimensions ) *
+--- treat all objects equal, only diffrence should be the way the main object moves and the
+    heuristik function
+---- recalculate border if main object was rotated
 
 TODO:
-- find a way to express the main rim ( border ) of the full puzzle
+- find a way to calculate the main rim ( border ) of the full puzzle
+-- recalculate the border after rotating an object
 
 
 
