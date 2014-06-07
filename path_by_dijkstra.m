@@ -48,7 +48,7 @@ H=[heuristic(start,target)];
 %leerer pfad
 Path=[];
 
-while(~sum(ismember(R,target,'rows')))
+while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
     unvisited_D= H;
     unvisited_D(V==1)=inf;
@@ -78,15 +78,20 @@ while(~sum(ismember(R,target,'rows')))
         end %wenn knoten nicht erlaubt ist nicht betrachten        
     end
     
-    figureData.current = next;
-    figureData.start = start;
-    drawMainObject(figureData);
+    %figureData.collision = collision_set{1};
+    %figureData.current = next;
+    %figureData.start = start;
+    %drawMainObject(figureData);
     %size(R)
 end
 
-%weg berechnen ausgehend vom target im Rand
-current = target;
+%get node on target
+[~,temp]=ismember(R(:,1:3),target(1:3),'rows');
+current = R(temp==1,:);
 while(sum(current~=start)~=0) %solange bis zurück am anfang
+    figureData.current = current;
+    figureData.start = start;
+    drawMainObject(figureData);
     [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
     Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter

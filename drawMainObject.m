@@ -14,11 +14,13 @@ rotObstacle = Rot(figureData.current(6),figureData.Obstacle,figureData.ConfObsta
 %move Obstacle
 movObstacle = rotObstacle - ones(length(rotObstacle),1)*figureData.start(1,4:5) + ones(length(rotObstacle),1)*figureData.current(1,4:5);
 
+%movObstacle = figureData.collision{1};
+
 plot(figureData.Rim(:,1),figureData.Rim(:,2),'black',figureData.Main(:,1),figureData.Main(:,2),'g',...
     movObstacle(:,1),movObstacle(:,2),'b',figureData.Target(:,1),figureData.Target(:,2),'r');
 axis([-2,17,-2,12]);
 hold off;
 
-%pause(0.01);
+pause(1);
 
 end

@@ -30,13 +30,13 @@ M.mid=[2.5,5,0];
 riddle.m = M;
 
 %Target T
-T.data = [14,4; 15,4; 15,6; 14,6; 14,4];
-T.mid=[14.5,5,0];
+T.data = [12,4; 13,4; 13,6; 12,6; 12,4];
+T.mid=[12.5,5,0];
 riddle.t = T;
 
 %Configuration space size ( main border )
 B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8];
-B_o=[1.5 4; 15.5 4; 15.5 6; 15.5 6];
+B_o=[1.5 4; 17.5 4; 17.5 6; 17.5 6];
 riddle.b = {B_m, B_o}; 
 
 tic
