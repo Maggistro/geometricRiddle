@@ -31,11 +31,11 @@ end
 %vectors
 min_dist = inf;
 nextNode = node;
-inTargetCell = true;
 temp = collSet{object_pos};
 temp{length(temp)+1} = riddle.b{object_pos};
 node_to_target = (riddle.t.mid(1:2)-node(1:2))';
-for object=temp
+inTargetCell = object_pos==1;
+for object=temp'
     points = object{1};
     for i=1:length(points)
         %calculate line from points
@@ -52,12 +52,13 @@ for object=temp
             A=[vector', -node_to_target];
             sol = A\temp;
             
-            %point_on_line = offset + sol(1)*vector;
+            point_on_line = offset + sol(1)*vector;
+            point_on_line = node(1:2)' + sol(2)*node_to_target;
             
             %check if lines intersect (aka way to target is free )
             if(sol(1)>=0 && sol(1)<=1 && sol(2)>=0 && sol(2)<=1)
                 inTargetCell = inTargetCell && false;
-            end
+            end    
         end
         
         %check if line is parallel to searching direction

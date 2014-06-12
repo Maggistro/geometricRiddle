@@ -82,12 +82,12 @@ riddleMultiple.t = T;
 
 %Configuration space size ( main border )
 B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8];
-B_o=[1.5 2; 15.5 2; 15.5 8; 1.5 8];
+B_o=[1.5 2; 10.5 2; 10.5 8; 1.5 8];
 riddleMultiple.b = {B_m, B_o, B_o, B_o}; 
 
 
 
-
+warning('off','MATLAB:rankDeficientMatrix');
 tic
    solveRiddle(riddle);
 toc

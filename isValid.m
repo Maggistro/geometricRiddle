@@ -15,7 +15,7 @@ for i=1:3:length(configPoint)
     %check if inside any object
     %loop over objects
     objects = collision_sets{floor((i-1)/3)+1}; % get curresponding collision set
-    for object=objects %iterate over all objects in it
+    for object=objects' %iterate over all objects in it
         objectPoints = object{1};
         if ~isempty(objectPoints)
             valid = valid && ~(...

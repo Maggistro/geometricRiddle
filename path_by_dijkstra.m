@@ -104,20 +104,22 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
 
     end
     
-    figureData.collision = next_collision_set;
-    figureData.current = next;
-    figureData.start = start;
-    drawMainObject(figureData);
-    R
+    %figureData.collision = next_collision_set;
+    %figureData.current = next;
+    %figureData.start = start;
+    %drawMainObject(figureData);
+    
+    fprintf('.');
+    
 end
 
 %get node on target
 [~,temp]=ismember(R(:,1:3),target(1:3),'rows');
 current = R(temp==1,:);
 while(sum(current~=start)~=0) %solange bis zurück am anfang
-    %figureData.current = current;
-    %figureData.start = start;
-    %drawMainObject(figureData);
+    figureData.current = current;
+    figureData.start = start;
+    drawMainObject(figureData);
     [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
     Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter
