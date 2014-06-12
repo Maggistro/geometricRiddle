@@ -33,6 +33,10 @@ min_dist = inf;
 nextNode = node;
 temp = collSet{object_pos};
 temp{length(temp)+1} = riddle.b{object_pos};
+if(sum(abs(node-[ 9.3568    6.9987    1.0000   10.4952    5.0000   -2.0000])<0.001)==6)
+    warning('on','MATLAB:rankDeficientMatrix');
+    warning('on','MATLAB:singularMatrix');
+end
 node_to_target = (riddle.t.mid(1:2)-node(1:2))';
 inTargetCell = object_pos==1;
 for object=temp'
@@ -62,7 +66,7 @@ for object=temp'
         end
         
         %check if line is parallel to searching direction
-        if(vector(mod(mod(abs(direction),3),2)+1)==0)
+        if(vector(mod(mod(abs(direction),3),2)+1)<0.001)
             continue;
         end
         
