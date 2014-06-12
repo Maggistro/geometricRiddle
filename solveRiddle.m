@@ -18,7 +18,9 @@ figureData.current = riddle.m.mid;
 Path = path_by_dijkstra(riddle,figureData);
 
 
-plot(Path(:,1),Path(:,2),'*black');
+figure(2);
+plot(Path(:,1),Path(:,2),'black');
+axis([0 17 0 12]);
 Path
 
 end

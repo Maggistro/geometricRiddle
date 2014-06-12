@@ -34,8 +34,8 @@ nextNode = node;
 inTargetCell = true;
 temp = collSet{object_pos};
 temp{length(temp)+1} = riddle.b{object_pos};
-node_to_target = (riddle.t.mid(1:2)-node((object_pos-1)*3+1:(object_pos-1)*3+2))';
-for object=collSet{object_pos}
+node_to_target = (riddle.t.mid(1:2)-node(1:2))';
+for object=temp
     points = object{1};
     for i=1:length(points)
         %calculate line from points
@@ -45,8 +45,23 @@ for object=collSet{object_pos}
         %solve for x and y points
         x =  vector\(node((object_pos-1)*3+1:(object_pos-1)*3+2) - offset) ;
         
+        %check if point is in same cell as target
+        if(inTargetCell)
+            %find out if direct way to target is possible
+            temp=(node(1:2) - offset)';
+            A=[vector', -node_to_target];
+            sol = A\temp;
+            
+            %point_on_line = offset + sol(1)*vector;
+            
+            %check if lines intersect (aka way to target is free )
+            if(sol(1)>=0 && sol(1)<=1 && sol(2)>=0 && sol(2)<=1)
+                inTargetCell = inTargetCell && false;
+            end
+        end
+        
         %check if line is parallel to searching direction
-        if(x(2,mod(abs(direction),2)+1)==0)
+        if(vector(mod(mod(abs(direction),3),2)+1)==0)
             continue;
         end
         
@@ -55,7 +70,7 @@ for object=collSet{object_pos}
         if(mod(abs(direction),3)==1)
             p = offset + x(2,2)*vector;%get point on same y
         else
-            p = offset + x(2,1)*vector;%get point on same x
+            p = offset + x(1,1)*vector;%get point on same x
         end
         
         %vector from node to temp point on line
@@ -71,26 +86,12 @@ for object=collSet{object_pos}
         if d < min_dist
             min_dist = min(min_dist,d);
             if (jump_over==1)
-            nextNode((object_pos-1)*3+1:(object_pos-1)*3+2) = p + 0.001*node_to_point;
+            nextNode((object_pos-1)*3+1:(object_pos-1)*3+2) = p + (node_to_point~=0)*0.001;
             else
-            nextNode((object_pos-1)*3+1:(object_pos-1)*3+2) = p - 0.001*node_to_point;
+            nextNode((object_pos-1)*3+1:(object_pos-1)*3+2) = p - (node_to_point~=0)*0.001;
             end
         end
         
-        
-        if(inTargetCell)
-            %find out if direct way to target is possible
-            x=(node(1:2) - offset)';
-            A=[vector', -node_to_target];
-            sol = A\x;
-            
-            %point_on_line = offset + sol(1)*vector;
-            
-            %check if lines intersect (aka way to target is free )
-            if(sol(1)>=0 && sol(1)<=1 && sol(2)>=0 && sol(2)<=1)
-                inTargetCell = inTargetCell && false;
-            end
-        end
     end
 end
 
