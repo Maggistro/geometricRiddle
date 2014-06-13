@@ -90,6 +90,6 @@ riddleMultiple.b = {B_m, B_o, B_o, B_o};
 warning('off','MATLAB:rankDeficientMatrix');
 warning('off','MATLAB:singularMatrix');
 tic
-   solveRiddle(riddle);
+   out = solveRiddle(riddleMultiple);
 toc
 

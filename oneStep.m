@@ -33,10 +33,10 @@ min_dist = inf;
 nextNode = node;
 temp = collSet{object_pos};
 temp{length(temp)+1} = riddle.b{object_pos};
-if(sum(abs(node-[ 9.3568    6.9987    1.0000   10.4952    5.0000   -2.0000])<0.001)==6)
-    warning('on','MATLAB:rankDeficientMatrix');
-    warning('on','MATLAB:singularMatrix');
-end
+%if(sum(abs(node-[ 9.3568    6.9987    1.0000   10.4952    5.0000   -2.0000])<0.001)==6)
+%    warning('on','MATLAB:rankDeficientMatrix');
+%    warning('on','MATLAB:singularMatrix');
+%end
 node_to_target = (riddle.t.mid(1:2)-node(1:2))';
 inTargetCell = object_pos==1;
 for object=temp'
@@ -73,8 +73,14 @@ for object=temp'
         %get point on same x,y coordinate
         %get x to move in y direction and otherwise
         if(mod(abs(direction),3)==1)
+            if(x(2,2)<0.001)
+                continue;
+            end
             p = offset + x(2,2)*vector;%get point on same y
         else
+            if(x(1,1)<0.001)
+                continue;
+            end
             p = offset + x(1,1)*vector;%get point on same x
         end
         

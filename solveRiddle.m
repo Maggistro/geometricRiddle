@@ -12,6 +12,7 @@ figureData.riddle = riddle;
 figureData.Target =riddle.t.data;
 figureData.start = riddle.m.mid;
 figureData.current = riddle.m.mid;
+figureData.pause = 1;
 
 %drawMainObject(figureData);
 
@@ -21,6 +22,6 @@ Path = path_by_dijkstra(riddle,figureData);
 figure(2);
 plot(Path(:,1),Path(:,2),'black');
 axis([0 17 0 12]);
-Path
+msg=Path;
 
 end

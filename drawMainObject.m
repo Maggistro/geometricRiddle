@@ -27,7 +27,7 @@ plot(figureData.Target(:,1),figureData.Target(:,2),'r');
 axis([-2,17,-2,12]);
 hold off;
 
-%pause(1);
+pause(figureData.pause);
 
 
 %rotate Obstacles
