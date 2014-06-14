@@ -1,0 +1,48 @@
+Introduction:
+  - State problem in an abstract way
+  - Define Problem more precise on a little usecase
+
+Programming enviroment and tools.
+  - Matlab
+  - git
+  
+Programming Steps bottom-up
+
+principle for solving problem
+  - break down to multidimensional search
+  - independence from raw object representation through interchangable functions
+    (on the paper)
+
+Object representation
+  - point list
+  - middle point
+  
+Used Algorithms
+  - generation of Collisionbounds
+  - linear programming for cell movement
+  - ....
+  
+Configurationspaces
+  - Define space
+  - how to calculate it
+  - what does it provide
+  - problems and solutions ( with building total configuration space ( some calculations ))
+  
+Local Search
+  - The function One Step
+    - find next cell
+    - find nearest border
+    - put object in/infront of cell
+    - recalculate configspace for other objects
+  
+  - Validation of next configuration
+  - Problems and Solutions  
+  
+Results
+  - discussion
+  - applications
+
+Summary
+  - short overview of the whole topic
+  - further uses and expansions
+  
