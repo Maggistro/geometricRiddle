@@ -109,7 +109,7 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %figureData.start = start;
     %drawMainObject(figureData);
     
-    fprintf('.');
+    %fprintf('.');
     
 end
 

@@ -1,0 +1,89 @@
+
+\subsection{Erl�uterung}
+Losgel�st von der Wahl der Objektrepr�sentation, muss die Kette an ausgef�hrten Operationen, die zur L�sung des Puzzle f�hrt, dargestellt werden. Das Ziel ist hier, dass der Algorithmus angibt ob eine L�sung des R�tsels m�glich ist oder nicht. Das Objekt, das zum Ziel gef�hrt werden soll bezeichnen wir als Hauptobjekt $p_h$ unter den Objekten $p_i$ mit $i \in \mathbb{N}$. Fixe Objekte die nicht beweglich sind als R�nder r. \\
+
+Angenommen unser Problem besteht aus n Objekten und die Konfiguration eines Objektes ist durch das Tupel $(x_i,y_i,\phi_i)$ beschrieben, wobei x und y die Position und $\phi$ die Drehung angeben.\\
+Wir konstruieren uns nun mithilfe von r einen Raum $G_i(p_i,r)$ f�r jedes Objekt $p_i$. Dieser beinhaltet alle g�ltigen Positionen von $p_i$.\\
+
+Anschlie�end f�hren wir diese R�ume $G_i(p_i,r)$ durch Vereinigung zusammen in ein Konfigurationsraum $\mathbb{K}$ der durch die Dimensionen $d_i$ ( in unserem Beispiel 3 durch x,y,$\phi$ )  der Objekte $p_i$ aufgespannt wird. Somit gilt $\mathbb{K} \in \mathbb{R}^{d \cdot n}$.  Er stellt alle g�ltigen Konfigurationen aller $p_i$ dar, ohne �berschneidungen zu ber�cksichtigen.\\
+
+Nun bilden wir die Ausschlussr�ume $S_{i,j}$ f�r je 2 $p_i, p_j |  i\neq j$. Durch Substraktion aller $S_{i,j}$ von $K$ entsteht $K_s$. $K_s$ stellt nun alle g�ltigen �berschneidungsfreien Kombinationen aller Objekte $p_i$ dar.\\
+
+Die L�sung des Problem ist nun eine Wegsuche im Raum $K_s$ von der Startkonfiguration aller Objekte zur Zielkonfiguration, in der das Hauptobjekt $p_h$ in der Zielkonfiguration angekommen ist. \\
+
+Hierf�r muss jeder g�ltigen Zelle in $K_f$ ein Knoten zugewiesen werden. Anschlie�end kann man auf dem entstandenen Graphen suchen.
+
+\subsection{Offene Probleme}
+\begin{itemize}
+\item Zurzeit is noch nicht gekl�rt wie man die g�ltigen Zellen identifiziert und zu Graphknoten macht.
+\item Auch ist die unendlichkeit von $K_f$ ein Problem. Da Rotationen beliebig weit drehen k�nnen sollten, ist $K_f$ in Richtung jeder Rotation $\phi_i$ unbegrenzt.
+\item Der �bergang von Zelle zu Zelle ( Knoten zu Knoten ) muss gefunden werden. Dabei ist der Ansatz aus der Arbeit von Fabian aufgrund der Beschaffenheit der Zellen nicht umsetzbar. Einsatz alternativer Methoden ( Supportvektoren o.�. ) sollte sich als ebenso schwer gestalten
+\end{itemize}
+\section{Darstellung und Verarbeitung der Objekte}
+Alle Objekte, aus denen das Beispielpuzzle besteht, werden in einer zweidimensionalen Welt erstellt und bearbeitet.Man ben�tigt dabei zur Vollst�ndigen Repr�sentation von Objekten:
+\begin{itemize}
+\item Referenz- bzw. Angelpunkt f�r Drehungen.
+\item Information �ber die belegte Fl�che. 
+\end{itemize} 
+
+Da der Angelpunkt schlicht durch eine Koordinate im d-Dimensionalen Raum der Objekte repr�sentiert werden kann, fehlt noch eine passende Repr�sentation der belegten Fl�che, bzw. des Objektes an sich.\\
+Bei der Repr�sentation der belegten Fl�che der Objekte bleiben nun mehrere Optionen offen.
+\subsection{Repr�sentation als Punktemenge}
+Jedes Objekt wird zu Beginn als eine Menge von Punkten interpretiert. Dazu legt man ein zweidimensionales Grid fest, auf dem die Punkte mit einer gewissen Genauigkeit dargestellt werden.\\
+Jede Rotation bedeutet eine Rotation der Punkte des Objektes um den Angelpunkt. Dies l�sst sich mithilfe von einmalig aufgestellten Rotationsmatrizen l�sen. Translationen sind einfach direkt Verschiebungen der Punkte des Objektes.\\
+Bei der �berpr�fung auf Kollision mit anderen Objekten m�sste nur ein Vergleich der Objektpunkte mit der Gridfl�che stattfinden. Hierbei liese sich �ber lokale Methoden Rechenzeit einsparen.\\
+Pro:
+\begin{itemize}
+\item Simple und Intuitive Repr�sentation von Objekten.
+\item Alle Operationen sind mathematisch einfach umsetzbar.
+\end{itemize}
+Contra:
+\begin{itemize}
+\item Durch die Diskretisierung der Objekte auf einem Grid geht Genauigkeit verloren.
+\item H�here Genauigkeit fordert h�here Rechenleistung.
+\end{itemize}
+\subsection{Repr�sentation als Funktionen}
+Jes Objekt wird durch eine Summe von Funktionsungleichungen repr�sentiert. Dabei gibt das Ungleichheitszeichen die Lage des Objektes bez�glich der Funktion im Raum an. \\
+Die Transaltionen sind direkt als Verschiebungen der Funktionen durchf�hrbar. Bei der Rotation m�ssen alle Funktionen derart um den Angelpunkt gedreht werden, dass die Form des Urspr�nglichen Objektes erhalten bleibt. Dies sollte sich durch Roation eines Aufpunktvektors umsetzen lassen, der bei jeder Rotation neuberechnet werden m�sste.\\
+Zur �berpr�fung der Kollision sind nun die Funktionen des ver�nderen Objektes auf Schnittpunkte mit ALLEN anderen Funktionen ALLER Objekte zu �berpr�fen. M�glicherweise l�sst sich hierbei ebenfalls durch lokale Selektion von Objekten optimieren.\\
+Pro:
+\begin{itemize}
+\item Hohe Genauigkeit bei der Kollisionskontrolle.
+\item Wenig Information muss pro Objekt gehalten werden.
+\end{itemize}
+Contra:
+\begin{itemize}
+\item Rotationsberechnung ( m�glicherweise ) rechentechnisch anspruchsvoll.
+\item Darstellung von Kreisb�gen f�hrt zu mindestens Quadratischen Gleichungen die gel�st werden m�ssen.
+\item Kollisionsabfrage bei vielen kleinen Objekten sehr rechenintensiv.
+\end{itemize}
+\subsection{Repr�sentation als Kantenzug}
+Jedes Objekt wird durch eine Folge von Punkten mit einer dazugeh�rigen Folge von Vektoren zwischen den Punkten abgebildet.\\
+Translationen sind direkt Verschiebungen der Punktemenge. Die Vektoren bleiben dabei gleich. Rotationen stellen sich als Rotation der Punktemenge um einen Angelpunkt dar. Anschlie�end k�nnen die Vektoren direkt neu berechnet werden.\\
+ Zur �berpr�fung der Kollision m�ssen die Punkte ALLER Objekte auf ihre Lage bez�glich der Vektoren getestet werden. Allerdings sollte auch hier �ber lokale Selektion Optimierung m�glich sein.\\
+Pro:
+\begin{itemize}
+\item Simple und Intuitive Repr�sentation von Objekten
+\item Bis auf Kollision einfach Umsetzung der Operationen
+\end{itemize}
+Contra:
+\begin{itemize}
+\item Darstellung von gekr�mmten Grenzfl�chen nur �ber Ann�herung m�glich
+\item Bei einer gro�en Anzahl an Eckpunkten im Objekt wird die Kollisionskontrolle rechenintensiv
+\item Kollisionsabfrage bei vielen kleinen Objekten sehr rechenintensiv.
+\end{itemize}
+
+\section{Implementation}
+
+\subsection{Strukturen}
+
+riddle -struct:
+riddle.r = cell objekt von randarrays
+riddle.o = cell objekt von objekten
+riddle.oHpos = position des Hauptobjektes in riddle.o
+riddle.t = zielfl�che target
+riddle.c = startkonfigurationen aller objekte ( angelpunkte )
+riddle.rotRange = array aller zugelassenen rotationen zb. 0:360, 90:1:180 etc.
+
+
+

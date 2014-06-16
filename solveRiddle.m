@@ -12,7 +12,7 @@ figureData.riddle = riddle;
 figureData.Target =riddle.t.data;
 figureData.start = riddle.m.mid;
 figureData.current = riddle.m.mid;
-figureData.pause = 1;
+figureData.pause = 0.5;
 
 %drawMainObject(figureData);
 

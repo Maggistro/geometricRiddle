@@ -1,0 +1,17 @@
+\select@language {ngerman}
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Path planning in robotics}{1}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Geometric riddles in gaming}{1}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Idea}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Enviroment and basics}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Programming tools}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Basics}{5}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}basic vector math}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}convex hull}{6}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}linear programming}{7}{subsection.2.2.3}
+\contentsline {chapter}{Resources}{9}{subsection.2.2.3}
+\contentsline {section}{List of images}{9}{section*.3}
+\contentsline {section}{List of tables}{11}{appendix*.4}
+\contentsline {section}{bibliography}{13}{appendix*.5}

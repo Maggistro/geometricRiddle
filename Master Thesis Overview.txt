@@ -1,17 +1,26 @@
 Introduction:
-  - State problem in an abstract way
-  - Define Problem more precise on a little usecase
+  - Elaborate use cases a bit more
 
 Programming enviroment and tools.
-  - Matlab
-  - git
+  - get matlab bib entry
   
+Basics
+  - enter formula for angle beetween vectors
+  - plots of A and B
+  - enter formula for convex hull
+  - think about linear programming explanation( usefull, if so another example )
+  
+  reprogram cetConvexSubset with simple minX minY points ( why should that not work??)
+  
+.......................................................
 Programming Steps bottom-up
 
 principle for solving problem
   - break down to multidimensional search
   - independence from raw object representation through interchangable functions
     (on the paper)
+    
+Way one with points
 
 Object representation
   - point list
@@ -41,6 +50,8 @@ Local Search
 Results
   - discussion
   - applications
+  
+Way two with functions ??
 
 Summary
   - short overview of the whole topic

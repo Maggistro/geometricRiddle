@@ -1,0 +1,11 @@
+\begin{thebibliography}{1}
+
+\bibitem{tool:git}
+{\sc Chacon, S.}
+\newblock {\em Pro Git}, July 2009.
+
+\bibitem{tool:matlab}
+{\sc MathWorks, Inc}.
+\newblock {\em Matlab Language Reference Manual}.
+
+\end{thebibliography}
