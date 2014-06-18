@@ -11,7 +11,10 @@
 \contentsline {subsection}{\numberline {2.2.1}basic vector math}{6}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}convex hull}{6}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}linear programming}{7}{subsection.2.2.3}
-\contentsline {chapter}{Resources}{9}{subsection.2.2.3}
-\contentsline {section}{List of images}{9}{section*.3}
-\contentsline {section}{List of tables}{11}{appendix*.4}
-\contentsline {section}{bibliography}{13}{appendix*.5}
+\contentsline {chapter}{\numberline {3}Implementation}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Common defenitions and representation}{9}{section.3.1}
+\contentsline {section}{\numberline {3.2}Objects as point list}{10}{section.3.2}
+\contentsline {chapter}{Resources}{13}{Item.12}
+\contentsline {section}{List of images}{13}{section*.3}
+\contentsline {section}{List of tables}{15}{appendix*.4}
+\contentsline {section}{bibliography}{17}{appendix*.5}

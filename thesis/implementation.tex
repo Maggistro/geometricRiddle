@@ -1,0 +1,97 @@
+\chapter{Implementation}
+\label{cha:Implementation}
+\section{Common defenitions and representation}
+As the exakt representation of our objects should not matter, we will only define the common points needed for a clear communication of the stated problem.\\
+The algorithms aim is to tell if there is a solution possible and, if so, present it. The object which needs to be moved from a starting configuration to a target configuration will be named main object M. Other movable objects are obstacles named $Ob_i$  and the stationary objects are called rims $R_i$. This will be combined to the sets $O = \{M\}  \cup \{Ob_i | i \in \mathbb{N} \} $ and $ R = \{ R_i | i \in \mathbb{N}\}$.\\
+
+Each object $O_A$ contains some data for representing its shape stored under $O_A$.data. Furthermore the configuration of $O_A$ is given by the vector $(x_A,y_A,\phi_A)$ and stored under $O_A$.mid as the middle/reference point for said object where $x_A$ and $y_A$ gives the point around which the object will be rotated by $\phi_A$.
+By substraction of the first two dimensions occupied by R from the possible space $O_i$ per object in O, and, if we divide the space in two, selecting the one in which $O_i.mid$ lies at the start, we get a valid space $C_{O_i-R}$ for the object $O_i$ to be moved in ( not taking into account other objects). This space is a simple 3 dimensional space with $x_i, y_i$ and $\phi_i$ as base.\\
+But as there is the need to check for collision with ALL other objects $O' = \{O_j, | j\neq i \wedge j \in \mathbb{N}\} $ we need to increase the dimensions of all spaces $C_{O_i-R}$ by the number of objects in $O'$. Also for each set $j$ of dimensions $(x_j,y_j,\phi_j)$  added, we will need to substract the current position of the corresponding object $O_j$ from the space, such that all collision points are removed from $C_{O_i-R}$. This will give us the configuration space for object $O_i$, $C_{O_i}$.
+
+The solution can then be found by searching for a path in this configurationspace for the main object M from start to target. The way the objects are represented determines the way of calculating collision and the setup of the configuration space. In the following part a way of representing the objects with points will be used.
+
+
+\section{Objects as point list}
+One of the possible ways of describing an object in a two dimensional setting would be an ordered list of corner points.  Together with an anchor point we can calculate all transformations needed.\\
+To see if this representation would work we take a short look at the algorith described in \ref{sec:Idea} and sketch a solution to each step.
+\begin{enumerate}
+\item Generate $C_{O_i-R}$:By identifing the main outer rim $R_mo$ and computing its inner hull for $O_i$ the space $C_{O_i}$ is build. For all other rims $R_j$ computing the convex hull with $O_i$ and substracting them from $C_{O_i}$ leads to $C_{O_i-R}$.
+\item Generate $C_{O_i-O_j}$: Calculate the convex hull from $O_i$ to each other object $O_j$.
+\item Generate $C_{O_i}$: Substraction of $C_{O_i-R} - C_{O_i-O_j}$ for all $O_j \in O \wedge j \neq i$.
+\item Divide search space in cells: By extending the vectors connecting the convex hull in $C_{O_i-O_j}$ we get a seperation of the space in $C_{O_i}$ in multiple parts. Each step is a translation of the object $O_i$  from one cell to another. The neighbour cells can be identified by iterationing over the objects $O_j$ and calculating the nearest crossing along $(x,y)$ with the extended vectors of its convex hull. \\ Rotations are represented as a jump from one hyperplane to the next in search direction. There are multiple problems with rotation in this representation, that will be discussed later.
+\item Construct the search graph: While moving along those cells, we adapt $C_{O_i}$ for each $O_i \in O$ each step. These cells are then added to the graph.
+\item Search for target: Again independently of the object representation a search can then be applied to the resulting graph. 
+\end{enumerate}
+
+So far this representation seems like a good choice in multiple ways with some drawbacks on the other hand.\\
+Pros:
+\begin{itemize}
+\item Simple and intuitive representation of object itself
+\item Easy and fast to compute concerning the transformation of an object ( translation, rotation )
+\end{itemize}
+Cons:\\
+\begin{itemize}
+\item Rotation needs discrete steps along the config dimensions $\phi_i$, therefore more exact calculations lead to higher need in computation power.
+\item The more corners an object has, the more points its convex hull with other object will have. One point more in object $O_i$ can lead to $n$ more points in $C_{O_i-O_j}$ with $n$ beeing the number of points in $O_j$. As we use the vectors connecting the points in $C_{O_i-O_j}$, $n$ more cells will arise in the search space.
+\end{itemize}
+
+
+
+
+
+
+%
+%\section{}
+%
+%\subsection{Offene Probleme}
+%\begin{itemize}
+%\item Zurzeit is noch nicht gekl�rt wie man die g�ltigen Zellen identifiziert und zu Graphknoten macht.
+%\item Auch ist die unendlichkeit von $K_f$ ein Problem. Da Rotationen beliebig weit drehen k�nnen sollten, ist $K_f$ in Richtung jeder Rotation $\phi_i$ unbegrenzt.
+%\item Der �bergang von Zelle zu Zelle ( Knoten zu Knoten ) muss gefunden werden. Dabei ist der Ansatz aus der Arbeit von Fabian aufgrund der Beschaffenheit der Zellen nicht umsetzbar. Einsatz alternativer Methoden ( Supportvektoren o.�. ) sollte sich als ebenso schwer gestalten
+%\end{itemize}
+
+%\subsection{Repr�sentation als Funktionen}
+%Jes Objekt wird durch eine Summe von Funktionsungleichungen repr�sentiert. Dabei gibt das Ungleichheitszeichen die Lage des Objektes bez�glich der Funktion im Raum an. \\
+%Die Transaltionen sind direkt als Verschiebungen der Funktionen durchf�hrbar. Bei der Rotation m�ssen alle Funktionen derart um den Angelpunkt gedreht werden, dass die Form des Urspr�nglichen Objektes erhalten bleibt. Dies sollte sich durch Roation eines Aufpunktvektors umsetzen lassen, der bei jeder Rotation neuberechnet werden m�sste.\\
+%Zur �berpr�fung der Kollision sind nun die Funktionen des ver�nderen Objektes auf Schnittpunkte mit ALLEN anderen Funktionen ALLER Objekte zu �berpr�fen. M�glicherweise l�sst sich hierbei ebenfalls durch lokale Selektion von Objekten optimieren.\\
+%Pro:
+%\begin{itemize}
+%\item Hohe Genauigkeit bei der Kollisionskontrolle.
+%\item Wenig Information muss pro Objekt gehalten werden.
+%\end{itemize}
+%Contra:
+%\begin{itemize}
+%\item Rotationsberechnung ( m�glicherweise ) rechentechnisch anspruchsvoll.
+%\item Darstellung von Kreisb�gen f�hrt zu mindestens Quadratischen Gleichungen die gel�st werden m�ssen.
+%\item Kollisionsabfrage bei vielen kleinen Objekten sehr rechenintensiv.
+%\end{itemize}
+%\subsection{Repr�sentation als Kantenzug}
+%Jedes Objekt wird durch eine Folge von Punkten mit einer dazugeh�rigen Folge von Vektoren zwischen den Punkten abgebildet.\\
+%Translationen sind direkt Verschiebungen der Punktemenge. Die Vektoren bleiben dabei gleich. Rotationen stellen sich als Rotation der Punktemenge um einen Angelpunkt dar. Anschlie�end k�nnen die Vektoren direkt neu berechnet werden.\\
+% Zur �berpr�fung der Kollision m�ssen die Punkte ALLER Objekte auf ihre Lage bez�glich der Vektoren getestet werden. Allerdings sollte auch hier �ber lokale Selektion Optimierung m�glich sein.\\
+%Pro:
+%\begin{itemize}
+%\item Simple und Intuitive Repr�sentation von Objekten
+%\item Bis auf Kollision einfach Umsetzung der Operationen
+%\end{itemize}
+%Contra:
+%\begin{itemize}
+%\item Darstellung von gekr�mmten Grenzfl�chen nur �ber Ann�herung m�glich
+%\item Bei einer gro�en Anzahl an Eckpunkten im Objekt wird die Kollisionskontrolle rechenintensiv
+%\item Kollisionsabfrage bei vielen kleinen Objekten sehr rechenintensiv.
+%\end{itemize}
+%
+%\section{Implementation}
+%
+%\subsection{Strukturen}
+%
+%riddle -struct:
+%riddle.r = cell objekt von randarrays
+%riddle.o = cell objekt von objekten
+%riddle.oHpos = position des Hauptobjektes in riddle.o
+%riddle.t = zielfl�che target
+%riddle.c = startkonfigurationen aller objekte ( angelpunkte )
+%riddle.rotRange = array aller zugelassenen rotationen zb. 0:360, 90:1:180 etc.
+%
+%
+%
