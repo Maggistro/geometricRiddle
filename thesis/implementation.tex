@@ -1,6 +1,7 @@
 \chapter{Implementation}
 \label{cha:Implementation}
 \section{Common defenitions and representation}
+\subsection{Defining the configuration space}
 As the exakt representation of our objects should not matter, we will only define the common points needed for a clear communication of the stated problem.\\
 The algorithms aim is to tell if there is a solution possible and, if so, present it. The object which needs to be moved from a starting configuration to a target configuration will be named main object M. Other movable objects are obstacles named $Ob_i$  and the stationary objects are called rims $R_i$. This will be combined to the sets $O = \{M\}  \cup \{Ob_i | i \in \mathbb{N} \} $ and $ R = \{ R_i | i \in \mathbb{N}\}$.\\
 
@@ -8,10 +9,33 @@ Each object $O_A$ contains some data for representing its shape stored under $O_
 By substraction of the first two dimensions occupied by R from the possible space $O_i$ per object in O, and, if we divide the space in two, selecting the one in which $O_i.mid$ lies at the start, we get a valid space $C_{O_i-R}$ for the object $O_i$ to be moved in ( not taking into account other objects). This space is a simple 3 dimensional space with $x_i, y_i$ and $\phi_i$ as base.\\
 But as there is the need to check for collision with ALL other objects $O' = \{O_j, | j\neq i \wedge j \in \mathbb{N}\} $ we need to increase the dimensions of all spaces $C_{O_i-R}$ by the number of objects in $O'$. Also for each set $j$ of dimensions $(x_j,y_j,\phi_j)$  added, we will need to substract the current position of the corresponding object $O_j$ from the space, such that all collision points are removed from $C_{O_i-R}$. This will give us the configuration space for object $O_i$, $C_{O_i}$.
 
-The solution can then be found by searching for a path in this configurationspace for the main object M from start to target. The way the objects are represented determines the way of calculating collision and the setup of the configuration space. In the following part a way of representing the objects with points will be used.
+
+\subsection{Building the configuration space}
+\label{subsec:confspace}
+To build such a configuration space, every possible configuration of every movable object needs to be calculated. Even those who are NOT valid need to be computed at least once, to check if they are valid or not.\\
+Each object A has three dimensions $(x_A,y_A,\phi_A)$, with $x$ and $y$ beeing a finite range from $r_x=[x_l, x_h]$ and $r_y=[y_l, y_h]$ defined by the stationary rims of the riddle. The rotation component $\phi$ is choosen from a set of angles $\Phi = \{ \phi | \phi \in r_\phi=[1, 360] \}$. As this would lead to an infinite amount of possible $x,y$ and $\phi$, we could allow steps only, e.g. $x,y,\phi \in \mathbb{N}$.\\
+If there are n movable objects we get a total number of possible combinations in the range of $(r_x\cdot r_y \cdot r_\phi )^n$.
+Under the premise of saving every calculated combination so that we only calculate each set once and assuming that the time $t_s$ needed for collision check and calculating one set is constant, we get the following formula for the time to calculate the complete configuration space.
+\begin{align*}
+ T_conf = (r_x\cdot r_y \cdot r_\phi )^n \cdot t_s
+\end{align*}
+Now we define $t_s = 0.1 ms$ set $r_x = r_y = 10$ and $r_\phi = 180$ with only two objects ( one main object M one obstacle O) meaning $n=2$ we get
+\begin{align*}
+T_conf &= (10*10*180)^2 \cdot 0.1ms\\
+	&=   324000000 \cdot 0.1 ms\\
+	&= 3.24 \cdot 10^7 \cdot ms
+	&= 9 h
+\end{align*} 
+This means we would need to wait 9h to completely calculate all possible positions on a very raw grid ( each step just 1 unit) without even having started to search on it.
+
+So the idea is to interleave search and building of the configuration space in such a way, that only the needed nodes are calculated and checked.
+But still this would be very slow if we consider implementing it on such a grid. Therefore another approach is needed.\\
+Instead of taking a grid, the configuration space is divided into cells depending on the current positition of the objects. This cell division will heavily decrease the number of search nodes in the space. The drawback on the other hand is, that this division is dependent on the object representation. So isntead of computing a independent configuration space for the search, the search needs to use some information from the objects. This will lead to an integration of search algorithm and object representation into one main algorithm.\\
+But still this will give us a simple graph where the solution can then be found by searching for a path for the main object M from start to target. In the following part a way of representing the objects with points will be used.
 
 
-\section{Objects as point list}
+
+\subsection{Objects as point list}
 One of the possible ways of describing an object in a two dimensional setting would be an ordered list of corner points.  Together with an anchor point we can calculate all transformations needed.\\
 To see if this representation would work we take a short look at the algorith described in \ref{sec:Idea} and sketch a solution to each step.
 \begin{enumerate}
@@ -35,63 +59,46 @@ Cons:\\
 \item The more corners an object has, the more points its convex hull with other object will have. One point more in object $O_i$ can lead to $n$ more points in $C_{O_i-O_j}$ with $n$ beeing the number of points in $O_j$. As we use the vectors connecting the points in $C_{O_i-O_j}$, $n$ more cells will arise in the search space.
 \end{itemize}
 
+\section{Algorithms and Functions}
 
+\subsection{Main search loop}
+As proposed in \ref{subsec:confspace}, we create the graph while searching. This requires a certain level of interleaving beetween the search algorithm and the way we work with our objects. In this example, the functions working on the objects are $oneStep(...)$ and $isValid(...)$. All of the rest is needed for the search algorithm, in this case a simple djikstra.
+\lstset{language=Matlab}
+\begin{lstlisting}
+%while target is not in rim
+while(~ismember(target,R))
+    %select current node from rim
+    next = getNodeFromRim();  
+    %calculate rimnodes of current node 
+    for i=1:length(directions) % find next node for each search direction
+        [possible_next,next_collision_set] = oneStep(next,....); 
+        if isValid(possible_next,riddle.b,next_collision_set) % check if node is valid and...
+            if ~isInRim(possible_next,R) % ...not in the rim
+                R=[R;possible_next]; %if so, add it
+                collision_set{length(D)+1} = next_collision_set; %set his collision information
+                D=[D;D(next_position)+0.1]; %enter distance to predecessor
+                P=[P;next]; %enter next as predecessor
+                H=[H;heuristic(possible_next,target)]; %calculate heuristic value
+                V=[V;0]; %mark as not visited
+            else                    %... already in the rim
+                pn_position=find(possible_next,R); %search the node in the rim
+                if(D(pn_position)>D(next_position)+0.1) % if node in rim is further away as new node...
+                    D(pn_position)=D(next_position)+0.1; %... update distance
+                    P(pn_position,:)=next; % and chance predecessor
+                end %else do nothing
+            end
+    end  
+end
+\end{lstlisting}
 
+\subsection{The function oneStep}
+oneStep is the function, that provides us with the next node for the rim and an updated collision set for that node. This new collision set equals a new hyperplane in the configuration space at the position of the next node.
 
-
-
-%
-%\section{}
-%
-%\subsection{Offene Probleme}
-%\begin{itemize}
-%\item Zurzeit is noch nicht gekl�rt wie man die g�ltigen Zellen identifiziert und zu Graphknoten macht.
-%\item Auch ist die unendlichkeit von $K_f$ ein Problem. Da Rotationen beliebig weit drehen k�nnen sollten, ist $K_f$ in Richtung jeder Rotation $\phi_i$ unbegrenzt.
-%\item Der �bergang von Zelle zu Zelle ( Knoten zu Knoten ) muss gefunden werden. Dabei ist der Ansatz aus der Arbeit von Fabian aufgrund der Beschaffenheit der Zellen nicht umsetzbar. Einsatz alternativer Methoden ( Supportvektoren o.�. ) sollte sich als ebenso schwer gestalten
-%\end{itemize}
-
-%\subsection{Repr�sentation als Funktionen}
-%Jes Objekt wird durch eine Summe von Funktionsungleichungen repr�sentiert. Dabei gibt das Ungleichheitszeichen die Lage des Objektes bez�glich der Funktion im Raum an. \\
-%Die Transaltionen sind direkt als Verschiebungen der Funktionen durchf�hrbar. Bei der Rotation m�ssen alle Funktionen derart um den Angelpunkt gedreht werden, dass die Form des Urspr�nglichen Objektes erhalten bleibt. Dies sollte sich durch Roation eines Aufpunktvektors umsetzen lassen, der bei jeder Rotation neuberechnet werden m�sste.\\
-%Zur �berpr�fung der Kollision sind nun die Funktionen des ver�nderen Objektes auf Schnittpunkte mit ALLEN anderen Funktionen ALLER Objekte zu �berpr�fen. M�glicherweise l�sst sich hierbei ebenfalls durch lokale Selektion von Objekten optimieren.\\
-%Pro:
-%\begin{itemize}
-%\item Hohe Genauigkeit bei der Kollisionskontrolle.
-%\item Wenig Information muss pro Objekt gehalten werden.
-%\end{itemize}
-%Contra:
-%\begin{itemize}
-%\item Rotationsberechnung ( m�glicherweise ) rechentechnisch anspruchsvoll.
-%\item Darstellung von Kreisb�gen f�hrt zu mindestens Quadratischen Gleichungen die gel�st werden m�ssen.
-%\item Kollisionsabfrage bei vielen kleinen Objekten sehr rechenintensiv.
-%\end{itemize}
-%\subsection{Repr�sentation als Kantenzug}
-%Jedes Objekt wird durch eine Folge von Punkten mit einer dazugeh�rigen Folge von Vektoren zwischen den Punkten abgebildet.\\
-%Translationen sind direkt Verschiebungen der Punktemenge. Die Vektoren bleiben dabei gleich. Rotationen stellen sich als Rotation der Punktemenge um einen Angelpunkt dar. Anschlie�end k�nnen die Vektoren direkt neu berechnet werden.\\
-% Zur �berpr�fung der Kollision m�ssen die Punkte ALLER Objekte auf ihre Lage bez�glich der Vektoren getestet werden. Allerdings sollte auch hier �ber lokale Selektion Optimierung m�glich sein.\\
-%Pro:
-%\begin{itemize}
-%\item Simple und Intuitive Repr�sentation von Objekten
-%\item Bis auf Kollision einfach Umsetzung der Operationen
-%\end{itemize}
-%Contra:
-%\begin{itemize}
-%\item Darstellung von gekr�mmten Grenzfl�chen nur �ber Ann�herung m�glich
-%\item Bei einer gro�en Anzahl an Eckpunkten im Objekt wird die Kollisionskontrolle rechenintensiv
-%\item Kollisionsabfrage bei vielen kleinen Objekten sehr rechenintensiv.
-%\end{itemize}
-%
-%\section{Implementation}
-%
-%\subsection{Strukturen}
-%
-%riddle -struct:
-%riddle.r = cell objekt von randarrays
-%riddle.o = cell objekt von objekten
-%riddle.oHpos = position des Hauptobjektes in riddle.o
-%riddle.t = zielfl�che target
-%riddle.c = startkonfigurationen aller objekte ( angelpunkte )
-%riddle.rotRange = array aller zugelassenen rotationen zb. 0:360, 90:1:180 etc.
-%
-%
-%
+\subsection{isValid}
+%TODO
+\subsection{Helper functions}
+Providing a better insight into the code, some of the most important helper functions are explained in detail. For all other functions, the code manual will be used as a reference.
+\subsubsection{getRims}
+%TODO
+\subsubsection{changeOneObject}
+%TODO

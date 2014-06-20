@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.23)  17 JUN 2014 15:36
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.23)  20 JUN 2014 16:55
 entering extended mode
 **C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/thesis.t
 ex
@@ -984,8 +984,8 @@ x
 ion.aux)
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\Enviromen
 tAndBasics.aux)
-(C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\principle
-.aux))
+(C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\implement
+ation.aux))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
@@ -1081,7 +1081,7 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count158
 
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\titlepage
-.tex <Logo_Uni_Luebeck_300dpi.png, id=75, 284.5029pt x 113.7048pt>
+.tex <Logo_Uni_Luebeck_300dpi.png, id=103, 284.5029pt x 113.7048pt>
 File: Logo_Uni_Luebeck_300dpi.png Graphic file (type png)
 
 <use Logo_Uni_Luebeck_300dpi.png>
@@ -1148,19 +1148,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<circleRiddle.png, id=133, 747.79375pt x 1056.94875pt>
+<circleRiddle.png, id=168, 747.79375pt x 1056.94875pt>
 File: circleRiddle.png Graphic file (type png)
  <use circleRiddle.png>
 Package pdftex.def Info: circleRiddle.png used on input line 21.
 (pdftex.def)             Requested size: 74.78375pt x 105.70107pt.
 
-<boxRiddle.png, id=134, 747.79375pt x 1056.94875pt>
+<boxRiddle.png, id=169, 747.79375pt x 1056.94875pt>
 File: boxRiddle.png Graphic file (type png)
  <use boxRiddle.png>
 Package pdftex.def Info: boxRiddle.png used on input line 22.
 (pdftex.def)             Requested size: 74.78375pt x 105.70107pt.
 
-<mixedRiddle.png, id=135, 747.79375pt x 1056.94875pt>
+<mixedRiddle.png, id=170, 747.79375pt x 1056.94875pt>
 File: mixedRiddle.png Graphic file (type png)
  <use mixedRiddle.png>
 Package pdftex.def Info: mixedRiddle.png used on input line 23.
@@ -1192,24 +1192,41 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-(C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\principle
-.tex
+(C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\implement
+ation.tex
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--6
+Underfull \hbox (badness 10000) in paragraph at lines 5--7
 
  []
 
-[9
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 32--34
+[10] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 56--58
 
  []
 
-[10]) [11] [12
+(G:\Anwendungen\Miktex\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+LaTeX Font Info:    Try loading font information for OT1+txtt on input line 67.
+
+
+(G:\Anwendungen\Miktex\tex\latex\txfonts\ot1txtt.fd
+File: ot1txtt.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    Font shape `OT1/txtt/m/it' in size <9> not available
+(Font)              Font shape `OT1/txtt/m/sl' tried instead on input line 68.
+LaTeX Font Info:    Font shape `OT1/txtt/bx/n' in size <9> not available
+(Font)              Font shape `OT1/txtt/b/n' tried instead on input line 69.
+ [12]) [13] [14
 
 
 
@@ -1223,10 +1240,10 @@ Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\thesis.lo
 f)
 \tf@lof=\write8
- [13
+ [15
 
 
-] [14
+] [16
 
 
 
@@ -1236,10 +1253,10 @@ t)
 \tf@lot=\write9
 
 No file thesis.nls.
-[15
+[17
 
 
-] [16
+] [18
 
 
 
@@ -1249,10 +1266,10 @@ LaTeX Warning: Citation `Zitat' undefined on input line 73.
 
 
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\thesis.bb
-l) [17
+l) [19
 
 
-] [18
+] [20
 
 
 
@@ -1268,25 +1285,25 @@ x
 ion.aux)
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\Enviromen
 tAndBasics.aux)
-(C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\principle
-.aux))
+(C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\implement
+ation.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 82.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 82.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 2ADD596BC8FFCBB2097E0DAB0E35AE6A;1168.
+(rerunfilecheck)             Checksum: 45FD08045DA66185E7801C45E006BFFD;1747.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 12840 strings out of 494045
- 191834 string characters out of 3150792
- 305686 words of memory out of 3000000
- 15814 multiletter control sequences out of 15000+200000
- 13526 words of font info for 50 fonts, out of 3000000 for 9000
+ 13815 strings out of 494045
+ 202457 string characters out of 3150792
+ 482514 words of memory out of 3000000
+ 16741 multiletter control sequences out of 15000+200000
+ 14995 words of font info for 55 fonts, out of 3000000 for 9000
  718 hyphenation exceptions out of 8191
- 45i,12n,51p,726b,449s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,12n,51p,731b,2393s stack positions out of 5000i,500n,10000p,200000b,50000s
 <G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/cm/cmbx10.pfb><G:/Anwendun
 gen/Miktex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><G:/Anwendungen/Miktex/fon
 ts/type1/public/amsfonts/cm/cmcsc10.pfb><G:/Anwendungen/Miktex/fonts/type1/publ
@@ -1295,13 +1312,17 @@ ic/amsfonts/cm/cmmi10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/cm
 Anwendungen/Miktex/fonts/type1/public/amsfonts/cm/cmr10.pfb><G:/Anwendungen/Mik
 tex/fonts/type1/public/amsfonts/cm/cmr12.pfb><G:/Anwendungen/Miktex/fonts/type1
 /public/amsfonts/cm/cmr17.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfont
-s/cm/cmssbx10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/cm/cmsy10.
-pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/cm/cmsy8.pfb><G:/Anwendu
-ngen/Miktex/fonts/type1/public/amsfonts/cm/cmti10.pfb><G:/Anwendungen/Miktex/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (24 pages, 331822 bytes).
+s/cm/cmr6.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/cm/cmr8.pfb><G
+:/Anwendungen/Miktex/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><G:/Anwendunge
+n/Miktex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><G:/Anwendungen/Miktex/fonts
+/type1/public/amsfonts/cm/cmsy8.pfb><G:/Anwendungen/Miktex/fonts/type1/public/a
+msfonts/cm/cmti10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/symbol
+s/msbm10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/txfonts/txbtt.pfb><G:/An
+wendungen/Miktex/fonts/type1/public/txfonts/txtt.pfb><G:/Anwendungen/Miktex/fon
+ts/type1/public/txfonts/txtt.pfb>
+Output written on thesis.pdf (26 pages, 385158 bytes).
 PDF statistics:
- 295 PDF objects out of 1000 (max. 8388607)
- 59 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 394 PDF objects out of 1000 (max. 8388607)
+ 95 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 
