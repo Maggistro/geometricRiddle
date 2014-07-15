@@ -1,0 +1,59 @@
+\chapter{Concept}
+\section{Common defenitions and representation}
+\subsection{Defining the configuration space}
+As the exakt representation of our objects should not matter, we will only define the common points needed for a clear communication of the stated problem.\\
+The algorithms aim is to tell if there is a solution possible and, if so, present it. The object which needs to be moved from a starting configuration to a target configuration will be named main object M. Other movable objects are obstacles named $Ob_i$  and the stationary objects are called rims $R_i$. This will be combined to the sets $O = \{M\}  \cup \{Ob_i | i \in \mathbb{N} \} $ and $ R = \{ R_i | i \in \mathbb{N}\}$.\\
+
+Each object $O_A$ contains some data for representing its shape stored under $O_A$.data. Furthermore the configuration of $O_A$ is given by the vector $(x_A,y_A,\phi_A)$ and stored under $O_A$.mid as the middle/reference point for said object where $x_A$ and $y_A$ gives the point around which the object will be rotated by $\phi_A$.
+By substraction of the first two dimensions occupied by R from the possible space $O_i$ per object in O, and, if we divide the space in two, selecting the one in which $O_i.mid$ lies at the start, we get a valid space $C_{O_i-R}$ for the object $O_i$ to be moved in ( not taking into account other objects). This space is a simple 3 dimensional space with $x_i, y_i$ and $\phi_i$ as base.\\
+But as there is the need to check for collision with ALL other objects $O' = \{O_j, | j\neq i \wedge j \in \mathbb{N}\} $ we need to increase the dimensions of all spaces $C_{O_i-R}$ by the number of objects in $O'$. Also for each set $j$ of dimensions $(x_j,y_j,\phi_j)$  added, we will need to substract the current position of the corresponding object $O_j$ from the space, such that all collision points are removed from $C_{O_i-R}$. This will give us the configuration space for object $O_i$, $C_{O_i}$.
+
+
+\subsection{Building the configuration space}
+\label{subsec:confspace}
+To build such a configuration space, every possible configuration of every movable object needs to be calculated. Even those who are NOT valid need to be computed at least once, to check if they are valid or not.\\
+Each object A has three dimensions $(x_A,y_A,\phi_A)$, with $x$ and $y$ beeing a finite range from $r_x=[x_l, x_h]$ and $r_y=[y_l, y_h]$ defined by the stationary rims of the riddle. The rotation component $\phi$ is choosen from a set of angles $\Phi = \{ \phi | \phi \in r_\phi=[1, 360] \}$. As this would lead to an infinite amount of possible $x,y$ and $\phi$, we could allow steps only, e.g. $x,y,\phi \in \mathbb{N}$.\\
+If there are n movable objects we get a total number of possible combinations in the range of $(r_x\cdot r_y \cdot r_\phi )^n$.
+Under the premise of saving every calculated combination so that we only calculate each set once and assuming that the time $t_s$ needed for collision check and calculating one set is constant, we get the following formula for the time to calculate the complete configuration space.
+\begin{align*}
+ T_conf = (r_x\cdot r_y \cdot r_\phi )^n \cdot t_s
+\end{align*}
+Now we define $t_s = 0.1 ms$ set $r_x = r_y = 10$ and $r_\phi = 180$ with only two objects ( one main object M one obstacle O) meaning $n=2$ we get
+\begin{align*}
+T_conf &= (10*10*180)^2 \cdot 0.1ms\\
+	&=   324000000 \cdot 0.1 ms\\
+	&= 3.24 \cdot 10^7 \cdot ms
+	&= 9 h
+\end{align*} 
+This means we would need to wait 9h to completely calculate all possible positions on a very raw grid ( each step just 1 unit) without even having started to search on it.
+
+So the idea is to interleave search and building of the configuration space in such a way, that only the needed nodes are calculated and checked.
+But still this would be very slow if we consider implementing it on such a grid. Therefore another approach is needed.\\
+Instead of taking a grid, the configuration space is divided into cells depending on the current positition of the objects. This cell division will heavily decrease the number of search nodes in the space. The drawback on the other hand is, that this division is dependent on the object representation. So isntead of computing a independent configuration space for the search, the search needs to use some information from the objects. This will lead to an integration of search algorithm and object representation into one main algorithm.\\
+But still this will give us a simple graph where the solution can then be found by searching for a path for the main object M from start to target. In the following part a way of representing the objects with points will be used.
+
+
+
+\subsection{Objects as point list}
+One of the possible ways of describing an object in a two dimensional setting would be an ordered list of corner points.  Together with an anchor point we can calculate all transformations needed.\\
+To see if this representation would work we take a short look at the algorith described in \ref{sec:Idea} and sketch a solution to each step.
+\begin{enumerate}
+\item Generate $C_{O_i-R}$:By identifing the main outer rim $R_mo$ and computing its inner hull for $O_i$ the space $C_{O_i}$ is build. For all other rims $R_j$ computing the convex hull with $O_i$ and substracting them from $C_{O_i}$ leads to $C_{O_i-R}$.
+\item Generate $C_{O_i-O_j}$: Calculate the convex hull from $O_i$ to each other object $O_j$.
+\item Generate $C_{O_i}$: Substraction of $C_{O_i-R} - C_{O_i-O_j}$ for all $O_j \in O \wedge j \neq i$.
+\item Divide search space in cells: By extending the vectors connecting the convex hull in $C_{O_i-O_j}$ we get a seperation of the space in $C_{O_i}$ in multiple parts. Each step is a translation of the object $O_i$  from one cell to another. The neighbour cells can be identified by iterationing over the objects $O_j$ and calculating the nearest crossing along $(x,y)$ with the extended vectors of its convex hull. \\ Rotations are represented as a jump from one hyperplane to the next in search direction. There are multiple problems with rotation in this representation, that will be discussed later.
+\item Construct the search graph: While moving along those cells, we adapt $C_{O_i}$ for each $O_i \in O$ each step. These cells are then added to the graph.
+\item Search for target: Again independently of the object representation a search can then be applied to the resulting graph. 
+\end{enumerate}
+
+So far this representation seems like a good choice in multiple ways with some drawbacks on the other hand.\\
+Pros:
+\begin{itemize}
+\item Simple and intuitive representation of object itself
+\item Easy and fast to compute concerning the transformation of an object ( translation, rotation )
+\end{itemize}
+Cons:\\
+\begin{itemize}
+\item Rotation needs discrete steps along the config dimensions $\phi_i$, therefore more exact calculations lead to higher need in computation power.
+\item The more corners an object has, the more points its convex hull with other object will have. One point more in object $O_i$ can lead to $n$ more points in $C_{O_i-O_j}$ with $n$ beeing the number of points in $O_j$. As we use the vectors connecting the points in $C_{O_i-O_j}$, $n$ more cells will arise in the search space.
+\end{itemize}

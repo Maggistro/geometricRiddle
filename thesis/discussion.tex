@@ -1,0 +1,19 @@
+\chapter{Discussion}
+\section{Problems and Solutions}
+Through applying a local approach to builing the configuration space, the riddles are starting to become solvable in an acceptable timeframe.
+Still, the time it takes to solve a riddle can vary strong depending on the number of objects, their start configuration and their shape. 
+
+\subsection{Invisible plains}
+An invisible plain is a plain extending from the vector of one object beetween two of its points. This plain splits the search space in two parts. Due to the fact, that we use this effect to split the space in cells, which we use for nodes in our search graph, changes to these plains affect our graph.\\
+%iinsert graphic about two objects with plains interfearing
+GRAPHIC WITH TWO OBJECTS PLAINS INTERFEARING\\
+If we take a look at this example, we can see how the object o1 dictates the cell border for object o2 on the left. If we move o2 over the border, it now takes over the cell border for object o1. Without a given heuristic which object is better to be moved to the right, this will end in alternating movements for both objects.\\
+But if we choose o1 to be the main object, which has a target on the right, the heuristic would need to tell our search algorithm that the point with o1 beeing right of o2 is the better point, and search from there on further, meaning o1 beeing moved to the right cell border again.
+GRAPHIC WITH O1 AS MAIN OBJECT???
+
+\subsection{Infinite rotation}
+%insert graphic spiral riddle
+GRAPHIC WITH A HUGE SPIRAL REQUIERING THE OBJECT TO ROTATE OVER 360° TO SOLVE\\
+As earch object can be rotated a total 360° to get back to its starting position, the first thing that comes into mind is that rotations are infinite. The problem with this viewpoint is, that the configuration space would also be infinite in each rotation direction per object. This makes it impossible to calculate the configuration space beforehand, because to do so, each possible combination of objects needs to be checked. But with multiple infinite axis, this would be an infinite number and calculations would never come to an end. \\
+The solution to this problem lies in the local search method applied in the algorithm. It views the rotation axis as a stack of configuration hyperplanes per object. If you rotate an arbitrary object o, you simply move up/down in the stack of hyperplanes for said object. \\
+The downside to that is, that in order to build a stack, there is the need to define a stepsize in which to move up and down the stack and change the rotation. This leads to another scale factor which needs to be set so that adequate accuracy can be achieved. One has to choose either less accuracy for less calculations or more calculations for higher accuracy.
