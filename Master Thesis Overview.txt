@@ -10,7 +10,14 @@ Basics
   - enter formula for convex hull
   - think about linear programming explanation( usefull, if so another example )
   
-  reprogram cetConvexSubset with simple minX minY points ( why should that not work??)
+  
+  
+  reprogram getConvexSubset with simple minX minY points ( why should that not work??)
+  
+Methods with function:
+representation: Object1 = object.coeff = {[x0,x1,x2,below(-1)/above(1)],....}?
+                          object.mid = [x,y,theta]
+                          object.def = {[start, end],....}
   
 .......................................................
 Programming Steps bottom-up
