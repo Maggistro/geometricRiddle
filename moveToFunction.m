@@ -1,6 +1,7 @@
 function [ nextNode,dist ] = moveToFunction(node, dir,object,func,def)
 %moves the object in the direction dir to the function func defined 
-%in the range def changing node to nextNode
+%in the range def searching for the nextNode for object object
+
 nextNode = node;
 dist = inf; %no valid nextNode
 %iterate over all functions in object,find crossing and remember the
@@ -23,11 +24,11 @@ for obj_function_number = 1:length(object.coeff)
     end
     
     %calculate function values
-    objValue_min = obj_func(1) + min_y*obj_func(2) + (min_y^2)*obj_func(3);
-    objValue_max = obj_func(1) + max_y*obj_func(2) + (max_y^2)*obj_func(3);
+    objValue_min = (min_y^2)*obj_func(3) + min_y*obj_func(2) + obj_func(1);
+    objValue_max = (max_y^2)*obj_func(3) + max_y*obj_func(2) + obj_func(1);
 
-    funcValue_min = func(1) + min_y*func(2) + (min_y^2)*func(3);
-    funcValue_max = func(1) + max_y*func(2) + (max_y^2)*func(3);
+    funcValue_min = (min_y^2)*func(3) + min_y*func(2) + func(1);
+    funcValue_max = (max_y^2)*func(3) + max_y*func(2) + func(1);
     
     diff_min = funcValue_min - objValue_min;
     diff_max = funcValue_max - objValue_max;
@@ -46,12 +47,10 @@ for obj_function_number = 1:length(object.coeff)
     
     %choose smaller distance...
     if(abs(diff_min)<abs(diff_max))
-        object.mid(2) = object.mid(2) + diff_min; %... and adapt object mid
-        nextNode(abs(direction)) = nextNode(abs(direction)) + diff_min; %... and nextNode; 
+        nextNode(abs(direction)) = node(abs(direction)) + diff_min; %... and nextNode; 
         dist = diff_min;
     else
-        object.mid(2) = object.mid(2) + diff_max; %... and adapt object mid
-        nextNode(abs(direction)) = nextNode(abs(direction)) + diff_max; %... and nextNode; 
+        nextNode(abs(direction)) = node(abs(direction)) + diff_max; %... and nextNode; 
         dist = diff_max;
     end
     else % move along x coordinate (right/left)
@@ -61,8 +60,8 @@ for obj_function_number = 1:length(object.coeff)
     objValue_max = obj_func(1) + obj_def(2)*obj_func(2) + (obj_def(2)^2)*obj_func(3);
         
     
-    funcValue_min = func(1) + def(1)*func(2) + (def(1)^2)*func(3);
-    funcValue_max = func(1) + def(2)*func(2) + (def(2)^2)*func(3);
+    funcValue_min = (def(1)^2)*func(3) + def(1)*func(2) + func(1);
+    funcValue_max = (def(2)^2)*func(3) + def(2)*func(2) + func(1);
     
     %get the y-range used by both function ( inner borders )
     min_y = (objValue_min>funcValue_min)*objValue_min + (objValue_min<=funcValue_min)*funcValue_min;
@@ -74,12 +73,12 @@ for obj_function_number = 1:length(object.coeff)
     
     %calculate x values to min_y and max_y
     %linear functions
-    if(func(3)==0)
-        funcX_min = (min_y - func(1))/func(2);
-        funcX_max = (max_y - func(1))/func(2);
+    if(func(1)==0)
+        funcX_min = (min_y - func(3))/func(2);
+        funcX_max = (max_y - func(3))/func(2);
     else%quadratic functions
-        [x1_min,x2_min]=solve(poly2sym([func(3),func(2),func(1)-min_y]));
-        [x1_max,x2_max]=solve(poly2sym([func(3),func(2),func(1)-max_y]));
+        [x1_min,x2_min]=solve(poly2sym([func(1),func(2),func(3)-min_y]));
+        [x1_max,x2_max]=solve(poly2sym([func(1),func(2),func(3)-max_y]));
         
         %choose x nearest to the object using search direction sign
         if(sign(direction)==-1)
@@ -127,12 +126,10 @@ for obj_function_number = 1:length(object.coeff)
     
     %choose smaller distance...
     if(abs(diff_min)<abs(diff_max))
-        object.mid(1) = object.mid(1) + diff_min; %... and adapt object mid
-        nextNode(abs(direction)) = nextNode(abs(direction)) + diff_min; %... and nextNode;
+        nextNode(abs(direction)) = node(abs(direction)) + diff_min; %... and nextNode;
         dist = diff_min;
     else
-        object.mid(1) = object.mid(1) + diff_max; %... and adapt object mid
-        nextNode(abs(direction)) = nextNode(abs(direction)) + diff_max; %... and nextNode;  
+        nextNode(abs(direction)) = node(abs(direction)) + diff_max; %... and nextNode;  
         dist = diff_max;
     end
     end
