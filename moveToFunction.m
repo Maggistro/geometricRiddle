@@ -1,4 +1,4 @@
-function [ nextNode,dist ] = moveToFunction(node, dir,object,func,def)
+function [ nextNode,dist ] = moveToFunction(node, direction,object,func,def)
 %moves the object in the direction dir to the function func defined 
 %in the range def searching for the nextNode for object object
 
@@ -12,10 +12,9 @@ for obj_function_number = 1:length(object.coeff)
     obj_func = object.coeff{obj_function_number};
     obj_def = object.def{obj_function_number};
 
-    %move along y coordinate ( up/down)
-    if(mod(abs(direction),3)==2)
-    
-    %get the x-range used by both function ( inner borders )
+    % move along y coordinate ( up/down)
+    if(mod(abs(direction),3)==2)   
+    %% get the x-range used by both function ( inner borders )
     min_y = (def(1)>obj_def(1))*def(1) + (def(1)<=obj_def(1))*obj_def(1);
     max_y = (def(2)<=obj_def(2))*def(2) + (def(2)>obj_def(2))*obj_def(2);
     
@@ -23,29 +22,40 @@ for obj_function_number = 1:length(object.coeff)
         continue;
     end
     
-    %calculate function values
+    %% calculate function values
     objValue_min = (min_y^2)*obj_func(3) + min_y*obj_func(2) + obj_func(1);
     objValue_max = (max_y^2)*obj_func(3) + max_y*obj_func(2) + obj_func(1);
 
     funcValue_min = (min_y^2)*func(3) + min_y*func(2) + func(1);
     funcValue_max = (max_y^2)*func(3) + max_y*func(2) + func(1);
     
+    %check for max/min
+    if objValue_min>objValue_max
+        temp = objValue_min;
+        objValue_min=objValue_max;
+        objValue_max=temp;
+    end  
+    
+    if funcValue_min>funcValue_max
+        temp = funcValue_min;
+        funcValue_min=funcValue_max;
+        funcValue_max=temp;
+    end   
+    
     diff_min = funcValue_min - objValue_min;
     diff_max = funcValue_max - objValue_max;
     
-    %check if function collide
+    %% check if function collide
     if(sign(diff_min)~=sign(diff_max))
         error('invalid state. Collision before movement detected');
-        pause;
+    end
+    
+    %% check if func lies in search direction
+    if(sign(diff_min)~=sign(direction))
         return;
     end
     
-    %check if func lies in search direction
-    if(sign(diff_min)~=sign(dir))
-        return;
-    end
-    
-    %choose smaller distance...
+    %% choose smaller distance...
     if(abs(diff_min)<abs(diff_max))
         nextNode(abs(direction)) = node(abs(direction)) + diff_min; %... and nextNode; 
         dist = diff_min;
@@ -53,17 +63,16 @@ for obj_function_number = 1:length(object.coeff)
         nextNode(abs(direction)) = node(abs(direction)) + diff_max; %... and nextNode; 
         dist = diff_max;
     end
-    else % move along x coordinate (right/left)
-        
-    %calculate function values
-    objValue_min = obj_func(1) + obj_def(1)*obj_func(2) + (obj_def(1)^2)*obj_func(3);
-    objValue_max = obj_func(1) + obj_def(2)*obj_func(2) + (obj_def(2)^2)*obj_func(3);
+    else %  move along x coordinate (right/left) 
+    %% calculate function values
+    objValue_min = (obj_def(1)^2)*obj_func(1)  + obj_def(1)*obj_func(2) + obj_func(3);
+    objValue_max = (obj_def(2)^2)*obj_func(1)  + obj_def(2)*obj_func(2) + obj_func(3);
         
     
     funcValue_min = (def(1)^2)*func(3) + def(1)*func(2) + func(1);
     funcValue_max = (def(2)^2)*func(3) + def(2)*func(2) + func(1);
     
-    %get the y-range used by both function ( inner borders )
+    %% get the y-range used by both function ( inner borders )
     min_y = (objValue_min>funcValue_min)*objValue_min + (objValue_min<=funcValue_min)*funcValue_min;
     max_y = (objValue_max<funcValue_max)*objValue_max + (objValue_max>=funcValue_max)*funcValue_max;
     
@@ -71,7 +80,7 @@ for obj_function_number = 1:length(object.coeff)
         continue;
     end
     
-    %calculate x values to min_y and max_y
+    %% calculate x values to min_y and max_y
     %linear functions
     if(func(1)==0)
         funcX_min = (min_y - func(3))/func(2);
@@ -91,7 +100,7 @@ for obj_function_number = 1:length(object.coeff)
     end
     
     %linear functions
-    if(obj_func(3)==0)
+    if(obj_func(1)==0)
         objX_min = (min_y - obj_func(1))/obj_func(2);
         objX_max = (max_y - obj_func(1))/obj_func(2);
     else%quadratic functions
@@ -112,19 +121,17 @@ for obj_function_number = 1:length(object.coeff)
     diff_min = funcX_min - objX_min;
     diff_max = funcX_max - objX_max;
     
-    %check if function collide
+    %% check if function collide
     if(sign(diff_min)~=sign(diff_max))
         error('invalid state. Collision before movement detected');
-        pause;
+    end
+    
+    %% check if func lies in search direction
+    if(sign(diff_min)~=sign(direction))
         return;
     end
     
-    %check if func lies in search direction
-    if(sign(diff_min)~=sign(dir))
-        return;
-    end
-    
-    %choose smaller distance...
+    %% choose smaller distance...
     if(abs(diff_min)<abs(diff_max))
         nextNode(abs(direction)) = node(abs(direction)) + diff_min; %... and nextNode;
         dist = diff_min;

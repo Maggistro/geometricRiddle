@@ -15,9 +15,11 @@ Basics
   reprogram getConvexSubset with simple minX minY points ( why should that not work??)
   
 Methods with function:
-representation: Object1 = object.coeff = {[x0,x1,x2,below(-1)/above(1)],....}?
+representation: Object1 = object.coeff = {[x2,x1,x0],....}?
                           object.mid = [x,y,theta]
                           object.def = {[start, end],....}
+                          object.above = 1/-1;
+                Border = border.points = {[x1,y1],[x2,y2],[x3,y3],[x4,y4]};
   
 .......................................................
 Programming Steps bottom-up

@@ -1,4 +1,4 @@
-function valid = isValid(configPoint,borders,collision_sets)
+function valid = isValid(configPoint,borderPoints,collision_sets)
 %checks for collision
 
 valid = 1;
@@ -7,7 +7,6 @@ for i=1:3:length(configPoint)
     
     
     %check if inside border regarding x and y
-    borderPoints = borders{floor((i-1)/3)+1};
     valid = valid && configPoint(i) >= borderPoints(1,1) && configPoint(i) <=borderPoints(2,1) &&...
             configPoint(i+1) >= borderPoints(1,2) && configPoint(i+1) <=borderPoints(3,2);
     
