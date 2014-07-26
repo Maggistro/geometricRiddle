@@ -11,8 +11,8 @@ for func_number=1:length(object.coeff)
     
     %% check for up/down
     %calculate function values
-    objValue_min = obj_func(1) + obj_def(1)*obj_func(2) + (obj_def(1)^2)*obj_func(3);
-    objValue_max = obj_func(1) + obj_def(2)*obj_func(2) + (obj_def(2)^2)*obj_func(3);
+    objValue_min = (obj_def(1)^2)*obj_func(1) + obj_def(1)*obj_func(2) + obj_func(3);
+    objValue_max = (obj_def(2)^2)*obj_func(1) + obj_def(2)*obj_func(2) + obj_func(3);
     
     %check for max/min
     if objValue_min>objValue_max

@@ -17,6 +17,7 @@ if(mod(dir,3)==1) %along x axis
            func(3)=c;
        end
        object.coeff{function_number}=func;
+       object.def{function_number}=object.def{function_number}+diff;
     end
 elseif(mod(dir,3)==2)%along y axis
     for function_number=1:length(object.coeff)%iterate over all functions

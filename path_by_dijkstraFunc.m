@@ -59,6 +59,8 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     
     
 
+    figureData.o = collision_set{next_position};
+    drawMainObjectFunc(figureData);
     
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
@@ -83,8 +85,6 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
 
     end
     
-    figureData.o = next_collision_set;
-    drawMainObjectFunc(figureData);
     
     %fprintf('.');
     

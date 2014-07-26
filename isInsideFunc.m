@@ -6,7 +6,6 @@ secondInFirst = true;
 for func_numb_first=1:length(firstObject.coeff)
     firstFunc = firstObject.coeff{func_numb_first};
     firstDef = firstObject.def{func_numb_first};
-    firstSym = poly2sym(firstFunc);
     %% calculate endpoints
     first_min(1) = firstDef(1);
     first_min(2) = first_min(1)^2*firstFunc(1) + first_min(1)*firstFunc(2)...
@@ -15,9 +14,9 @@ for func_numb_first=1:length(firstObject.coeff)
     first_max(1) = firstDef(2);
     first_max(2) = first_max(1)^2*firstFunc(1) + first_max(1)*firstFunc(2)...
         + firstFunc(3);
-     
+    
     %iterate over all functions in other object and check for position
-    %of endpoint and crossings 
+    %of endpoint and crossings
     for func_numb_second=1:length(secondObject.coeff)
         secondFunc = secondObject.coeff{func_numb_second};
         secondDef = secondObject.def{func_numb_second};
@@ -33,7 +32,30 @@ for func_numb_first=1:length(firstObject.coeff)
         end
         
         %% check if lines intersect
-        cross = solve(firstSym==poly2sym(secondFunc));
+        if (firstFunc(1)==0 && firstFunc(1)==0) %both are linear functions
+            
+            if(firstFunc(2) - secondFunc(2)~=0)
+                cross = (secondFunc(3) - firstFunc(3))/(firstFunc(2) - secondFunc(2));
+            else
+                     cross = [];
+            end
+        else %one line quadratic, other linear
+            
+            %new parameters
+            a = firstFunc(1) - secondFunc(1);
+            b = firstFunc(2) - secondFunc(2);
+            c = firstFunc(3) - secondFunc(3);
+            
+            root = (b^2-4*a*c);
+            if( root < 0 ) %if no solution available ( no cross )
+                cross = [];
+            elseif (root == 0) % else calculate solution
+                cross = -b / (2*a);
+            else
+                cross(1) = (-b + sqrt(b^2-4*a*c) ) / (2*a);
+                cross(2) = (-b + sqrt(b^2-4*a*c) ) / (2*a);
+            end
+        end
         
         %iterate over up to two crossing points
         for i=1:length(cross)
@@ -44,7 +66,7 @@ for func_numb_first=1:length(firstObject.coeff)
         end
         
         
-        %% lines dont intersect, check if points are on the correct side    
+        %% lines dont intersect, check if points are on the correct side
         %only if its still possible that objects encapsule each other
         if(secondInFirst || firstInSecond)
             

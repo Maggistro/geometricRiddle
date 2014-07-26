@@ -130,7 +130,9 @@ for obj_function_number = 1:length(object.coeff)
         
         %% check if function collide
         if(sign(diff_min)~=sign(diff_max))
-            error('invalid state. Collision before movement detected');
+            if(sign(diff_min)~=0 && sign(diff_max)~=0)
+                error('invalid state. Collision before movement detected');
+            end
         end
         
         %% check if func lies in search direction
