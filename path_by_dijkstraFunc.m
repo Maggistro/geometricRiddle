@@ -45,6 +45,11 @@ Path=[];
 collision_set=cell(1,1000);
 collision_set{1} = next_collision_set;
 
+
+
+    figureData.o = next_collision_set;
+    figureData.start = start;
+    drawMainObjectFunc(figureData);
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
     unvisited_D= H;
@@ -79,10 +84,10 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
 
     end
     
-    %figureData.collision = next_collision_set;
-    %figureData.current = next;
-    %figureData.start = start;
-    %drawMainObject(figureData);
+    figureData.o = next_collision_set;
+    figureData.current = next;
+    figureData.start = start;
+    drawMainObjectFunc(figureData);
     
     %fprintf('.');
     

@@ -6,16 +6,16 @@ figure(1);
 axis equal;
 axis ([0 10 0 10]);
 
-msg = 0;
-
 figureData.fig = 1;
-figureData.riddle = riddle;
 figureData.start = riddle.m.mid;
 figureData.current = riddle.m.mid;
 figureData.pause = 0.5;
 if(func)
-    
+    figureData.o = riddle.o;
+    figureData.b = riddle.b;
+    figureData.Target = riddle.t;
 else
+    figureData.riddle = riddle;
     figureData.Rim = riddle.r{1}.data;
     figureData.Target =riddle.t.data;
 end

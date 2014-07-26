@@ -99,9 +99,8 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
                     P(pn_position,:)=next; %und trage als vorgänger betrachteten knoten ein
                 end %wenn Randknoten näher ist ist alles ok, knoten muss nicht hinzugefügt werden
             end
-        end %wenn knoten nicht erlaubt ist nicht betrachten
-             end %wenn knoten nicht erlaubt ist nicht betrachten        
-
+          end %wenn knoten nicht erlaubt ist nicht betrachten
+        end %wenn knoten nicht erlaubt ist nicht betrachten        
     end
     
     %figureData.collision = next_collision_set;
