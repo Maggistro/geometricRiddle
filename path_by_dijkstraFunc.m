@@ -48,7 +48,6 @@ collision_set{1} = next_collision_set;
 
 
     figureData.o = next_collision_set;
-    figureData.start = start;
     drawMainObjectFunc(figureData);
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
@@ -85,8 +84,6 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     end
     
     figureData.o = next_collision_set;
-    figureData.current = next;
-    figureData.start = start;
     drawMainObjectFunc(figureData);
     
     %fprintf('.');

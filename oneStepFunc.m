@@ -76,7 +76,7 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
         
         %save new minimum ( closest function in the way ) and nextNode
         if abs(dist) < min_dist && min_dist>0
-            min_dist = min(min_dist,abs(dist));
+            min_dist = min(abs(min_dist),abs(dist))*sign(min_dist);
             nextNode=tempNode;
         end
     end
