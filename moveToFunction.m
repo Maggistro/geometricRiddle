@@ -1,9 +1,7 @@
-function [ nextNode,dist ] = moveToFunction(node, direction,object,riddle,func,def)
+function [ nextNode,dist ] = moveToFunction(node, direction,object,border,func,def,above)
 %moves the object in the direction dir to the function func defined
 %in the range def searching for the nextNode for object object
 
-border = riddle.b;
-safety = riddle.s;
 nextNode = node;
 dist = inf; %no valid nextNode
 %iterate over all functions in object,find crossing and remember the
@@ -45,7 +43,7 @@ for obj_function_number = 1:length(object.coeff)
                 diff_min = border(3,2) - objValue_max;
                 diff_max = border(3,2) - objValue_min;
             end
-        elseif(min_y<max_y) %start to find collision
+        elseif(min_y<=max_y) %start to find collision
             
             %% calculate function values
             objValue_min = (min_y^2)*obj_func(1) + min_y*obj_func(2) + obj_func(3);
@@ -69,18 +67,24 @@ for obj_function_number = 1:length(object.coeff)
             diff_max = funcValue_max - objValue_max;
             
             %% check if function collide
-            if(sign(diff_min)~=sign(diff_max))
-                if(sign(diff_min)~=0 && sign(diff_max)~=0)
-                    error('invalid state. Collision before movement detected');
+            %if(sign(diff_min)~=sign(diff_max))
+            %    if(sign(diff_min)~=0 && sign(diff_max)~=0)
+            %        error('invalid state. Collision before movement detected');
+            %    end
+            %end
+            
+            if(diff_min==0 || diff_max==0) %check if object lies besides function
+                if(sign(direction)==sign(above)) %if object is moving away from function
+                    return;
                 end
             end
             
+            
             %% check if func lies in search direction
-            if(sign(diff_min)~=sign(direction))
-                return;
-            end
-        else
-            continue
+            %if(sign(diff_min)~=sign(direction))
+            %    return;
+            %end
+            
         end
         %% choose smaller distance...
         if(abs(diff_min)<abs(diff_max) && abs(diff_min)<abs(dist))
@@ -108,7 +112,7 @@ for obj_function_number = 1:length(object.coeff)
                 diff_max = border(3,1) - obj_def(1);
             end
             
-        elseif(min_y<max_y)
+        elseif(min_y<=max_y)
             
             
             %% calculate x values to min_y and max_y
@@ -158,38 +162,27 @@ for obj_function_number = 1:length(object.coeff)
                 end
             end
             
-            %check for max/min
-            if objX_min>objX_max
-                temp = objX_min;
-                objX_min=objX_max;
-                objX_max=temp;
-            end
             
-            if funcX_min>funcX_max
-                temp = funcX_min;
-                funcX_min=funcX_max;
-                funcX_max=temp;
-            end
-            
-           % if(sign(direction)==-1) % find minimal distance 
             diff_min = funcX_min - objX_min;
             diff_max = funcX_max - objX_max;
-            %else
-            %end
-        else
-            continue;
         end
         %% check if function collide
-        if(sign(diff_min)~=sign(diff_max))
-            if(sign(diff_min)~=0 && sign(diff_max)~=0)
-                error('invalid state. Collision before movement detected');
+        %if(sign(diff_min)~=sign(diff_max))
+        %    if(sign(diff_min)~=0 && sign(diff_max)~=0)
+        %        error('invalid state. Collision before movement detected');
+        %    end
+        %end
+        
+        if(diff_min==0 || diff_max==0) %check if object lies besides function
+            if(sign(direction)==sign(above)) %if object is moving away from function
+                return;
             end
         end
         
         %% check if func lies in search direction
-        if(sign(diff_min)~=sign(direction))
-            return;
-        end
+        %if(sign(diff_min)~=sign(direction))
+        %    return;
+        %end
         
         %% choose smaller distance...
         if(abs(diff_min)<abs(diff_max)&&abs(diff_min)<abs(dist))
