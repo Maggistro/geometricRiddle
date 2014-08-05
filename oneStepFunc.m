@@ -1,7 +1,7 @@
 function [ nextNode, collision_set ] = oneStepFunc( node,direction,curr_collision_set,riddle )
 %calculates the next node and adapted collision_set in the given direction starting with the
 %curr_collision_set,node and the static information in riddle
-object_pos=floor(abs(direction)/4) + 1 ;
+object_pos=floor((abs(direction)-1)/3) + 1 ;
 
 %% handle rotation
 if mod(abs(direction),3) == 0

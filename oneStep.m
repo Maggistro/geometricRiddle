@@ -5,7 +5,7 @@ function [nextNode, newCollSet] = oneStep(node,direction,collSet,riddle,jump_ove
 %check an object other than the main object is moved. If so just return the
 %same point. Valid check will elimate it later.
 newCollSet = collSet;
-object_pos=floor(abs(direction)/4) + 1 ;
+object_pos=floor((abs(direction)-1)/3) + 1 ;
 
 
 if mod(abs(direction),3) == 0

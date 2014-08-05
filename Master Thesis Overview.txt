@@ -27,6 +27,7 @@ representation: Object1 = object.coeff = {[x2,x1,x0],....}?
          - increase speed by only looking at specific function ( use above/below and direction )?
          - improve isValid ( solve function to slow, need other way) <- SOLVED. Apply to other calls for solve
          - moveFunc wrong ( not correct for x,y )  <-- SOLVED
+         - no movement along axis if objects "touch" each other
 .......................................................
 Programming Steps bottom-up
 
