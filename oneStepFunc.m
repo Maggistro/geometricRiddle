@@ -75,8 +75,8 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
         [tempNode,dist] = moveToFunction(node,direction,curr_collision_set{object_pos},riddle.b,func,def,object.above{function_number});
         
         %save new minimum ( closest function in the way ) and nextNode
-        if abs(dist) < min_dist
-            min_dist = min(abs(min_dist),abs(dist))*sign(min_dist);
+        if abs(dist) < abs(min_dist)
+            min_dist = min(abs(min_dist),abs(dist))*sign(dist);
             nextNode=tempNode;
         end
     end

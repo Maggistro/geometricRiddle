@@ -23,9 +23,10 @@ representation: Object1 = object.coeff = {[x2,x1,x0],....}?
   
   
   TODOs: - current test for inTargetCell is flawed ( to picky )
-         - no movement of anything other than main object. Also no movement to border!!!!! <---- BIG ISSUE
+         - no movement of anything other than main object. Also no movement to border!!!!! <-- SOLVED
          - increase speed by only looking at specific function ( use above/below and direction )?
          - improve isValid ( solve function to slow, need other way) <- SOLVED. Apply to other calls for solve
+         - moveFunc wrong ( not correct for x,y )  <-- SOLVED
 .......................................................
 Programming Steps bottom-up
 

@@ -10,15 +10,15 @@ for object_number_first = 1:length(collision_set)
     valid = valid & isInsideBorder(border,firstObject);
     
     %pick second object
-    for object_number_second = object_number_first+1:length(collision_set)
-        secondObject = collision_set{object_number_second};
+    %for object_number_second = object_number_first+1:length(collision_set)
+    %    secondObject = collision_set{object_number_second};
     
         %check if second object is inside first object or otherway around
-        valid = valid & isInsideFunc(firstObject,secondObject);
-        if(~valid)
-            return;
-        end
-    end
+   %     valid = valid & isInsideFunc(firstObject,secondObject);
+   %     if(~valid)
+   %         return;
+   %     end
+   % end
 end
 
 
