@@ -5,10 +5,10 @@ Programming enviroment and tools.
   - get matlab bib entry
   
 Basics
-  - enter formula for angle beetween vectors
+  - enter formula for angle beetween vectors    <-- done
   - plots of A and B
   - enter formula for convex hull
-  - think about linear programming explanation( usefull, if so another example )
+  - think about linear programming explanation( usefull, if so another example )  <-- removed, needs rethinking
   
   
   
