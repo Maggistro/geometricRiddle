@@ -1,7 +1,7 @@
 function [object] = moveFunc(diff,dir,object)
 %moves the object in direction dir by the distance diff
 
-if(mod(dir,3)==1) %along x axis
+if(mod(abs(dir),3)==1) %along x axis
     for function_number=1:length(object.coeff)%iterate over all functions
        func = object.coeff{function_number};
        if func(1)==0 %function is linear
@@ -19,12 +19,14 @@ if(mod(dir,3)==1) %along x axis
        object.coeff{function_number}=func;
        object.def{function_number}=object.def{function_number}+diff;
     end
-elseif(mod(dir,3)==2)%along y axis
+    object.mid(1) = object.mid(1) + diff;
+elseif(mod(abs(dir),3)==2)%along y axis
     for function_number=1:length(object.coeff)%iterate over all functions
        func = object.coeff{function_number};
        func(3) = func(3) - diff;
-       object.coeff{function_number}=func;
+       object.coeff{function_number}=func;       
     end
+    object.mid(2)=object.mid(2) - diff;
 else
     error('not a valid direction to move object along');
 end

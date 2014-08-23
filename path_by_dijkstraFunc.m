@@ -51,7 +51,7 @@ collision_set{1} = next_collision_set;
     drawMainObjectFunc(figureData);
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
-    unvisited_D= H;
+    unvisited_D= D;
     unvisited_D(V==1)=inf;
     [~ ,next_position]= min(unvisited_D);
     next=R(next_position,:);
@@ -82,7 +82,6 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
                 end %wenn Randknoten näher ist ist alles ok, knoten muss nicht hinzugefügt werden
             end
         end %wenn knoten nicht erlaubt ist nicht betrachten        
-
     end
     
     

@@ -6,8 +6,8 @@ for func_number=1:length(object.coeff)
     obj_func = object.coeff{func_number};
     obj_def = object.def{func_number};
     %% check for left/right
-    valid = valid && (border(1,1)<obj_def(1) &&...
-        border(3,1)>obj_def(1));
+    valid = valid && (border(1,1)<=obj_def(1) &&...
+        border(3,1)>=obj_def(1));
     
     %% check for up/down
     %calculate function values
@@ -21,8 +21,8 @@ for func_number=1:length(object.coeff)
         objValue_max=temp;
     end
     
-    valid = valid && (border(1,2) < objValue_min &&...
-        border(3,2) > objValue_max);
+    valid = valid && (border(1,2) <= objValue_min &&...
+        border(3,2) >= objValue_max);
     
     if ~valid
         return;

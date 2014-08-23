@@ -135,7 +135,8 @@ riddleMultipleFunc.t = T;
 %Configuration space size ( main border )
 riddleMultipleFunc.b =  [0,0; 0,10; 15,10; 15,0];
 
-
+%safety distance
+riddleMultipleFunc.s = 0.001;
 
 
 

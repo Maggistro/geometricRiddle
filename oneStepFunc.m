@@ -1,7 +1,7 @@
 function [ nextNode, collision_set ] = oneStepFunc( node,direction,curr_collision_set,riddle )
 %calculates the next node and adapted collision_set in the given direction starting with the
 %curr_collision_set,node and the static information in riddle
-object_pos=floor(abs(direction)/4) + 1 ;
+object_pos=floor((abs(direction)-1)/3) + 1 ;
 
 %% handle rotation
 if mod(abs(direction),3) == 0
@@ -72,11 +72,11 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
         end
         
         %% get nextNode in search direction. if function not in the way, dist = inf.
-        [tempNode,dist] = moveToFunction(node,direction,curr_collision_set{object_pos},func,def);
+        [tempNode,dist] = moveToFunction(node,direction,curr_collision_set{object_pos},riddle.b,func,def,object.above{function_number});
         
         %save new minimum ( closest function in the way ) and nextNode
-        if abs(dist) < min_dist && min_dist>0
-            min_dist = min(abs(min_dist),abs(dist))*sign(min_dist);
+        if abs(dist) < abs(min_dist)
+            min_dist = min(abs(min_dist),abs(dist))*sign(dist);
             nextNode=tempNode;
         end
     end

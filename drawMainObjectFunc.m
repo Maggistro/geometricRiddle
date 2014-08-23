@@ -24,6 +24,7 @@ for objectNumber=1:length(figureData.o)
         end
         plot(points,values,color);      
     end
+    plot(temp.mid(1),temp.mid(2),'*');
 end
 
 %% plot target

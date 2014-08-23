@@ -33,7 +33,9 @@ while(~ismember(target,R))
 end
 \end{lstlisting}
 
-\subsection{The function oneStep}
+The functions oneStep and isValid are now explained in detail for the representation of objects as points list and function list.
+\subsection{Implementation with point list}
+\subsubsection{The function oneStep}
 $[\textbf{nextNode}, \textbf{newCollSet} ]=oneStep(\textbf{node, direction, collSet,riddle, jump\_over})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set equals a new hyperplane in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
@@ -149,11 +151,18 @@ end
 \end{lstlisting}
 This \textbf{newCollSet} is then returned together with \textbf{nextNode}.
 
-\subsection{isValid}
+\subsubsection{isValid}
 %TODO
-\subsection{Helper functions}
+\subsubsection{Helper functions}
 Providing a better insight into the code, some of the most important helper functions are explained in detail. For all other functions, the code manual will be used as a reference.
 \subsubsection{getRims}
 %TODO
 \subsubsection{changeOneObject}
 %TODO
+
+\subsection{Implementation with function list}
+%TODO
+\subsubsection{oneStep}
+\subsubsection{isValid}
+\subsubsection{Helper functions}
+\subsubsection{move....}
