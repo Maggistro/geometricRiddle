@@ -4,12 +4,32 @@ Introduction:
 Programming enviroment and tools.
   - get matlab bib entry
   
-Basics
+Basics                         d
   - enter formula for angle beetween vectors
   - plots of A and B
   - enter formula for convex hull
-  - think about linear programming explanation( usefull, if so another example )
+  - think about linear programming explanation( usefull, if so another example ) or remove linear programming???
+  - pathfinding in graphs
+
+concept
+  - explain function representation
   
+implementation 
+  - isValid, getRims and changeOneObject
+  - whole part for functions, same structure <-- HUGE
+  
+results
+  - generate testriddles
+  
+discussion
+  - vertical lines
+  - more problems???
+  
+conclusion
+  - Appliances and Summary
+  
+bibliography
+  - find something to put in there <-- HUGE
   
   
   reprogram getConvexSubset with simple minX minY points ( why should that not work??)
@@ -22,14 +42,15 @@ representation: Object1 = object.coeff = {[x2,x1,x0],....}?
                 Border = border.points = {[x1,y1],[x2,y2],[x3,y3],[x4,y4]};
   
   
-  TODOs: - current test for inTargetCell is flawed ( to picky )
+  TODOs: - current test for inTargetCell is flawed ( to picky )        This is done by connection each corner of the main object with the target area and checking those functions for intersection.
          - no movement of anything other than main object. Also no movement to border!!!!! <-- SOLVED
          - increase speed by only looking at specific function ( use above/below and direction )?
          - improve isValid ( solve function to slow, need other way) <- SOLVED. Apply to other calls for solve
-         - moveFunc wrong ( not correct for x,y )  <-- SOLVED
+         - moveFunc wrong ( not correct for x,y )  <-- SOLVED                                              
          - no movement along axis if objects "touch" each other
 .......................................................
 Programming Steps bottom-up
+
 
 principle for solving problem
   - break down to multidimensional search

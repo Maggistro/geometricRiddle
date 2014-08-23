@@ -75,7 +75,7 @@ for obj_function_number = 1:length(object.coeff)
             
             if(diff_min==0 || diff_max==0) %check if object lies besides function
                 if(sign(direction)==sign(above)) %if object is moving away from function
-                    return;
+                    continue;
                 end
             end
             
@@ -175,7 +175,7 @@ for obj_function_number = 1:length(object.coeff)
         
         if(diff_min==0 || diff_max==0) %check if object lies besides function
             if(sign(direction)==sign(above)) %if object is moving away from function
-                return;
+                continue;
             end
         end
         

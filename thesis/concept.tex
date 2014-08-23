@@ -57,3 +57,25 @@ Cons:\\
 \item Rotation needs discrete steps along the config dimensions $\phi_i$, therefore more exact calculations lead to higher need in computation power.
 \item The more corners an object has, the more points its convex hull with other object will have. One point more in object $O_i$ can lead to $n$ more points in $C_{O_i-O_j}$ with $n$ beeing the number of points in $O_j$. As we use the vectors connecting the points in $C_{O_i-O_j}$, $n$ more cells will arise in the search space.
 \end{itemize}
+
+\subsection{Objects as function list}
+Another option of describing an object is the representation with functions and definition ranges. Each function is then represented as a list of coefficients $a,b,c$ describing the polynom $ax^2 + bx + c$. Also an anchor point as a reference is needed for rotating the object.\\
+The algorithm slightly changes for this representation, solving problems that existed with the point list representation, but introducing new ones. One step of moving an object in one direction would be described as follows:
+\begin{enumerate}
+\item The object $O_i$ is moved function by function. So for each function $f_{o_i}$ describing a border, this function will be moved in the searching direction. By eliminating all functions that are not in the way by looking at the definition/value ranges, a lot of computing time is saved.\\ 
+Iterating over all other objects $O_j \in O \wedge j \neq i$ and their functions $f_{o_j}$ and solving $f_{o_i} = f_{o_j}$ then yields a solution with information about the distance in search direction.The new configuration for the object $O_i$ can then be computed.
+\item The function with the minimal distance is saved as the closest function to move to together with the computed configuration. If no function could be found, the object is moved to the border in the searching direction.
+\item The whole object will then be transformed according to the configuration saved, or if the object is already able to be moved to the target configuration in a direct line, the program ends. This is done by connection each corner of the main object with the target area and checking those functions for intersection.
+\end{enumerate}
+
+As already mentioned, this representation also is a tradeoff.
+Pros:
+\begin{itemize}
+\item The configuration space does not need to be computed, as it is defined directly by the anchor points of the objects itself. The outer rim $R_mo$ is considered seperate from the object. Each non-moving object is treated just like a normal object, only that its anchorpoints values in the configurationspace along $x,y$ and $\phi$ are constant.
+\item With the ability to get rid of function that are not in the way, the number of search cells goes down due to the absence of "ghost planes".
+\end{itemize}
+Cons:\\
+\begin{itemize}
+\item The object transformation need a little more time as for each function the parameters need to be recalculated. This 
+\item Rotation still needs discrete steps along the config dimensions $\phi_i$, therefore more exact calculations lead to higher need in computation power.
+\end{itemize}

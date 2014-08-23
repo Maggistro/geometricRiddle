@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.23)  12 JUL 2014 18:19
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.23)  16 AUG 2014 11:59
 entering extended mode
 **C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/thesis.t
 ex
@@ -1089,7 +1089,7 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count158
 
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\titlepage
-.tex <Logo_Uni_Luebeck_300dpi.png, id=142, 284.5029pt x 113.7048pt>
+.tex <Logo_Uni_Luebeck_300dpi.png, id=158, 284.5029pt x 113.7048pt>
 File: Logo_Uni_Luebeck_300dpi.png Graphic file (type png)
 
 <use Logo_Uni_Luebeck_300dpi.png>
@@ -1127,7 +1127,10 @@ Overfull \vbox (1.9pt too high) has occurred while \output is active []
 
 ]
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\thesis.to
-c [5])
+c
+Underfull \vbox (badness 6364) has occurred while \output is active []
+
+ [5])
 \tf@toc=\write7
 
 Overfull \vbox (1.9pt too high) has occurred while \output is active []
@@ -1158,19 +1161,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<circleRiddle.png, id=218, 747.79375pt x 1056.94875pt>
+<circleRiddle.png, id=238, 747.79375pt x 1056.94875pt>
 File: circleRiddle.png Graphic file (type png)
  <use circleRiddle.png>
 Package pdftex.def Info: circleRiddle.png used on input line 21.
 (pdftex.def)             Requested size: 74.78375pt x 105.70107pt.
 
-<boxRiddle.png, id=219, 747.79375pt x 1056.94875pt>
+<boxRiddle.png, id=239, 747.79375pt x 1056.94875pt>
 File: boxRiddle.png Graphic file (type png)
  <use boxRiddle.png>
 Package pdftex.def Info: boxRiddle.png used on input line 22.
 (pdftex.def)             Requested size: 74.78375pt x 105.70107pt.
 
-<mixedRiddle.png, id=220, 747.79375pt x 1056.94875pt>
+<mixedRiddle.png, id=240, 747.79375pt x 1056.94875pt>
 File: mixedRiddle.png Graphic file (type png)
  <use mixedRiddle.png>
 Package pdftex.def Info: mixedRiddle.png used on input line 23.
@@ -1223,7 +1226,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--57
 
  []
 
-) [12]
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+
+ []
+
+) [13] [14
+
+
+
+
+]
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\implement
 ation.tex
 Chapter 4.
@@ -1239,32 +1252,24 @@ LaTeX Font Info:    Font shape `OT1/txtt/m/it' in size <9> not available
 (Font)              Font shape `OT1/txtt/m/sl' tried instead on input line 10.
 LaTeX Font Info:    Font shape `OT1/txtt/bx/n' in size <9> not available
 (Font)              Font shape `OT1/txtt/b/n' tried instead on input line 11.
- [13
+ [15
 
 
 
-
-
-
-
-] [14] [15]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [16])
-[17] [18
-
-
-
-
-]
+] [16] [17] [18])
+[19] [20]
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\results.t
 ex
 Chapter 5.
-) [19
+) [21
 
 
 
-] [20
+
+
+
+
+] [22
 
 
 
@@ -1273,11 +1278,15 @@ Chapter 5.
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\discussio
 n.tex
 Chapter 6.
-) [21
+
+Underfull \vbox (badness 4779) has occurred while \output is active []
+
+ [23
 
 
 
-] [22]
+])
+[24]
 No file conclucsion.tex.
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
@@ -1287,7 +1296,7 @@ Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\thesis.lo
 f)
 \tf@lof=\write8
- [23
+ [25
 
 
 
@@ -1299,7 +1308,7 @@ f)
 
 
 
-] [24
+] [26
 
 
 
@@ -1309,10 +1318,10 @@ t)
 \tf@lot=\write9
 
 No file thesis.nls.
-[25
+[27
 
 
-] [26
+] [28
 
 
 
@@ -1322,10 +1331,10 @@ LaTeX Warning: Citation `Zitat' undefined on input line 85.
 
 
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\thesis.bb
-l) [27
+l) [29
 
 
-] [28
+] [30
 
 
 
@@ -1354,17 +1363,17 @@ on.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 94.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 94.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 6C3EAE0B3A43666D66E32910100B3D21;2403.
+(rerunfilecheck)             Checksum: 239FC9DCCB3380B2C5B1F321BDE388F9;2783.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14003 strings out of 494045
- 206456 string characters out of 3150792
- 539003 words of memory out of 3000000
- 16800 multiletter control sequences out of 15000+200000
+ 14025 strings out of 494045
+ 206700 string characters out of 3150792
+ 551029 words of memory out of 3000000
+ 16804 multiletter control sequences out of 15000+200000
  15957 words of font info for 58 fonts, out of 3000000 for 9000
  718 hyphenation exceptions out of 8191
  45i,12n,51p,724b,2393s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1386,9 +1395,9 @@ msfonts/cm/cmti10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/symbol
 s/msbm10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/txfonts/txbtt.pfb><G:/An
 wendungen/Miktex/fonts/type1/public/txfonts/txtt.pfb><G:/Anwendungen/Miktex/fon
 ts/type1/public/txfonts/txtt.pfb>
-Output written on thesis.pdf (34 pages, 433311 bytes).
+Output written on thesis.pdf (36 pages, 441267 bytes).
 PDF statistics:
- 588 PDF objects out of 1000 (max. 8388607)
- 195 named destinations out of 1000 (max. 500000)
- 301 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 631 PDF objects out of 1000 (max. 8388607)
+ 213 named destinations out of 1000 (max. 500000)
+ 333 words of extra memory for PDF output out of 10000 (max. 10000000)
 
