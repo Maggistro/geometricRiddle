@@ -6,12 +6,13 @@ function [nextNode, newCollSet] = oneStep(node,direction,collSet,riddle,jump_ove
 %same point. Valid check will elimate it later.
 newCollSet = collSet;
 object_pos=floor((abs(direction)-1)/3) + 1 ;
+rotationStep = 1;
 
 
 if mod(abs(direction),3) == 0
     %create new node
     tempAdd = zeros(1,length(node));
-    tempAdd(abs(direction))=sign(direction)*1;
+    tempAdd(abs(direction))=sign(direction)*rotationStep;
     nextNode = node + tempAdd;
 
     for object=1:length(riddle.o)

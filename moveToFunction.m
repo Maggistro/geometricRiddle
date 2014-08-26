@@ -73,11 +73,18 @@ for obj_function_number = 1:length(object.coeff)
             %    end
             %end
             
-            if(diff_min==0 || diff_max==0) %check if object lies besides function
-                if(sign(direction)==sign(above)) %if object is moving away from function
+            if(diff_min==0 || diff_max==0) %check if object function overlapps function
+                %check if overlapp is a point
+                if(objValue_min == objValue_max)
                     continue;
                 end
-            end
+                %check if function borders the object on the other side
+                if(sign(direction)==sign(object.above{obj_function_number})) 
+                    continue;
+                end
+            end %else calculate
+            
+            
             
             
             %% check if func lies in search direction
@@ -165,7 +172,6 @@ for obj_function_number = 1:length(object.coeff)
             
             diff_min = funcX_min - objX_min;
             diff_max = funcX_max - objX_max;
-        end
         %% check if function collide
         %if(sign(diff_min)~=sign(diff_max))
         %    if(sign(diff_min)~=0 && sign(diff_max)~=0)
@@ -173,16 +179,32 @@ for obj_function_number = 1:length(object.coeff)
         %    end
         %end
         
-        if(diff_min==0 || diff_max==0) %check if object lies besides function
-            if(sign(direction)==sign(above)) %if object is moving away from function
+        %if(diff_min==0 || diff_max==0) %check if object lies besides function
+        %    if(sign(direction)==sign(above)) %if object is moving away from function
+        %        continue;
+        %    end
+        %end
+        
+        if(diff_min==0 ||diff_max==0) %object function overlapps function
+            if diff_min==0 %pick the point at which the functions overlapp
+                contactPoint = objX_min;
+            else
+                contactPoint = objX_max;
+            end
+            %calculate the relative position of object to function ( >0 =
+            %left, <0 = right )
+            relPos = object.above{obj_function_number} * diffAtPoint(obj_func,contactPoint);
+            %continue if bordered at other side or horizontal line
+            if (sign(direction)~=sign(relPos)) || (relPos == 0) 
                 continue;
             end
-        end
+        end %else calculate the needed movement
         
         %% check if func lies in search direction
         %if(sign(diff_min)~=sign(direction))
         %    return;
         %end
+        end
         
         %% choose smaller distance...
         if(abs(diff_min)<abs(diff_max)&&abs(diff_min)<abs(dist))

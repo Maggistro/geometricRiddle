@@ -22,7 +22,9 @@ GRAPHIC WITH O1 AS MAIN OBJECT???
 
 \section{Problems with function list implementation}
 \subsection{Vertical lines}
-
-
+Due to the nature of a function, vertical lines can not be represented. This leads to the rule that all objects in the riddle can not have a vertical line even after rotating. 
+To still be able to draw an object with a vertical line, a function is defined with a very high gradient and setting the starting point at the x-coordinate of the vertical line. This leads to a near vertical line, that is still a function, and as such can be used in the calculations.\\
+The drawback is clearly the loss of preciseness. How strong this loss is depends on the initial gradiant one gives the function. A seemingly good idea would be to use the max value of the variables used in calculations (e.g. double = $1.7977 \cdot 10^308$ ). But if we do this without beeing sure that this value will never be used in a way, such that the solution of a calculation could be greater than the gradiant, we would get a overflow.\\
+Thus, a value needs to be found that leaves enough room for calculations and still keeps the precisionloss as small as possible. The exakt number depends on the system the algorithm is used in. Also one needs to cap the gradient after each rotation, so that it does not exceed the given max value.
 
 

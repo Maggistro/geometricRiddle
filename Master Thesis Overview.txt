@@ -1,28 +1,33 @@
 Introduction:
   - Elaborate use cases a bit more
+  - Research current forms of collision calculation and open pathplanning
 
 Programming enviroment and tools.
   - get matlab bib entry
   
-Basics                         d
+Basics
   - enter formula for angle beetween vectors          <-- done
   - plots of A and B                    <-- done
-  - enter formula for convex hull
+  - enter formula for convex hull                               <-- done
+    - Minkowski-Summe  + standart algorithmus           <-- done
   - think about linear programming explanation( usefull, if so another example ) or remove linear programming???   <-- removed, need rethinking
-  - pathfinding in graphs
+  - pathfinding in graphs      <-- done
 
 concept
-  - explain function representation
+  - explain function representation  <-- done
+  - explain calculation of collision set ( and remove from implementation )
   
 implementation 
-  - isValid, getRims and changeOneObject
+  - getRims <-- picture for angle difference calculation needed 
   - whole part for functions, same structure <-- HUGE
+   -- inTargetCell needs update to working function
   
 results
   - generate testriddles
   
 discussion
-  - vertical lines
+  - pictures
+  - vertical lines        <-- done
   - more problems???
   
 conclusion
@@ -45,7 +50,7 @@ representation: Object1 = object.coeff = {[x2,x1,x0],....}?
   TODOs: - current test for inTargetCell is flawed ( to picky )        This is done by connection each corner of the main object with the target area and checking those functions for intersection.
          - no movement of anything other than main object. Also no movement to border!!!!! <-- SOLVED
          - increase speed by only looking at specific function ( use above/below and direction )?
-         - improve isValid ( solve function to slow, need other way) <- SOLVED. Apply to other calls for solve
+         - improve isValid ( solve function to slow, need other way) <- SOLVED. Apply to other calls for solve  ( moveToFunc )
          - moveFunc wrong ( not correct for x,y )  <-- SOLVED                                              
          - no movement along axis if objects "touch" each other
 .......................................................
