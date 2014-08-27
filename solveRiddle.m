@@ -9,7 +9,7 @@ axis ([0 10 0 10]);
 figureData.fig = 1;
 figureData.start = riddle.m.mid;
 figureData.current = riddle.m.mid;
-figureData.pause = 0.5;
+figureData.pause = 0;
 if(func)
     figureData.o = riddle.o;
     figureData.b = riddle.b;

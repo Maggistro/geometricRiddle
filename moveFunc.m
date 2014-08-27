@@ -23,10 +23,10 @@ if(mod(abs(dir),3)==1) %along x axis
 elseif(mod(abs(dir),3)==2)%along y axis
     for function_number=1:length(object.coeff)%iterate over all functions
        func = object.coeff{function_number};
-       func(3) = func(3) - diff;
+       func(3) = func(3) + diff;
        object.coeff{function_number}=func;       
     end
-    object.mid(2)=object.mid(2) - diff;
+    object.mid(2)=object.mid(2) + diff;
 else
     error('not a valid direction to move object along');
 end

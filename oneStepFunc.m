@@ -3,6 +3,9 @@ function [ nextNode, collision_set ] = oneStepFunc( node,direction,curr_collisio
 %curr_collision_set,node and the static information in riddle
 object_pos=floor((abs(direction)-1)/3) + 1 ;
 
+if node ==[2.5000    1.0000         0    7.5000 8.0000         0    7.5000    5.0000 0    7.5000    2.0000         0];
+    node;
+end
 %% handle rotation
 if mod(abs(direction),3) == 0
     %create new node
@@ -21,7 +24,28 @@ min_dist = inf;
 nextNode = node;
 ext_x=0;
 
+
 inTargetCell = object_pos==1; %only check for target cell if main object is moved
+if(inTargetCell) %if main object, calculate connection to target
+    object = curr_collision_set{object_pos}; %pick main object
+    connection = cell(length(object.coeff),1); % init connection array
+    px = object.def{1}(1);
+    for i=1:length(object.coeff)
+        if px==object.def{i}(1); %pick next x-coordinate ( move along border )
+            px=object.def{i}(2);
+            tx=riddle.t.def{i}(2);
+        else
+            px=object.def{i}(1);
+            tx=riddle.t.def{i}(1);
+        end
+        %calculate y-coordinate
+        py = object.coeff{i}(1)*px*px + object.coeff{i}(2)*px + object.coeff{i}(3);
+        ty = riddle.t.coeff{i}(1)*tx*tx + riddle.t.coeff{i}(2)*tx + riddle.t.coeff{i}(3);
+        connection(i)={[ (py-ty)/(px-tx) , py - (py-ty)/(px-tx)*px ]}; %set function
+    end
+end
+
+
 for object_number=1:length(curr_collision_set) %iterate over all objects
     if(object_number==object_pos) %skip if object is moving object
         continue;
@@ -58,17 +82,29 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
         
         %% check if point is in same cell as target
         if(inTargetCell)
-            
-            %check if x is ok
-            inTargetCell = inTargetCell &&...
-                sign(node(1)-def(1)) == sign(riddle.t.mid(1) - def(1)) &&... %left border
-                sign(node(1)-def(2)) == sign(riddle.t.mid(1) - def(2)) &&... %right border
-                (func(1)==0||(sign(node(1)-ext_x) == sign(riddle.t.mid(1) - ext_x))); %quadratic function only
-            
-            %check if y is ok
-            inTargetCell = inTargetCell &&...
-                sign(node(2)-max_y) == sign(riddle.t.mid(2) - max_y) &&... %upper border
-                sign(node(2)-min_y) == sign(riddle.t.mid(2) - min_y); %lower border
+            for i=1:length(connection)
+            if(func(1)==0) %linear case
+                x1=(connection{i}(2)-func(3))/(func(2) - connection{i}(1));
+                x2=x1;
+            else %quadratic case
+                a=func(1);
+                b=func(2)-connection{i}(1);
+                c=func(3)-connection{i}(2);
+                root = b^2 - 4*a*c;
+                if root==0 % if solution exists
+                    x1 = (-b)/(2*a);
+                    x2=x1;
+                elseif root>0
+                    x1 = (-b + sqrt(root))/(2*a);
+                    x2 = (-b - sqrt(root))/(2*a);
+                end
+            end
+            %check for crossing point
+            if (def(1)<=x1 && def(2)>=x1)...
+                        || (def(1)<=x2 && def(2)>=x2)
+                        inTargetCell = false;
+            end
+            end
         end
         
         %% get nextNode in search direction. if function not in the way, dist = inf.
@@ -86,7 +122,7 @@ end
 curr_collision_set{object_pos}=moveFunc(min_dist,direction,curr_collision_set{object_pos});
 collision_set = curr_collision_set;
 
-if inTargetCell && object_pos==1
+if inTargetCell
     nextNode(1:3) = riddle.t.mid;
     return
 end
