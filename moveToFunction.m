@@ -201,9 +201,9 @@ for obj_function_number = 1:length(object.coeff)
         end %else calculate the needed movement
         
         %% check if func lies in search direction
-        %if(sign(diff_min)~=sign(direction))
-        %    return;
-        %end
+        if(sign(diff_min)~=sign(direction) && diff_min ~=0)
+            return;
+        end
         end
         
         %% choose smaller distance...
@@ -214,6 +214,10 @@ for obj_function_number = 1:length(object.coeff)
             nextNode(abs(direction)) = node(abs(direction)) + diff_max; %... and nextNode;
             dist = diff_max;
         end
+        if nextNode==[7.5 5 0 7.5 8 0 7.5 5 0 7.5 2 0]
+            node;
+        end
+        
     end
 end
 
