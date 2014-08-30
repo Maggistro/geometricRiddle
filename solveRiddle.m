@@ -9,7 +9,7 @@ axis ([0 10 0 10]);
 figureData.fig = 1;
 figureData.start = riddle.m.mid;
 figureData.current = riddle.m.mid;
-figureData.pause = 0;
+figureData.pause = 0.5;
 if(func)
     figureData.o = riddle.o;
     figureData.b = riddle.b;
@@ -25,13 +25,11 @@ end
 if(func)
     Path = path_by_dijkstraFunc(riddle,figureData);
 else
+    warning('off','MATLAB:rankDeficientMatrix');
+    warning('off','MATLAB:singularMatrix');
     Path = path_by_dijkstra(riddle,figureData);
 end
 
-
-figure(2);
-plot(Path(:,1),Path(:,2),'black');
-axis([0 17 0 12]);
 msg=Path;
 
 end

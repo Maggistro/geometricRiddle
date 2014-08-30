@@ -1,4 +1,4 @@
-function valid = isValidFunc(border,collision_set)
+function valid = isValidFunc(border,collision_set,direction)
 %returns wether the current configuration is valid or not
 valid=true;
 
@@ -9,16 +9,20 @@ for object_number_first = 1:length(collision_set)
     %check if object is inside border
     valid = valid & isInsideBorder(border,firstObject);
     
+    %if(mod(abs(direction),3)==0)
+       
     %pick second object
-    %for object_number_second = object_number_first+1:length(collision_set)
-    %    secondObject = collision_set{object_number_second};
+    for object_number_second = object_number_first+1:length(collision_set)
+        secondObject = collision_set{object_number_second};
     
         %check if second object is inside first object or otherway around
-   %     valid = valid & isInsideFunc(firstObject,secondObject);
-   %     if(~valid)
-   %         return;
-   %     end
-   % end
+        valid = valid & isInsideFunc(firstObject,secondObject);
+        if(~valid)
+           return;
+        end
+    end
+    
+    %end
 end
 
 

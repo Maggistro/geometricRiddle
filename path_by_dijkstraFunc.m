@@ -18,6 +18,7 @@ for i=1:(length(riddle.o)*3)*2
     end
 end
 
+directions = [1 -1 2 -2 3 -3 6 -6];
 
 %initial configuration vector for start and target
 start = riddle.m.mid;
@@ -26,7 +27,7 @@ for i=2:length(riddle.o)
     start = [start,riddle.o{i}.mid];
     target = [target,riddle.o{i}.mid];
 end
-[nextVec] = isValidFunc(riddle.b,next_collision_set);
+[nextVec] = isValidFunc(riddle.b,next_collision_set,1);
 
 %initialwerte
 %Rand
@@ -51,7 +52,7 @@ collision_set{1} = next_collision_set;
     drawMainObjectFunc(figureData);
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
-    unvisited_D= D;
+    unvisited_D= H;
     unvisited_D(V==1)=inf;
     [~ ,next_position]= min(unvisited_D);
     next=R(next_position,:);
@@ -66,7 +67,7 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     for i=1:length(directions) % für jede Richtung auf x,y
         %get all nodes in front of next obstacle line
         [possible_next,next_collision_set] = oneStepFunc(next,directions(i),collision_set{next_position},riddle); % berechne nächsten knoten
-        if isValidFunc(riddle.b,next_collision_set) % when der knoten erlaubt ist
+        if isValidFunc(riddle.b,next_collision_set,directions(i)) % when der knoten erlaubt ist
             if ~sum(sum(abs(R - ones(size(R,1),1)*possible_next)<0.001,2)==size(R,2)) % und nicht im Rand ist
                 R=[R;possible_next]; %füge ihn hinzu
                 collision_set{length(D)+1} = next_collision_set; %set his collision information
@@ -95,8 +96,8 @@ current = R(temp==1,:);
 figureData.pause=1;
 while(sum(current~=start)~=0) %solange bis zurück am anfang
      [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
-    figureData.o = collision_set{find(temp)};
-    drawMainObjectFunc(figureData);
+    %figureData.o = collision_set{find(temp)};
+    %drawMainObjectFunc(figureData);
      Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter
 

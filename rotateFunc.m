@@ -22,6 +22,9 @@ for func_number=1:length(object.coeff)
             def(1)=rot_max(1);
             def(2)=rot_min(1);
             
+            %chance relativ object position
+            object.above{func_number} = object.above{func_number}*-1;
+            
             %recalculate coefficients
             func(2) = (rot_min(2)-rot_max(2))/(def(2)-def(1));
             func(3) = rot_max(2) - func(2)*def(1);

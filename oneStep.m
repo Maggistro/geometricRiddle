@@ -33,7 +33,7 @@ end
 min_dist = inf;
 nextNode = node;
 temp = collSet{object_pos};
-temp{length(temp)+1} = riddle.b{object_pos};
+temp{length(temp)+1,1} = riddle.b{object_pos};
 %if(sum(abs(node-[ 9.3568    6.9987    1.0000   10.4952    5.0000   -2.0000])<0.001)==6)
 %    warning('on','MATLAB:rankDeficientMatrix');
 %    warning('on','MATLAB:singularMatrix');
@@ -53,9 +53,9 @@ for object=temp'
         %check if point is in same cell as target
         if(inTargetCell)
             %find out if direct way to target is possible
-            temp=(node(1:2) - offset)';
+            tempWay=(node(1:2) - offset)';
             A=[vector', -node_to_target];
-            sol = A\temp;
+            sol = A\tempWay;
             
             point_on_line = offset + sol(1)*vector;
             point_on_line = node(1:2)' + sol(2)*node_to_target;
@@ -67,19 +67,19 @@ for object=temp'
         end
         
         %check if line is parallel to searching direction
-        if(vector(mod(mod(abs(direction),3),2)+1)<0.001)
+        if(abs(vector(mod(mod(abs(direction),3),2)+1))<0.001)
             continue;
         end
         
         %get point on same x,y coordinate
         %get x to move in y direction and otherwise
         if(mod(abs(direction),3)==1)
-            if(x(2,2)<0.001)
+            if(abs(x(2,2))<0.001)
                 continue;
             end
             p = offset + x(2,2)*vector;%get point on same y
         else
-            if(x(1,1)<0.001)
+            if(abs(x(1,1))<0.001)
                 continue;
             end
             p = offset + x(1,1)*vector;%get point on same x

@@ -38,8 +38,8 @@ T.mid=[12.5,7,0];
 riddle.t = T;
 
 %Configuration space size ( main border )
-B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8];
-B_o=[1.5 4; 10.5 4; 10.5 6; 1.5 6];
+B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8; 1.5 2];
+B_o=[1.5 4; 10.5 4; 10.5 6; 1.5 6; 1.5 4];
 riddle.b = {B_m, B_o}; 
 
 
@@ -85,11 +85,50 @@ T.mid=[12.5,7,0];
 riddleMultiple.t = T;
 
 %Configuration space size ( main border )
-B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8];
-B_o=[1.5 2; 10.5 2; 10.5 8; 1.5 8];
+B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8; 1.5 2];
+B_o=[1.5 2; 10.5 2; 10.5 8; 1.5 8; 1.5 2];
 riddleMultiple.b = {B_m, B_o, B_o, B_o}; 
 
 %% riddle for function representation
+
+
+% simple rotation riddle
+
+%All fixed rim objects
+riddleRotationFunc.r={};
+
+%Obstacle O
+O.coeff = {[0,600,-4198],[0,0,8],[0,600,-4798],[0,0,2]};
+O.def = {[7,7.01],[7.01,8.01],[8,8.01],[7,8]}; 
+O.above = {-1, -1, 1 ,1};
+O.mid=[7.5,5,0];
+
+%Mainobject M
+M.coeff = {[0,200,-396],[0,0,6],[0,200,-596],[0,0,4]};
+M.def = {[2,2.01],[2.01,3.01],[3,3.01],[2,3]}; 
+M.above = {-1, -1, 1 ,1};
+M.mid=[2.5,5,0];
+riddleRotationFunc.m = M;
+
+
+%All movable objects
+riddleRotationFunc.o = {M,O};
+
+%Target T
+T.data = [12,6; 13,6; 13,8; 12,8; 12,6];
+T.coeff = {[0,200,-2394],[0,0,8],[0,200,-2594],[0,0,6]};
+T.def = {[12,12.01],[12.01,13.01],[13,13.01],[12,13]}; 
+T.above = {-1, -1, 1 ,1};
+T.mid=[12.5,7,0];
+riddleRotationFunc.t = T;
+
+%Configuration space size ( main border )
+riddleRotationFunc.b =  [0,0; 0,10; 15,10; 15,0];
+
+
+%safety distance
+riddleRotationFunc.s = 0.001;
+
 
 %simple translation riddle
 
@@ -146,6 +185,14 @@ warning('off','MATLAB:rankDeficientMatrix');
 warning('off','MATLAB:singularMatrix');
 tic
     %set flag to true for function implementation, false for vector
-    out = solveRiddle(riddleMultipleFunc,true);
+    out = solveRiddle(riddle,false);
 toc
 
+figure(2);
+hold on;
+plot(out(:,1),out(:,2),'black');
+plot(out(:,4),out(:,5),'blue');
+%plot(out(:,7),out(:,8),'blue');
+%plot(out(:,10),out(:,11),'blue');
+axis([0 17 0 12]);
+hold off;

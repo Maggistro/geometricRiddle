@@ -3,9 +3,6 @@ function [ nextNode, collision_set ] = oneStepFunc( node,direction,curr_collisio
 %curr_collision_set,node and the static information in riddle
 object_pos=floor((abs(direction)-1)/3) + 1 ;
 
-if node ==[2.5000    1.0000         0    7.5000 8.0000         0    7.5000    5.0000 0    7.5000    2.0000         0];
-    node;
-end
 %% handle rotation
 if mod(abs(direction),3) == 0
     %create new node

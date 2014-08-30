@@ -47,12 +47,13 @@ representation: Object1 = object.coeff = {[x2,x1,x0],....}?
                 Border = border.points = {[x1,y1],[x2,y2],[x3,y3],[x4,y4]};
   
   
-  TODOs: - current test for inTargetCell is flawed ( to picky )        This is done by connection each corner of the main object with the target area and checking those functions for intersection.
+  TODOs: - current test for inTargetCell is flawed ( to picky )  <--done      This is done by connection each corner of the main object with the target area and checking those functions for intersection.
          - no movement of anything other than main object. Also no movement to border!!!!! <-- SOLVED
          - increase speed by only looking at specific function ( use above/below and direction )?
          - improve isValid ( solve function to slow, need other way) <- SOLVED. Apply to other calls for solve  ( moveToFunc )
          - moveFunc wrong ( not correct for x,y )  <-- SOLVED                                              
-         - no movement along axis if objects "touch" each other
+         - no movement along axis if objects "touch" each other       <-- done
+         - rotation doesnt check for collision --> need isValid or implement at rotation
 .......................................................
 Programming Steps bottom-up
 

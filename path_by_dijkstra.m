@@ -24,6 +24,7 @@ for i=1:(length(riddle.o)*3)*2
     end
 end
 
+directions = [ 1 -1 2 -2 3 -3 6 -6];
 
 %initial configuration vector for start and target
 start = riddle.m.mid;
@@ -53,7 +54,7 @@ collision_set{1} = next_collision_set;
 
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
-    unvisited_D= H;
+    unvisited_D= D+H;
     unvisited_D(V==1)=inf;
     [~ ,next_position]= min(unvisited_D);
     next=R(next_position,:);
@@ -78,7 +79,7 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
                 pn_position=find(sum(abs(R - ones(size(R,1),1)*possible_next)<0.001,2)==size(R,2)); %suche position des knotens im Rand
                 if(D(pn_position)>D(next_position)+0.1) % wenn Randknoten weiter weg ist als momentaner weg
                     D(pn_position)=D(next_position)+0.1; % update für entfernung
-                    P(pn_position,:)=next; %und trage als vorgänger betrachteten knoten ein
+                    P(pn_position(1),:)=next; %und trage als vorgänger betrachteten knoten ein
                 end %wenn Randknoten näher ist ist alles ok, knoten muss nicht hinzugefügt werden
             end
    
@@ -103,12 +104,12 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
         end %wenn knoten nicht erlaubt ist nicht betrachten        
     end
     
-    %figureData.collision = next_collision_set;
-    %figureData.current = next;
-    %figureData.start = start;
-    %drawMainObject(figureData);
+    figureData.collision = next_collision_set;
+    figureData.current = next;
+    figureData.start = start;
+    drawMainObject(figureData);
     
-    %fprintf('.');
+    fprintf('.');
     
 end
 
@@ -116,9 +117,9 @@ end
 [~,temp]=ismember(R(:,1:3),target(1:3),'rows');
 current = R(temp==1,:);
 while(sum(current~=start)~=0) %solange bis zurück am anfang
-    figureData.current = current;
-    figureData.start = start;
-    drawMainObject(figureData);
+    %figureData.current = current;
+    %figureData.start = start;
+    %drawMainObject(figureData);
     [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
     Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter

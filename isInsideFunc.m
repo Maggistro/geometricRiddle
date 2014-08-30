@@ -34,7 +34,7 @@ for func_numb_first=1:length(firstObject.coeff)
         %% check if lines intersect
         if (firstFunc(1)==0 && firstFunc(1)==0) %both are linear functions
             
-            if(firstFunc(2) - secondFunc(2)~=0)
+            if(firstFunc(2) - secondFunc(2)~=0) %check for parallel lines
                 cross = (secondFunc(3) - firstFunc(3))/(firstFunc(2) - secondFunc(2));
             else
                      cross = [];
