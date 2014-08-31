@@ -18,7 +18,7 @@ for i=1:(length(riddle.o)*3)*2
     end
 end
 
-directions = [1 -1 2 -2 3 -3 6 -6];
+%directions = [1 -1 2 -2 3 -3 6 -6];
 
 %initial configuration vector for start and target
 start = riddle.m.mid;
@@ -52,7 +52,7 @@ collision_set{1} = next_collision_set;
     drawMainObjectFunc(figureData);
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
-    unvisited_D= H;
+    unvisited_D= D+H;
     unvisited_D(V==1)=inf;
     [~ ,next_position]= min(unvisited_D);
     next=R(next_position,:);
@@ -60,8 +60,8 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     
     
 
-    figureData.o = collision_set{next_position};
-    drawMainObjectFunc(figureData);
+    %figureData.o = collision_set{next_position};
+    %drawMainObjectFunc(figureData);
     
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
@@ -94,10 +94,12 @@ end
 [~,temp]=ismember(R(:,1:3),target(1:3),'rows');
 current = R(temp==1,:);
 figureData.pause=1;
+finish=1
+pause();
 while(sum(current~=start)~=0) %solange bis zurück am anfang
      [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
-    %figureData.o = collision_set{find(temp)};
-    %drawMainObjectFunc(figureData);
+     figureData.o = collision_set{find(sum(abs(R - ones(size(R,1),1)*current)<0.001,2)==size(R,2))};
+     drawMainObjectFunc(figureData);
      Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter
 

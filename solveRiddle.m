@@ -27,6 +27,7 @@ if(func)
 else
     warning('off','MATLAB:rankDeficientMatrix');
     warning('off','MATLAB:singularMatrix');
+    warning('off','MATLAB:nearlySingularMatrix');
     Path = path_by_dijkstra(riddle,figureData);
 end
 

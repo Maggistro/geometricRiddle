@@ -25,7 +25,7 @@ ext_x=0;
 inTargetCell = object_pos==1; %only check for target cell if main object is moved
 if(inTargetCell) %if main object, calculate connection to target
     object = curr_collision_set{object_pos}; %pick main object
-    connection = cell(length(object.coeff),1); % init connection array
+    %connection = cell(length(object.coeff),1); % init connection array
     px = object.def{1}(1);
     for i=1:length(object.coeff)
         if px==object.def{i}(1); %pick next x-coordinate ( move along border )
@@ -38,7 +38,8 @@ if(inTargetCell) %if main object, calculate connection to target
         %calculate y-coordinate
         py = object.coeff{i}(1)*px*px + object.coeff{i}(2)*px + object.coeff{i}(3);
         ty = riddle.t.coeff{i}(1)*tx*tx + riddle.t.coeff{i}(2)*tx + riddle.t.coeff{i}(3);
-        connection(i)={[ (py-ty)/(px-tx) , py - (py-ty)/(px-tx)*px ]}; %set function
+        connection.coeff(i)={[ (py-ty)/(px-tx) , py - (py-ty)/(px-tx)*px ]}; %set function
+        connection.def(i)={[px tx]}; %set definition range
     end
 end
 
@@ -79,14 +80,15 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
         
         %% check if point is in same cell as target
         if(inTargetCell)
-            for i=1:length(connection)
+            inBeetween = [];
+            for i=1:length(connection.coeff)
             if(func(1)==0) %linear case
-                x1=(connection{i}(2)-func(3))/(func(2) - connection{i}(1));
+                x1=(connection.coeff{i}(2)-func(3))/(func(2) - connection.coeff{i}(1));
                 x2=x1;
             else %quadratic case
                 a=func(1);
-                b=func(2)-connection{i}(1);
-                c=func(3)-connection{i}(2);
+                b=func(2)-connection.coeff{i}(1);
+                c=func(3)-connection.coeff{i}(2);
                 root = b^2 - 4*a*c;
                 if root==0 % if solution exists
                     x1 = (-b)/(2*a);
@@ -96,12 +98,34 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
                     x2 = (-b - sqrt(root))/(2*a);
                 end
             end
+        
             %check for crossing point
-            if (def(1)<=x1 && def(2)>=x1)...
-                        || (def(1)<=x2 && def(2)>=x2)
-                        inTargetCell = false;
+            if (((def(1)<=x1 && def(2)>=x1) || (def(1)<=x2 && def(2)>=x2)) &&...%check for func border
+                ((connection.def{i}(1)<=x1 && connection.def{i}(2)>=x1) || (connection.def{i}(1)<=x2 && connection.def{i}(2)>=x2))) %check if beetween main and target
+                        inTargetCell = false; %assume false
+          
+                %check if parallel
+                if abs(func(2)-connection.coeff{i}(1)) < 0.001
+                    inTargetCell = true;
+                end
+                
+                %check if only point
+                if (abs(def(1) - x1) ==0 || abs(def(1) - x2) ==0 ||...
+                    abs(def(2) - x1) ==0 || abs(def(2) - x2) ==0)
+                    inTargetCell = true; 
+                end
+                
+            else
+                %mark if beetween connection lines
+                inBeetween = [inBeetween,connection.coeff{i}(1)*def(1) + connection.coeff{i}(2) < min_y];
+             end
             end
+            
+            %check if beetween connection lines
+            if(sum(inBeetween)==4)
+                inTargetCell = false;
             end
+            
         end
         
         %% get nextNode in search direction. if function not in the way, dist = inf.
