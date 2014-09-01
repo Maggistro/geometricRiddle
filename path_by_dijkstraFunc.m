@@ -18,7 +18,7 @@ for i=1:(length(riddle.o)*3)*2
     end
 end
 
-%directions = [1 -1 2 -2 3 -3 6 -6];
+directions = [1 -1 2 -2 3 -3 4 -4 5 -5];
 
 %initial configuration vector for start and target
 start = riddle.m.mid;
@@ -94,8 +94,7 @@ end
 [~,temp]=ismember(R(:,1:3),target(1:3),'rows');
 current = R(temp==1,:);
 figureData.pause=1;
-finish=1
-pause();
+
 while(sum(current~=start)~=0) %solange bis zurück am anfang
      [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
      figureData.o = collision_set{find(sum(abs(R - ones(size(R,1),1)*current)<0.001,2)==size(R,2))};

@@ -1,10 +1,89 @@
 \chapter{Results}
 If we apply the finished Algorithm to various test data sets, we can get an impression of what the program is capable of.
+For each riddle beeing solved, the algorithms are executed a number of times to calculate an average runtime.\\
+In both cases a A$^\star$ was used as the search algorithm on the resulting graph. As a distance measurement the heuristic in form of the 2-norm of the vector beetween current position and target was added to the stepcount with each step weighting 0.1 units. The starting distance to beetween main object and target is
+10.1980 units.
+\section{Rotation and Translation}
+Using small riddles tailored to either solving by rotation or translation only, an estimation 
+
+\begin{figure}[H]
+%two graphics with rotation and translation
+\end{figure}
+Riddle with one rotation only object:
+\begin{table}
+\centering
+\begin{tabular}{l||c|c|c|}
+Algorithm& fastest & slowest & medium\\\hline
+pList &  18.8819 & 22.8457  & 21.0269 \\
+fList  & 0.3523&0.3703  &0.3587 \\
+\end{tabular}
+\caption{Times in seconds for rotation riddle.}
+\end{table}
+Riddle with translation only object:
+\begin{table}
+\centering
+\begin{tabular}{l||c|c|c|}
+Algorithm& fastest & slowest & medium\\\hline
+pList &  0.1211& 0.1272  & 0.1231 \\
+fList  & 0.0219 & 0.0241 & 0.0228 \\
+\end{tabular}
+\caption{Times in seconds for translation riddle.}
+\end{table}
+
 \section{Small riddles}
-Small riddles containing at most two objects beside the main object.
+Two simple small riddles with 2 and 4 objects as moveable obstacles.
+
+\begin{figure}[H]
+%two graphics with 2 and 4
+\end{figure}
+Riddle with 2 objects:
+\begin{table}
+\centering
+\begin{tabular}{l||c|c|c|}
+Algorithm& fastest & slowest & medium\\\hline
+pList & 4.7801& 5.1930&4.9305\\
+fList  & 1.0082 & 1.0315& 1.0149\\
+\end{tabular}
+\caption{Times in seconds for small riddle with 2 obstacles.}
+\end{table}
+Riddle with 4 objects:
+\begin{table}
+\centering
+\begin{tabular}{l||c|c|c|}
+Algorithm& fastest & slowest & medium\\\hline
+pList & 85.1726 & 90.9629 & 89.3621\\
+fList  & 18.2735 & 21.2764 & 19.6290\\
+\end{tabular}
+\caption{Times in seconds for small riddle with 4 obstacles.}
+\end{table}
+
 \section{Medium riddles}
-Medium riddles containing at most 10 objects beside the main object. %really 10????
-\section{Big riddles}
-Big riddles with more than 10 objects beside the main object.
-\section{Interpretation of testdata}
-Compare the different timeframes to the amount of object, placement and, if solved, the way the algorithm took.
+Bigger riddle with 6 and 8 moveable objects.\\
+\begin{figure}[H]
+%two graphics with 6 and 8
+\end{figure}
+Riddle with 6 objects:
+\begin{table}
+\centering
+\begin{tabular}{l||c|c|c|}
+Algorithm& fastest & slowest & medium\\\hline
+pList &  395.0670 & 415.7986 & 403.9329\\
+fList  &  157.0453 &  167.1498 & 164.2913\\
+\end{tabular}
+\caption{Times in seconds for medium riddle with 6 obstacles.}
+\end{table}
+Riddle with 8 objects:
+\begin{table}
+\centering
+\begin{tabular}{l||c|c|c|}
+Algorithm& fastest & slowest & medium\\\hline
+pList & 1790.5 &1972.5 &1855.4\\
+fList  & & &\\
+\end{tabular}
+\caption{Times in seconds for medium riddle with 8 obstacles.}
+\end{table}
+
+\section{Interpretation}
+As we can see the algorithm working with functions is much faster. But still it scales badly with an increasing amount of objects to work with.
+If we plot these two against each other we see a exponential grow depending on the number of objects involved.
+

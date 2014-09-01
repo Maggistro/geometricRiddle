@@ -76,8 +76,11 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
                     max_y=y;
                 end
             end
-        end
+         end
         
+         if sum(abs(node-[7.505 7.5 0 7.5075 5 0 7.5 5 0 7.5 2.5 0 9.5 7.5 0 9.5 5 0 9.5 2.5 0 5.5 3.5 0 5.5 6.5 0]))<0.01
+                node 
+         end
         %% check if point is in same cell as target
         if(inTargetCell)
             inBeetween = [];
@@ -115,14 +118,14 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
                     inTargetCell = true; 
                 end
                 
-            else
+            elseif ((connection.def{i}(1)<=x1 && connection.def{i}(2)>=x1) || (connection.def{i}(1)<=x2 && connection.def{i}(2)>=x2))
                 %mark if beetween connection lines
                 inBeetween = [inBeetween,connection.coeff{i}(1)*def(1) + connection.coeff{i}(2) < min_y];
              end
             end
             
             %check if beetween connection lines
-            if(sum(inBeetween)==4)
+            if(sum(inBeetween)~=length(connection.coeff) && sum(inBeetween)~=0)
                 inTargetCell = false;
             end
             

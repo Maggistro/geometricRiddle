@@ -2,9 +2,9 @@ function msg = solveRiddle(riddle,func)
 %solveRiddle initialise needed variables and starts search
 %func is a boolean for switching beetween function and vector
 %implementation
-figure(1);
-axis equal;
-axis ([0 10 0 10]);
+%figure(1);
+%axis equal;
+%axis ([0 10 0 10]);
 
 figureData.fig = 1;
 figureData.start = riddle.m.mid;
