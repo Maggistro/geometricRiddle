@@ -1,5 +1,14 @@
 \begin{thebibliography}{1}
 
+\bibitem{nethack}
+Nethack.
+\newblock \\URL: \url{http://www.nethack.org/index.html}.
+
+\bibitem{ComputerScience}
+{\sc Alfred V.~Aho, J. D.~U.}
+\newblock {\em Foundations of Computer Science}, vol.~C Edition.
+\newblock Computer Science Press, 1995.
+
 \bibitem{tool:git}
 {\sc Chacon, S.}
 \newblock {\em Pro Git}, July 2009.

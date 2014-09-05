@@ -46,12 +46,22 @@ riddleRotation.b = {B_m, B_o};
 %simple translation riddle
 
 %Rim R
-R.data = [0,0; 15,0; 15,1; 1,1; 1,9; 15,9; 15,10; 0,10; 0,0];
+R.data = [-1,-1; 16,-1; 16,0; 0,0; 0,10; 16,10; 16,11; -1,11; -1,-1];
 R.mid = [0,0,0];
 
+R1.data = [5,3; 5.5,3; 5.5,10; 5,10; 5,3];
+R1.mid = [5.25,7.5,0];
+
+R2.data = [5,2.5; 13,2.5; 13,3; 5,3; 5,2.5];
+R2.mid = [8,2.75,0];
+
+R3.data = [7,5.5; 15,5.5; 15,6; 7,6; 7,5.5];
+R3.mid = [10,5.75,0];
+
 %All fixed rim objects
-riddleSmall.r={R};
+riddleSmall.r={};
 riddleMultiple.r={R};
+riddleBackward.r = {R1,R2,R3};
 riddleMultipleBig.r={R};
 riddleMultipleBigger.r={R};
 
@@ -90,6 +100,7 @@ O8.mid=[5.5,6.5,0];
 %All movable objects
 riddleSmall.o={M,O1,O2};
 riddleMultiple.o = {M,O1,O2,O4,O5};
+riddleBackward.o = {M};
 riddleMultipleBig.o = {M,O1,O2,O3,O4,O5,O6};
 riddleMultipleBigger.o = {M,O1,O2,O3,O4,O5,O6,O7,O8};
 
@@ -98,24 +109,40 @@ M.data = [2,4; 3,4; 3,6; 2,6; 2,4];
 M.mid=[2.5,5,0];
 riddleSmall.m=M;
 riddleMultiple.m = M;
+riddleBackward.m = M;
 riddleMultipleBig.m = M;
 riddleMultipleBigger.m = M;
 
 %Target T
 T.data = [12,6; 13,6; 13,8; 12,8; 12,6];
 T.mid=[12.5,7,0];
+
+TB.data = [11.9,6.9; 12.9,6.9; 12.9,8.9; 11.9,8.9; 11.9,6.9];
+TB.mid = [12.5,8,0];
+
 riddleSmall.t=T;
 riddleMultiple.t = T;
+riddleBackward.t = TB;
 riddleMultipleBig.t = T;
 riddleMultipleBigger.t = T;
 
 %Configuration space size ( main border )
-B_m=[1.5 2; 15.5 2; 15.5 8; 1.5 8; 1.5 2];
-B_o=[1.5 1.5; 15.5 1.5; 15.5 8.5; 1.5 8.5; 1.5 1.5];
+B = [0 0; 15 0; 15 10; 0 10; 0 0];
+B_m=[0.5 1; 14.5 1; 14.5 9; 0.5 9; 0.5 1];
+B_o=[0.5 0.5; 14.5 0.5; 14.5 9.5; 0.5 9.5; 0.5 0.5];
+B_r=[-10 -10; 20 -10; 20 20; -10 20; -10 -10];
 riddleSmall.b = {B_m, B_o, B_o}; 
 riddleMultiple.b = {B_m, B_o, B_o, B_o, B_o}; 
+riddleBackward.b = {B_m, B_r, B_r, B_r};
 riddleMultipleBig.b = {B_m,B_o, B_o, B_o,B_o, B_o, B_o};
 riddleMultipleBigger.b = {B_m,B_o, B_o, B_o,B_o, B_o, B_o,B_o,B_o};
+
+riddleSmall.bZ = B; 
+riddleMultiple.bZ = B; 
+riddleBackward.bZ = B;
+riddleMultipleBig.bZ = B;
+riddleMultipleBigger.bZ = B;
+
 
 %% riddle for function representation
 
@@ -160,9 +187,26 @@ riddleRotationFunc.s = 0.001;
 
 %simple translation riddles
 
+%Rim objects
+R1.coeff = {[0,7000,-34997],[0,0,10],[0,7000,-38497],[0,0,3]};
+R1.def = {[5,5.001],[5.001,5.501],[5.5,5.501],[5,5.5]}; 
+R1.above = {-1, -1, 1 ,1};
+R1.mid=[5.25,6.5,0];
+
+R2.coeff = {[0,500,-2497.5],[0,0,3],[0,500,-6497.5],[0,0,2.5]};
+R2.def = {[5,5.001],[5.001,13.001],[13,13.001],[5,13]}; 
+R2.above = {-1, -1, 1 ,1};
+R2.mid=[9,2.75,0];
+
+R3.coeff = {[0,500,-3494.5],[0,0,6],[0,500,-7494.5],[0,0,5.5]};
+R3.def = {[7,7.001],[7.001,15.001],[15,15.001],[7,15]}; 
+R3.above = {-1, -1, 1 ,1};
+R3.mid=[10.5,5.75,0];
+
 %All fixed rim objects
 riddleSmallFunc.r={};
 riddleTrans.r={};
+riddleBackwardFunc.r={R1, R2, R3};
 riddleMultipleFunc.r={};
 riddleMultipleBigFunc.r={};
 riddleMultipleBiggerFunc.r={};
@@ -224,6 +268,7 @@ M.above = {-1, -1, 1 ,1};
 M.mid=[2.5,5,0];
 riddleSmallFunc.m = M;
 riddleTrans.m = M;
+riddleBackwardFunc.m = M;
 riddleMultipleFunc.m = M;
 riddleMultipleBigFunc.m = M;
 riddleMultipleBiggerFunc.m = M;
@@ -231,6 +276,7 @@ riddleMultipleBiggerFunc.m = M;
 %All movable objects
 riddleSmallFunc.o = {M,O1,O2};
 riddleTrans.o = {M,O};
+riddleBackwardFunc.o ={M};
 riddleMultipleFunc.o = {M,O1,O2,O4,O5};
 riddleMultipleBigFunc.o = {M,O1,O2,O3,O4,O5,O6};
 riddleMultipleBiggerFunc.o = {M,O1,O2,O3,O4,O5,O6,O7,O8};
@@ -241,8 +287,16 @@ T.coeff = {[0,200,-2394],[0,0,8],[0,200,-2594],[0,0,6]};
 T.def = {[12,12.01],[12.01,13.01],[13,13.01],[12,13]}; 
 T.above = {-1, -1, 1 ,1};
 T.mid=[12.5,7,0];
+
+TB.data = [12,7; 13,7; 13,9; 12,9; 12,7];
+TB.coeff = {[0,200,-2393],[0,0,9],[0,200,-2593],[0,0,7]};
+TB.def = {[12,12.01],[12.01,13.01],[13,13.01],[12,13]}; 
+TB.above = {-1, -1, 1 ,1};
+TB.mid=[12.5,8,0];
+
 riddleSmallFunc.t = T;
 riddleTrans.t = T;
+riddleBackwardFunc.t = TB;
 riddleMultipleFunc.t = T;
 riddleMultipleBigFunc.t = T;
 riddleMultipleBiggerFunc.t = T;
@@ -250,6 +304,7 @@ riddleMultipleBiggerFunc.t = T;
 %Configuration space size ( main border )
 riddleSmallFunc.b =  [0,0; 0,10; 15,10; 15,0];
 riddleTrans.b =  [0,0; 0,10; 15,10; 15,0];
+riddleBackwardFunc.b = [0,0; 0,10; 15,10; 15,0];
 riddleMultipleFunc.b =  [0,0; 0,10; 15,10; 15,0];
 riddleMultipleBigFunc.b = [0,0; 0,10; 15,10; 15,0];
 riddleMultipleBiggerFunc.b = [0,0; 0,10; 15,10; 15,0];
@@ -258,6 +313,7 @@ riddleMultipleBiggerFunc.b = [0,0; 0,10; 15,10; 15,0];
 %safety distance
 riddleSmallFunc.s = 0.001;
 riddleTrans.s = 0.001;
+riddleBackwardFunc.s = 0.001;
 riddleMultipleFunc.s = 0.001;
 riddleMultipleBigFunc.s = 0.001;
 riddleMultipleBiggerFunc.s = 0.001;
@@ -272,7 +328,7 @@ Paths = cell(10,1);
 for i=1:11
     tic;
     %set flag to true for function implementation, false for vector
-    Paths(i) = {solveRiddle(riddleMultipleBiggerFunc,true)};
+    Paths(i) = {solveRiddle(riddleBackward,false)};
     times(i)=toc
 end
 

@@ -7,15 +7,17 @@ figure(figureData.fig);
 
 %adapt objects
 
-plot(figureData.Rim(:,1),figureData.Rim(:,2),'black');
+plot(figureData.b(:,1),figureData.b(:,2),'black');
 hold on;
 for objectNumber=1:length(figureData.riddle.o)
     temp = figureData.riddle.o{objectNumber};
 %    if(objectNumber~=1)
 %    temp.data = figureData.collision{1}{objectNumber-1}; 
 %    end
+    if length(figureData.current) >=objectNumber*3
     temp.data = Rot(figureData.current(objectNumber*3),temp.data,temp.mid(1:2));
     temp.data = temp.data - ones(length(temp.data),1)*temp.mid(1:2) + ones(length(temp.data),1)*figureData.current((objectNumber-1)*3+1:(objectNumber-1)*3+2);
+    end
     if(objectNumber==1)
         color='g';
     else
@@ -23,6 +25,16 @@ for objectNumber=1:length(figureData.riddle.o)
     end
     plot(temp.data(:,1),temp.data(:,2),color);
 end
+
+for objectNumber=1:length(figureData.riddle.r)
+    temp = figureData.riddle.r{objectNumber};
+%    if(objectNumber~=1)
+%    temp.data = figureData.collision{1}{objectNumber-1}; 
+%    end
+    color = 'black';
+    plot(temp.data(:,1),temp.data(:,2),color);
+end
+
 plot(figureData.Target(:,1),figureData.Target(:,2),'r');
 axis([-2,17,-2,12]);
 hold off;

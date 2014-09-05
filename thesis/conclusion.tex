@@ -1,9 +1,9 @@
-\chapter{conclusion}
+\chapter{Conclusion}
 \section{Appliances and further usage}
-How to use the results in practical appliances.
-Possible usage in further projects as a starting point.
-\subsection{Pathplanning for robotics}
-\subsection{Generation of puzzles}
-
+As already noted in \ref{sec:Motivation} there are multiple appliances in the field of robotics and the gaming industry. The exact use is open due to the generalised representation of the problem as a simple riddle to be solved. Thus every practical problem that can be expressed as a geometric riddle in theoretically $n$-dimensional space can be solved with these algorithms.\\
+Also there is the possibility to further improve the algorithms. One could allow non-convex moving objects by, for example, representing them as a set of convex objects. Or for algorithm F with function list representing the rotation not as a set of planes, but as a continuously function which would then have the possibility to check for a collision while rotating and as such removing the need to rotate on a set grid of angles.\\
+Another general thing would be a try on implementing the algorithm in a way such that parallel computation is possible. At the moment this would only be possible for each of the $n$ objects movements making the algorithm idealy $n\cdot3\cdot2$ times faster ( 2 translational dimensions and 1 rotational dimension with increasing/decreasing directions ). But as this parallelization depends on the programming language and enviroment used for applying the algorithm it is hard to tell how much of an increase in speed could be obtained.
 \section{Summary}
-Short review of all that has been done.
+In the creation of this thesis two algorithms for solving object displacement problems were build, implemented and tested. One as a simple approach with an easy geometric way to understand the representation of world objects and another one using an analytic approach making computation easier but losing the simple method of representation. \\
+Both algorithms showed an improvement if compared to a solution using a fixed grid to calculate all possible combinations of objects involved in both accuracy and speed. Due to the nature of the problem, rotations still propose a big problem which needs is to be solved for access to a faster solution. Also all problems are bound to have convex moveable objects only. This need for convex objects could be cut if concav objects are build out of multiple convex objects that move together. 
+In conclusion the algorithms from this work can be applied to an amount of very different problems, due to the fact that in their core they solve a collision detection problem which is needed in many appliances.   

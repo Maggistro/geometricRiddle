@@ -1,9 +1,15 @@
+Substitue polyeder/polyeders with polyhedron/polyhedra
+dijkstra erklärung add it with predecessor... -> insert the node predecessor
+concept definitions/defining ??
+ende concept tradoff satz erstzen.
+
+
 Introduction:
-  - Elaborate use cases a bit more
-  - Research current forms of collision calculation and open pathplanning
+  - Elaborate use cases a bit more                                                      <-- done
+  - Research current forms of collision calculation and open pathplanning       <-- done
 
 Programming enviroment and tools.
-  - get matlab bib entry
+  - get matlab bib entry                    <-- done
   
 Basics
   - enter formula for angle beetween vectors          <-- done
@@ -15,26 +21,25 @@ Basics
 
 concept
   - explain function representation  <-- done
-  - explain calculation of collision set ( and remove from implementation )
+  - explain something from implementation     <-- removed, but needs thinking
   
 implementation 
-  - getRims <-- picture for angle difference calculation needed 
-  - whole part for functions, same structure <-- HUGE
-   -- inTargetCell needs update to working function
+  - whole part for functions, same structure <-- done
+   -- inTargetCell needs update to working function    <-- done
   
 results
-  - generate testriddles
+  - generate testriddles            <-- done, maybe more? ( different shapes etc )
   
 discussion
-  - pictures
+  - pictures                   <-- done
   - vertical lines        <-- done
   - more problems???
   
 conclusion
-  - Appliances and Summary
+  - Appliances and Summary          <-- DONE, BUT A BIT SHORT
   
 bibliography
-  - find something to put in there <-- HUGE
+  - find something to put in there <-- DONE, BUT A BIT SHORT ( convex hull / minkowski )
   
   
   reprogram getConvexSubset with simple minX minY points ( why should that not work??)
@@ -43,7 +48,7 @@ Methods with function:
 representation: Object1 = object.coeff = {[x2,x1,x0],....}?
                           object.mid = [x,y,theta]
                           object.def = {[start, end],....}
-                          object.above = {1/-1,-1/1,...} %1 means object lies above function, -1 below.
+                          object.above = {1/-1,-1/1,...} %1 means object lies above func  tion, -1 below.
                 Border = border.points = {[x1,y1],[x2,y2],[x3,y3],[x4,y4]};
   
   

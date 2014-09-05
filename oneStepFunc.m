@@ -39,6 +39,12 @@ if(inTargetCell) %if main object, calculate connection to target
         py = object.coeff{i}(1)*px*px + object.coeff{i}(2)*px + object.coeff{i}(3);
         ty = riddle.t.coeff{i}(1)*tx*tx + riddle.t.coeff{i}(2)*tx + riddle.t.coeff{i}(3);
         connection.coeff(i)={[ (py-ty)/(px-tx) , py - (py-ty)/(px-tx)*px ]}; %set function
+        %check for maximum
+        if(px > tx) %switch values if set wrong
+                temp_y=tx;
+                tx = px;
+                px = temp_y;
+        end
         connection.def(i)={[px tx]}; %set definition range
     end
 end
@@ -77,10 +83,7 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
                 end
             end
          end
-        
-         if sum(abs(node-[7.505 7.5 0 7.5075 5 0 7.5 5 0 7.5 2.5 0 9.5 7.5 0 9.5 5 0 9.5 2.5 0 5.5 3.5 0 5.5 6.5 0]))<0.01
-                node 
-         end
+
         %% check if point is in same cell as target
         if(inTargetCell)
             inBeetween = [];

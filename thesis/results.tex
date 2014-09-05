@@ -1,89 +1,77 @@
 \chapter{Results}
-If we apply the finished Algorithm to various test data sets, we can get an impression of what the program is capable of.
+If we apply the finished algorithm to various test data sets, we can get an impression of what the program is capable of.
 For each riddle beeing solved, the algorithms are executed a number of times to calculate an average runtime.\\
-In both cases a A$^\star$ was used as the search algorithm on the resulting graph. As a distance measurement the heuristic in form of the 2-norm of the vector beetween current position and target was added to the stepcount with each step weighting 0.1 units. The starting distance to beetween main object and target is
-10.1980 units.
+In both cases A$^\star$ was used as the search algorithm on the resulting graph. As a distance measurement the heuristic in form of the 2-norm of the vector between current position and target was added to the stepcount with each step weighting 0.1 units. The starting distance to beetween main object and target 10.1980 units.
 \section{Rotation and Translation}
-Using small riddles tailored to either solving by rotation or translation only, an estimation 
+First the algorithm is tested against rotation and translation with one obstalce (blue). This object has a fixed position and only rotations are allowed.\\
+The same riddle is then used and solved simply by translation with no rotation allowed for the obstacle. The main object (green) can rotate and move in both cases inside the border (black) to get to the target area (red).
 
 \begin{figure}[H]
-%two graphics with rotation and translation
+\includegraphics[scale = 0.5]{rotRiddle.png}
+\centering
+\caption{Riddle with main object, border, target and moveable obstacle.}
 \end{figure}
-Riddle with one rotation only object:
 \begin{table}
 \centering
-\begin{tabular}{l||c|c|c|}
-Algorithm& fastest & slowest & medium\\\hline
-pList &  18.8819 & 22.8457  & 21.0269 \\
-fList  & 0.3523&0.3703  &0.3587 \\
+\begin{tabular}{l||c|c|c||c|c|c}
+& \multicolumn{3}{c||}{rotation} &\multicolumn{3}{c}{translation}\\\hline\hline
+Algorithm& fastest & slowest & medium & fastest & slowest & medium\\\hline
+pList &  18.8819 & 22.8457  & 21.0269 &  0.1211& 0.1272  & 0.1231\\
+fList  & 0.1176&0.1635  &0.1296  & 0.0291 & 0.0504 & 0.0367 \\
 \end{tabular}
-\caption{Times in seconds for rotation riddle.}
-\end{table}
-Riddle with translation only object:
-\begin{table}
-\centering
-\begin{tabular}{l||c|c|c|}
-Algorithm& fastest & slowest & medium\\\hline
-pList &  0.1211& 0.1272  & 0.1231 \\
-fList  & 0.0219 & 0.0241 & 0.0228 \\
-\end{tabular}
-\caption{Times in seconds for translation riddle.}
+\caption{Time in seconds for rotation riddle and translation riddle.}
 \end{table}
 
 \section{Small riddles}
-Two simple small riddles with 2 and 4 objects as moveable obstacles.
-
+Two simple small riddles with 2 and 4 moveable obstacles.
 \begin{figure}[H]
-%two graphics with 2 and 4
+\includegraphics[scale = 0.5]{riddle2}
+\includegraphics[scale = 0.5]{riddle4}
+\caption{Riddle with two and four movable obstacles.}
 \end{figure}
-Riddle with 2 objects:
-\begin{table}
+\begin{table}[H]
 \centering
-\begin{tabular}{l||c|c|c|}
-Algorithm& fastest & slowest & medium\\\hline
-pList & 4.7801& 5.1930&4.9305\\
-fList  & 1.0082 & 1.0315& 1.0149\\
+\begin{tabular}{l||c|c|c||c|c|c}
+& \multicolumn{3}{c||}{2 objects} &\multicolumn{3}{c}{4 objects}\\\hline\hline
+pList & 4.7801& 5.1930&4.9305& 85.1726 & 90.9629 & 89.3621\\
+fList  & 0.6242 & 0.8082& 0.6747  & 7.3608 & 8.1557 & 7.7242\\
 \end{tabular}
-\caption{Times in seconds for small riddle with 2 obstacles.}
-\end{table}
-Riddle with 4 objects:
-\begin{table}
-\centering
-\begin{tabular}{l||c|c|c|}
-Algorithm& fastest & slowest & medium\\\hline
-pList & 85.1726 & 90.9629 & 89.3621\\
-fList  & 18.2735 & 21.2764 & 19.6290\\
-\end{tabular}
-\caption{Times in seconds for small riddle with 4 obstacles.}
+\caption{Time in seconds for small riddle with 2 and 4 obstacles.}
 \end{table}
 
 \section{Medium riddles}
-Bigger riddle with 6 and 8 moveable objects.\\
+Bigger riddle with 6 and 8 moveable obstacles.\\
 \begin{figure}[H]
-%two graphics with 6 and 8
+\includegraphics[scale = 0.5]{riddle6}
+\includegraphics[scale = 0.5]{riddle8}
+\caption{Riddle with six and eight moveable obstacles.}
 \end{figure}
-Riddle with 6 objects:
-\begin{table}
+\begin{table}[H]
 \centering
-\begin{tabular}{l||c|c|c|}
-Algorithm& fastest & slowest & medium\\\hline
-pList &  395.0670 & 415.7986 & 403.9329\\
-fList  &  157.0453 &  167.1498 & 164.2913\\
+\begin{tabular}{l||c|c|c||c|c|c}
+& \multicolumn{3}{c||}{6 objects} &\multicolumn{3}{c}{8 objects}\\\hline\hline
+pList &  395.0670 & 415.7986 & 403.9329  & 1790.5 &1972.5 &1855.4\\
+fList  &  32.6039 &  34.4411 & 33.7001 & 30.4606 & 33.9077 & 32.1049\\
 \end{tabular}
-\caption{Times in seconds for medium riddle with 6 obstacles.}
+\caption{Time in seconds for medium riddle with 6 and 8 obstacles.}
 \end{table}
-Riddle with 8 objects:
-\begin{table}
-\centering
-\begin{tabular}{l||c|c|c|}
-Algorithm& fastest & slowest & medium\\\hline
-pList & 1790.5 &1972.5 &1855.4\\
-fList  & & &\\
-\end{tabular}
-\caption{Times in seconds for medium riddle with 8 obstacles.}
-\end{table}
+
+%    3.4234
+%    3.5599
+% times for riddleB with function implementation
 
 \section{Interpretation}
-As we can see the algorithm working with functions is much faster. But still it scales badly with an increasing amount of objects to work with.
-If we plot these two against each other we see a exponential grow depending on the number of objects involved.
-
+As we can see the algorithm working with functions is much faster. But still it scales with an increasing amount of objects to work with.
+If we plot these two against each other we see an exponential grow depending on the number of objects involved.
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{pointAgainstFunc.png}
+\caption{ Plot of the two algorithms showing the time needed to finish depending on the objects involved.}
+\end{figure}
+It can easily be seen, that the algorithm P with point list representation scales extremely bad with an increasing number of objects. This is due to the fact that not only the objects in the direct way beetween target and starting point are considered, but also the extended vectors of objects that are not in the way. This leads to increased number of cells to search through.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, height=250pt]{ghostplanesStep}
+\caption{Plot showing the ghostplanes between main object and target.}
+\end{figure}
+In this plot we can see that there are 6 ghostplanes, extending from the borders of the obstacles in blue, beetween the main object in green and the target in red. Due to this $6\cdot2 = 12$ unnecessary steps need to be calculated before the final step, as per plane we calculate a position in front and behind before evaluating which position is better.\\
+If this scenario is given to the algorithm F with functions, it would simply check if the obstacles on the bottom are in the way. And as that is not the case, no unecessary steps would arise and the algorithm woud finish in 1 step.

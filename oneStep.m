@@ -15,13 +15,12 @@ if mod(abs(direction),3) == 0
     tempAdd(abs(direction))=sign(direction)*rotationStep;
     nextNode = node + tempAdd;
 
-    for object=1:length(riddle.o)
-        riddle.o{object} = changeOneObject(nextNode((object-1)*3+1:object*3),riddle.o{object});    
-    end
+    riddle.o{object_pos} = changeOneObject(nextNode((object_pos-1)*3+1:object_pos*3),riddle.o{object_pos});    
     
     for object=1:length(riddle.o)
         temp = riddle.o;
         temp(object) = [];
+        temp = [temp riddle.r];
         newCollSet{object}= getRims(riddle.o{object}.data,temp,...
             length(riddle.o{object}.data),riddle.o{object}.mid);
     end
@@ -56,10 +55,7 @@ for object=temp'
             tempWay=(node(1:2) - offset)';
             A=[vector', -node_to_target];
             sol = A\tempWay;
-            
-            point_on_line = offset + sol(1)*vector;
-            point_on_line = node(1:2)' + sol(2)*node_to_target;
-            
+           
             %check if lines intersect (aka way to target is free )
             if(sol(1)>=0 && sol(1)<=1 && sol(2)>=0 && sol(2)<=1)
                 inTargetCell = inTargetCell && false;
@@ -111,15 +107,13 @@ if inTargetCell && object_pos==1
     nextNode(1:3) = riddle.t.mid;
     return
 end
+        riddle.o{object_pos} = changeOneObject(nextNode((object_pos-1)*3+1:object_pos*3),riddle.o{object_pos});    
+   
 
-  for object=1:length(riddle.o)
-        riddle.o{object} = changeOneObject(nextNode((object-1)*3+1:object*3),riddle.o{object});    
-    end
-  
-
-for object=1:length(riddle.o)
+    for object=1:length(riddle.o)
         temp = riddle.o;
         temp(object) = [];
+        temp = [temp riddle.r];
         newCollSet{object}= getRims(riddle.o{object}.data,temp,...
             length(riddle.o{object}.data),riddle.o{object}.mid);
     end

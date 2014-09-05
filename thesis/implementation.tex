@@ -33,24 +33,24 @@ end
 \end{lstlisting}
 
 $isValid(...)$ is a simple function testing the given configuration from $oneStep(...)$ against configuration space. This is done by simply checking if the configuration point is inside any convex hulls stored in the configuration space.\\
-The functions oneStep and getRim are now explained in detail for the representation of objects as points list and function list.
+The functions $oneStep(...)$ is now explained in detail for the representation of objects as points list and function list.
 \subsection{Implementation with point list}
-As described in \ref{subsec::pointlist} an object can be described as a list of ordered corner points. Starting from there the configuration space for each object is the set of convex hulls of its collision points with each other object. A point in the configuration space can then be described as the set of said subsets.\\
-These points form the search nodes for the pathfinding algorithm.
+As described in \ref{subsec::pointlist} an object can be described as a list of ordered corner points. Starting from there the collision set for each object is the set of convex hulls of its collision with each other object. A cell can then be described as a valid set of collision sets for all objects.\\
+These cells form the search nodes for the pathfinding algorithm.
 \subsubsection{The function oneStep}
 $[\textbf{nextNode}, \textbf{newCollSet} ]=oneStep(\textbf{node, direction, collSet,riddle, jump\_over})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
 \item \textbf{node}: a point in the configurationspace $C$ used as the starting point.
 \item \textbf{direction}: the dimension of $C$ to search a new node on. Signed means search backward, unsigned forward. 
-\item \textbf{collSet}: $i$ sets of $n-1$ sized sets giving the collisionsets $C_{O_i-O_j}$ per object $O_i$ for all $n$ objects.
+\item \textbf{collSet}: $i$ sets of $n-1$ sized sets giving the collision sets $C_{O_i-O_j}$ per object $O_i$ for all $n$ objects.
 \item \textbf{riddle}: the original set of information for the starting riddle. Needed for recalculation of collSets.
 \item \textbf{jump\_over}: flag for signaling if next node should be on the rim of current cell ( jump\_over = -1), or in the next cell ( jump\_over = 1).
 \end{itemize}
 Returns:
 \begin{itemize}
 \item \textbf{nextNode}: the next point in the configuration space from \textbf{node} along the dimension \textbf{direction}.
-\item \textbf{newCollSet}: the new collisionset for the objects at the configuration \textbf{nextNode}.
+\item \textbf{newCollSet}: the new collision set for the objects at the configuration \textbf{nextNode}.
 \end{itemize}
 The fucntion can be divided in two different step types: rotation and translation. \\
 All rotations are executed by changing the dimension \textbf{direction}  depending on the sign of \textbf{direction} by one step. The size of the step is determined 
@@ -74,7 +74,7 @@ by the needed accuracy. The function rotateObject rotates all cornerPoints of th
     return; % and return
 \end{lstlisting}
 On the other side stands the translation step. As our goal is to identify the next cell in the dimension \textbf{direction}, we iterate over all convex hulls stored in \textbf{collSet} for the object that needs changing and extend their borders. A jump over/to the nearest border in a given direction equals a jump into the next / to the border of the cell.\\
-First two points are taken from the convex hull (named points) to recalculate the vector. Due to the fact that each object only resideds in a 2 dimensional space, by solving a linear equation the crossing points on the dimension that is NOT our search dimension $direction$ can be obtained, so that the point in this direction can be calculated.
+First two points are taken from the convex hull (named points) to recalculate the vector. Due to the fact that each object only resides in a 2 dimensional space, by solving a linear equation the crossing points on the dimension that is NOT our search dimension $direction$ can be obtained, so that the point in this direction can be calculated.
 \begin{lstlisting}
 ...
         %calculate line from points
@@ -105,7 +105,7 @@ First two points are taken from the convex hull (named points) to recalculate th
             p = offset + x(1,1)*vector;%get point on same x
         end
  \end{lstlisting}
-Before we calculate this point, we check if we already reached our target cell by trying to get a non-intercepted connection from the current \textbf{node} to the target node taken from \textbf{riddle}. The flag needs to be tchecked for ALL vectors.       
+Before we calculate this point, we check if we already reached our target cell by trying to get a non-intercepted connection from the current \textbf{node} to the target node taken from \textbf{riddle}. The flag needs to be checked for ALL vectors.       
 \begin{lstlisting}
     %check if point is in same cell as target
         if(inTargetCell)
@@ -114,9 +114,6 @@ Before we calculate this point, we check if we already reached our target cell b
             A=[vector', -node_to_target];
             sol = A\temp;
             
-            point_on_line = offset + sol(1)*vector;
-            point_on_line = node(1:2)' + sol(2)*node_to_target;
-            
             %check if lines intersect (aka way to target is free )
             if(sol(1)>=0 && sol(1)<=1 && sol(2)>=0 && sol(2)<=1)
                 inTargetCell = inTargetCell && false;
@@ -124,7 +121,7 @@ Before we calculate this point, we check if we already reached our target cell b
         end
 \end{lstlisting}
 If all checks out, we calculate the vector from \textbf{node} to the crossing point on the border. If the sign of the vector along the dimension \textbf{direction} equals that of \textbf{direction} a distance is calculated and, if lower than the current minimum, stored together with a possible new node \textbf{nextNode}.
-This next node is choosen depending on the flag \textbf{jump\_over} to either be directly infront or behind the point on the border.
+This next node is choosen depending on the flag \textbf{jump\_over} to either be directly in front or behind the point on the border.
 \begin{lstlisting}
         %vector from node to temp point on line
         node_to_point = p-node((object_pos-1)*3+1:(object_pos-1)*3+2);
@@ -155,7 +152,7 @@ if inTargetCell && object_pos==1
     return
 end
 \end{lstlisting}
-If we found a new minimum, the collisionsets need to be adapted. For that we recalculate the new configuration state \textbf{nextNode} of our objects with the help of $changeOneObject(...)$.
+If we found a new minimum, the collision sets need to be adapted. For that we recalculate the new configuration state \textbf{nextNode} of our objects with the help of $changeOneObject(...)$.
 \begin{lstlisting}
    for object=1:length(riddle.o)
         riddle.o{object} = changeOneObject(nextNode((object-1)*3+1:object*3),riddle.o{object});    
@@ -173,151 +170,151 @@ end
 This \textbf{newCollSet} is then returned together with \textbf{nextNode}.
 
 
-\subsubsection{getRims}
-$[\textbf{realRims} ]=getRims(\textbf{objectPoints, rims, objectCount, mid})$ calculates the convex hull for one object to all rims/objects for one configuration. This function is used to update the collision set of an object. 
-\begin{itemize}
-\item \textbf{objectPoints}: the points of the object.
-\item \textbf{rims}: all rims/objects to which the convex hull needs to be calculated.
-\item \textbf{objectCount}: The number of points the object has ( length of objectPoints ).
-\item \textbf{mid}: the configuration of the object
-\end{itemize}
-Returns:
-\begin{itemize}
-\item \textbf{realRims}: the set of convex hulls to all rims/objects for the object with the configuration mid
-\end{itemize}
-
-The function starts by iterating over all entities in rims. As a rim is merely a fixed object, there is no need for differenciating beetween object and rim in rims.
-\begin{lstlisting}
-realRims=cell(length(rims),1);
-rimcount=1;
-%for each rim in rims
-for rim=rims    
-    rimData = rim{1}.data;
-    %split up the rim in convex parts
-    convexRim = [];
-    start=rimData(1,:); %pick start point
-    vecOld = rimData(2,:) - rimData(1,:); %set start vec
-    subsetCount = 1;
-    subsets{subsetCount}=rimData(1,:);
-    ...
-\end{lstlisting}
-For each entity the change in angle beetween the vectors connecting the points is calculated, and each object is divided into its convex parts. This is done by     searching along the points of the choosen entity and for each point calculating vector from the previous and the pre-previous point to the current point and comparing their angle. If the angle difference is greater zero, the point is starting a new convex subset. \\
-These parts are stored in subset. If the entity is convex itself, subset is of the length one, holding all points of the entity in the first position.
-\begin{lstlisting}
-...
-
-
-    for  i=2:length(rimData)
-        stop=rimData(mod(i,length(rimData))+1,:); %pick end point
-        vec=stop-start; %get vector from start to end
-        %get angle diffrence to x-axis for each two vectors
-        dirStop = sign((vecOld(2)*vec(1) - vecOld(1)*vec(2)))...
-            *acos( (vec(1)*vecOld(1) + vec(2)*vecOld(2))/(norm(vec)*norm(vecOld)));
-
-        if dirStop<=0 %smaller means part will be concave
-            subsets{subsetCount} = [subsets{subsetCount};rimData(i,:)];
-        else %greater zero means new point is starting new part
-            subsets{subsetCount} = [subsets{subsetCount};rimData(i,:)];
-            subsetCount = subsetCount+1;
-            subsets{subsetCount}=[];
-            %subsets{subsetCount} = rim{1}(i,:);
-        end
-        start=rimData(mod(i-1,length(rimData))+1,:);
-        vecOld = stop - start;
-    end
- 
-...
-\end{lstlisting}
-Afterwards the convex hull is calculated for each subset using the minkowski sum.
-\begin{lstlisting}
-...
-
-    subsetCount=1;
-    convexSubsets = cell(length(subsets),1);
-    masks = cell(length(subsets),1);
-    poly = cell(length(subsets),1);
-    for set = subsets %for each set in subsets
-        mSet = cell2mat(set);
-        for i=1:size(mSet,1) %we take each value
-            v=mSet(i,:);
-            %and add the points of the object as seen from the origin ( minkowski sum )
-                poly{subsetCount} =...
-                    [poly{subsetCount};...
-                    (ones(objectCount,1)*(v - mid(1:2))...
-                    +objectPoints(1:objectCount,:))]; 
-        end
-
-        %extract the points for a convex polygon
-        if size(mSet,1)>2
-            [convexSubsets{subsetCount},masks{subsetCount}] = getConvexPolygon(mSet,poly{subsetCount},objectCount);
-        else
-            convexSubsets{subsetCount} = poly{subsetCount};
-            masks{subsetCount} = ones(length(poly{subsetCount}),1);
-        end
-        subsetCount = subsetCount + 1;
-    end
-    
-...
-\end{lstlisting}
- As we then hold convex hulls of parts of the entitiy, we need to put them back together. To do that a connection beetween each start and end point of a subset is made. By looking at the angles beetween all possible connections of the points from the minkowski sum, the most outer connection will be choosen.
-    
-\begin{lstlisting}
-...
-
-    if(length(subsets)==1)
-        convexRim = convexSubsets{1};
-    else        
-    for i = 1:length(subsets)-1
-        %add first point of first subset
-        if i==1
-            convexRim = convexSubsets{i}(1,:);
-        end
-        
-        stop = subsets{i};
-        stop = stop(size(stop,1),:); % take last point of a set
-        
-        start = subsets{mod(i,length(subsets))+1};
-        start = start(1,:); %take first point of next set
-        if(stop==start)
-            start = subsets{mod(i,length(subsets))+1};
-            start = start(2,:); %take second point
-        end
-        
-        connect = start - stop; % create vector beetween those two
-        
-        %find point to the right of connect from stop which is in a convex
-        %subset. 
-        
-        %create vectors for stop
-        pointsStopSet = poly{i};
-        pointsStop = pointsStopSet(size(pointsStopSet,1)...
-            -objectCount+1:size(pointsStopSet,1),:);
-        vectorStop = pointsStop - ones(size(pointsStop,1),1)*stop; 
-        dirStop = acos(vectorStop(:,1)./sqrt(sum(vectorStop.^2,2)))...
-            - ones(size(pointsStop,1),1)*acos(connect(1)/norm(connect));
-        [v,pStop] = min(dirStop); %select the one farest to the right
-        
-       ...
-
-        pointsStartSet = poly{mod(i,length(subsets))+1};
-        pointsStart = pointsStartSet(1:objectCount,:);
-        vectorStart = pointsStart - ones(size(pointsStart,1),1)*start;
-        dirStart = acos(vectorStart(:,1)./sqrt(sum(vectorStart.^2,2)))...
-            - ones(size(pointsStart,1),1)*acos(connect(1)/norm(connect));
-        [v,pStart] = min(dirStart); %select the one farest to the right
-  
-...
-\end{lstlisting}
-Afterwards some minor adjustments take place to remove unnecessary lines and points from the hull to reduce "ghost planes". 
-Then the finished convex hull of the object with the choosen entity is saved. After each entity in rims is checked, the new set of convex hulls is returned.
+%\subsubsection{getRims}
+%$[\textbf{realRims} ]=getRims(\textbf{objectPoints, rims, objectCount, mid})$ calculates the convex hull for one object to all rims/objects for one configuration. This function is used to update the collision set of an object. 
+%\begin{itemize}
+%\item \textbf{objectPoints}: the points of the object.
+%\item \textbf{rims}: all rims/objects to which the convex hull needs to be calculated.
+%\item \textbf{objectCount}: The number of points the object has ( length of objectPoints ).
+%\item \textbf{mid}: the configuration of the object
+%\end{itemize}
+%Returns:
+%\begin{itemize}
+%\item \textbf{realRims}: the set of convex hulls to all rims/objects for the object with the configuration mid
+%\end{itemize}
+%
+%The function starts by iterating over all entities in rims. As a rim is merely a fixed object, there is no need for differenciating beetween object and rim in rims.
+%\begin{lstlisting}
+%realRims=cell(length(rims),1);
+%rimcount=1;
+%%for each rim in rims
+%for rim=rims    
+%    rimData = rim{1}.data;
+%    %split up the rim in convex parts
+%    convexRim = [];
+%    start=rimData(1,:); %pick start point
+%    vecOld = rimData(2,:) - rimData(1,:); %set start vec
+%    subsetCount = 1;
+%    subsets{subsetCount}=rimData(1,:);
+%    ...
+%\end{lstlisting}
+%For each entity the change in angle beetween the vectors connecting the points is calculated, and each object is divided into its convex parts. This is done by     searching along the points of the choosen entity and for each point calculating vector from the previous and the pre-previous point to the current point and comparing their angle. If the angle difference is greater zero, the point is starting a new convex subset. \\
+%These parts are stored in subset. If the entity is convex itself, subset is of the length one, holding all points of the entity in the first position.
+%\begin{lstlisting}
+%...
+%
+%
+%    for  i=2:length(rimData)
+%        stop=rimData(mod(i,length(rimData))+1,:); %pick end point
+%        vec=stop-start; %get vector from start to end
+%        %get angle diffrence to x-axis for each two vectors
+%        dirStop = sign((vecOld(2)*vec(1) - vecOld(1)*vec(2)))...
+%            *acos( (vec(1)*vecOld(1) + vec(2)*vecOld(2))/(norm(vec)*norm(vecOld)));
+%
+%        if dirStop<=0 %smaller means part will be concave
+%            subsets{subsetCount} = [subsets{subsetCount};rimData(i,:)];
+%        else %greater zero means new point is starting new part
+%            subsets{subsetCount} = [subsets{subsetCount};rimData(i,:)];
+%            subsetCount = subsetCount+1;
+%            subsets{subsetCount}=[];
+%            %subsets{subsetCount} = rim{1}(i,:);
+%        end
+%        start=rimData(mod(i-1,length(rimData))+1,:);
+%        vecOld = stop - start;
+%    end
+% 
+%...
+%\end{lstlisting}
+%Afterwards the convex hull is calculated for each subset using the minkowski sum.
+%\begin{lstlisting}
+%...
+%
+%    subsetCount=1;
+%    convexSubsets = cell(length(subsets),1);
+%    masks = cell(length(subsets),1);
+%    poly = cell(length(subsets),1);
+%    for set = subsets %for each set in subsets
+%        mSet = cell2mat(set);
+%        for i=1:size(mSet,1) %we take each value
+%            v=mSet(i,:);
+%            %and add the points of the object as seen from the origin ( minkowski sum )
+%                poly{subsetCount} =...
+%                    [poly{subsetCount};...
+%                    (ones(objectCount,1)*(v - mid(1:2))...
+%                    +objectPoints(1:objectCount,:))]; 
+%        end
+%
+%        %extract the points for a convex polygon
+%        if size(mSet,1)>2
+%            [convexSubsets{subsetCount},masks{subsetCount}] = getConvexPolygon(mSet,poly{subsetCount},objectCount);
+%        else
+%            convexSubsets{subsetCount} = poly{subsetCount};
+%            masks{subsetCount} = ones(length(poly{subsetCount}),1);
+%        end
+%        subsetCount = subsetCount + 1;
+%    end
+%    
+%...
+%\end{lstlisting}
+% As we then hold convex hulls of parts of the entitiy, we need to put them back together. To do that a connection beetween each start and end point of a subset is made. By looking at the angles beetween all possible connections of the points from the minkowski sum, the most outer connection will be choosen.
+%    
+%\begin{lstlisting}
+%...
+%
+%    if(length(subsets)==1)
+%        convexRim = convexSubsets{1};
+%    else        
+%    for i = 1:length(subsets)-1
+%        %add first point of first subset
+%        if i==1
+%            convexRim = convexSubsets{i}(1,:);
+%        end
+%        
+%        stop = subsets{i};
+%        stop = stop(size(stop,1),:); % take last point of a set
+%        
+%        start = subsets{mod(i,length(subsets))+1};
+%        start = start(1,:); %take first point of next set
+%        if(stop==start)
+%            start = subsets{mod(i,length(subsets))+1};
+%            start = start(2,:); %take second point
+%        end
+%        
+%        connect = start - stop; % create vector beetween those two
+%        
+%        %find point to the right of connect from stop which is in a convex
+%        %subset. 
+%        
+%        %create vectors for stop
+%        pointsStopSet = poly{i};
+%        pointsStop = pointsStopSet(size(pointsStopSet,1)...
+%            -objectCount+1:size(pointsStopSet,1),:);
+%        vectorStop = pointsStop - ones(size(pointsStop,1),1)*stop; 
+%        dirStop = acos(vectorStop(:,1)./sqrt(sum(vectorStop.^2,2)))...
+%            - ones(size(pointsStop,1),1)*acos(connect(1)/norm(connect));
+%        [v,pStop] = min(dirStop); %select the one farest to the right
+%        
+%       ...
+%
+%        pointsStartSet = poly{mod(i,length(subsets))+1};
+%        pointsStart = pointsStartSet(1:objectCount,:);
+%        vectorStart = pointsStart - ones(size(pointsStart,1),1)*start;
+%        dirStart = acos(vectorStart(:,1)./sqrt(sum(vectorStart.^2,2)))...
+%            - ones(size(pointsStart,1),1)*acos(connect(1)/norm(connect));
+%        [v,pStart] = min(dirStart); %select the one farest to the right
+%  
+%...
+%\end{lstlisting}
+%Afterwards some minor adjustments take place to remove unnecessary lines and points from the hull to reduce "ghost planes". 
+%Then the finished convex hull of the object with the choosen entity is saved. After each entity in rims is checked, the new set of convex hulls is returned.
 
 \subsection{Implementation with function list}
-The implementation as function lists \ref{subsec:functionlist} describes the configuration space simply by the objects at their positions. After eacj step, the object that was moved will be updated and a copy of that set is stored as the new ciollision set for the configuration.
+The implementation as function lists \ref{subsec:functionlist} describes the configuration space in the same way as the point list. The collision set on the other hand is defined directly by the objects and their positions. After each step, the object that was moved will be updated and a copy of its set is stored as the new collision set for the configuration.
 \subsubsection{The function oneStep}
 $[\textbf{nextNode}, \textbf{collision\_set} ]=oneStep(\textbf{node, direction, cur\_collision\_set,riddle})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
-\item \textbf{node}: a point in the configurationspace $C$ used as the starting point.
+\item \textbf{node}: a point in the configuration space $C$ used as the starting point.
 \item \textbf{direction}: the dimension of $C$ to search a new node on. Signed means search backward, unsigned forward. 
 \item \textbf{curr\_collision\_set}: $i$ sets of $n-1$ sized sets giving the collisionsets $C_{O_i-O_j}$ per object $O_i$ for all $n$ objects.
 \item \textbf{riddle}: the original set of information for the starting riddle. Needed for recalculation of collSets.
@@ -329,9 +326,8 @@ Returns:
 \end{itemize}
 In comparison to the header of the other $oneStep(...)$ implementation, only the parameter $\textbf{jump\_over}$ is no longer needed.\\
 The function can again be divided into two different steps: rotation and translation.\\
-The fucntion can be divided in two different step types: rotation and translation. \\
 All rotations are executed by changing the dimension \textbf{direction}  depending on the sign of \textbf{direction} by one step. The size of the step is determined 
-by the needed accuracy. The function rotateFunc recalculates the function parameters after the rotation. \\
+by the needed accuracy. The function $rotateFunc(...)$ recalculates the function parameters after the rotation. \\
 \begin{lstlisting}
 ...
     tempAdd = zeros(1,length(node)); %generate mask
@@ -358,23 +354,8 @@ As the object to be moved is defined by \textbf{direction}, all other objects ne
         func=object.coeff{function_number};
         def=object.def{function_number};
 ...  
-
-...
-        %% check if point is in same cell as target
-        if(inTargetCell)
-            
-            %check if x is ok
-            inTargetCell = inTargetCell &&...
-                sign(node(1)-def(1)) == sign(riddle.t.mid(1) - def(1)) &&... %left border
-                sign(node(1)-def(2)) == sign(riddle.t.mid(1) - def(2)) &&... %right border
-                (func(1)==0||(sign(node(1)-ext_x) == sign(riddle.t.mid(1) - ext_x))); %quadratic function only
-            
-            %check if y is ok
-            inTargetCell = inTargetCell &&...
-                sign(node(2)-max_y) == sign(riddle.t.mid(2) - max_y) &&... %upper border
-                sign(node(2)-min_y) == sign(riddle.t.mid(2) - min_y); %lower border
-        end
         
+...
         %% get nextNode in search direction. if function not in the way, dist = inf.
         [tempNode,dist] = moveToFunction(node,direction,curr_collision_set{object_pos},riddle.b,func,def,object.above{function_number});
         
@@ -385,8 +366,34 @@ As the object to be moved is defined by \textbf{direction}, all other objects ne
         end
 ...
 \end{lstlisting}
+In the same loop a check is done to see if the function lies in the direct way of the object to the target in \textbf{direction}. Before the loop a function is constructed connecting the corners of the moving object with the corners of the target. The whole test is discarded if the moving object is not the main object.
+\begin{lstlisting}
+...
+inTargetCell = object_pos==1; %only check for target cell if main object is moved
+if(inTargetCell) %if main object, calculate connection to target
+    object = curr_collision_set{object_pos}; %pick main object
+    %connection = cell(length(object.coeff),1); % init connection array
+    px = object.def{1}(1);
+    for i=1:length(object.coeff)
+        if px==object.def{i}(1); %pick next x-coordinate ( move along border )
+            px=object.def{i}(2);
+            tx=riddle.t.def{i}(2);
+        else
+            px=object.def{i}(1);
+            tx=riddle.t.def{i}(1);
+        end
+        %calculate y-coordinate
+        py = object.coeff{i}(1)*px*px + object.coeff{i}(2)*px + object.coeff{i}(3);
+        ty = riddle.t.coeff{i}(1)*tx*tx + riddle.t.coeff{i}(2)*tx + riddle.t.coeff{i}(3);
+        connection.coeff(i)={[ (py-ty)/(px-tx) , py - (py-ty)/(px-tx)*px ]}; %set function
+        connection.def(i)={[px tx]}; %set definition range
+    end
+end
+...
+\end{lstlisting}
+Then inside the loop this function is check for collision with the choosen function $func$.\\
 After that if a node with the closest distance was choosen the collision set is recalculated. If not $moveFunc(...)$ moves the object to the border of \textbf{riddle}.
-Also if the object can be moved to the target without collision, the target will be set as the next node and the function returns.
+And if the object can be moved to the target without collision, the target will be set as the next node and the function returns.
 \begin{lstlisting}
 ...
 %% build new collision set from chosen node
@@ -399,56 +406,8 @@ if inTargetCell && object_pos==1
 end
 \end{lstlisting}
 
-\subsubsection{moveFunc}
-$[\textbf{object}]=moveFunc(\textbf{diff, dir, object})$ recalculates the function parameters stored in \textbf{object}.coeff depending on the direction \textbf{dir} and distance \textbf{diff}  the \textbf{object} needs to be moved.\\
-Parameters:
-\begin{itemize}
-\item \textbf{diff}:the signed distance the object is moved.
-\item \textbf{dir}: the dimension of $C$ to search a new node on. Signed means search backward, unsigned forward. 
-\item \textbf{object}: the object which needs adaption.
-\end{itemize}
-Returns:
-\begin{itemize}
-\item \textbf{object}: the adapted object.
-\end{itemize}
-The function $moveFunc(...)$ distinguishes beetween movement in $x$- and $y$-direction.\\
- For movement along the$x$-axis the objects functions coefficients are recalculated by substraction of \textbf{diff} from x for every function in the object. After finishing iterating over the functions, the definition range is adapted and the new anchor point is set.
-\begin{lstlisting}
-...
-for function_number=1:length(object.coeff)%iterate over all functions
-       func = object.coeff{function_number};
-       if func(1)==0 %function is linear
-           %b(x-d)+c = bx + ( -bd + c)
-           func(3)=-func(2)*diff+func(3);  
-       else %function is quadratic
-           %a(x-d)^2 + b(x-d) + c =
-           %ax^2 - 2adx + ad^2 + bx - bd + c =
-           %ax^2 + (-2ad + b)x + (ad^2 - bd + c)
-           b = -2*func(1)*diff + func(2);
-           c = func(1)*diff^2 - diff*func(2) + func(3);
-           func(2)=b;
-           func(3)=c;
-       end
-       object.coeff{function_number}=func; %save new coefficients
-       object.def{function_number}=object.def{function_number}+diff;% save new definition range
-    end
-    object.mid(1) = object.mid(1) + diff;%set new anchor point
-...
-\end{lstlisting}
-Movements alogn the $y$-axis are easier, as they require to only chance the constant coefficient of a function. 
-\begin{lstlisting}
-...
-for function_number=1:length(object.coeff)%iterate over all functions
-       func = object.coeff{function_number};
-       func(3) = func(3) - diff; %change constant coefficient
-       object.coeff{function_number}=func;       
-    end
-    object.mid(2)=object.mid(2) - diff; %set net anchorpoint
-...
-\end{lstlisting}
-
 \subsubsection{moveToFunction}
-$[\textbf{nextNode},\textbf{dist}]=moveFunc(\textbf{node, direction, object, border, func, def, above})$ checks if the function \textbf{func} defined in the range \textbf{def} lies in the way of the \textbf{object} trying to move in the \textbf{direction} or if the \textbf{border} needs to be used. The function calculates the configuration point \textbf{nextNode} together with the travelled distance \textbf{dist}.
+$[\textbf{nextNode},\textbf{dist}]=moveFunc(\textbf{node, direction, object, border, func, def, above})$ checks if the function \textbf{func} defined in the range \textbf{def} lies in the way of the \textbf{object} trying to move in the \textbf{direction} or if the \textbf{border} needs to be used. The function calculates the configuration point \textbf{nextNode} together with the travelled distance \textbf{dist}.\\
 Parameters:
 \begin{itemize}
 \item \textbf{node}: the current node the movement should be executed from.
@@ -457,7 +416,7 @@ Parameters:
 \item \textbf{border}: the border of the riddle.
 \item \textbf{func}: the function which could be laying in the way.
 \item \textbf{def}: the definition range of the function.
-\item \textbf{above}:wether the object the function \textbf{func} borders lies above or below \textbf{func}
+\item \textbf{above}: wether the object the function \textbf{func} borders lies above or below \textbf{func}
 \end{itemize}
 Returns:
 \begin{itemize}
@@ -466,12 +425,20 @@ Returns:
 \end{itemize}
 The function $moveFunc(...)$ iterates over all functions in \textbf{object} and checks if there exists a crossing point beetween them and the function \textbf{func}.
 This point is then saved together with the distance and the point with the minimal distance is returned.\\
-First the values of the function \textbf{func} are calculated and if the movement is along the x-coordinate, compared to those of the \textbf{object} functions. If no common range exists, the function can not collide.
+\subsubsection{Along x-direction}
+First the values of the function \textbf{func} are calculated and if the movement is along the x-coordinate, compared to those of the \textbf{object} functions. If no common range exists, the functions can not collide.
 \begin{lstlisting}
 ...
 %calculate funcValue at ends of defenition range
 funcValue_min = (def(1)^2)*func(1) + def(1)*func(2) + func(3);
 funcValue_max = (def(2)^2)*func(1) + def(2)*func(2) + func(3);
+
+%check for max/min
+if funcValue_min>funcValue_max
+    temp = funcValue_min;
+    funcValue_min=funcValue_max;
+    funcValue_max=temp;
+end
 
 for obj_function_number = 1:length(object.coeff)
     %get current function and range
@@ -497,36 +464,9 @@ for obj_function_number = 1:length(object.coeff)
                 diff_min = border(3,1) - obj_def(2);
                 diff_max = border(3,1) - obj_def(1);
             end
-\end{lstlisting}
-  If a common range exists, the $x$ values at the edges of the overlapping $y$ values are calculated.
-\begin{lstlisting}
-...
-            
-            %% calculate x values to min_y and max_y
-            %linear functions
-            if(func(1)==0) %distinguish beetween linear and quadratic
-                if(func(2)==0)
-                    funcX_min = def(1);
-                    funcX_max = def(2);
-                else
-                    funcX_min = (min_y - func(3))/func(2);
-                    funcX_max = (max_y - func(3))/func(2);
-                end
-            else%quadratic functions
-                [x1_min,x2_min]=solve(poly2sym([func(1),func(2),func(3)-min_y]));
-                [x1_max,x2_max]=solve(poly2sym([func(1),func(2),func(3)-max_y]));
-                
-                %choose x nearest to the object using search direction sign
-                if(sign(direction)==-1)
-                    funcX_min = (x1_min>x2_min)*x1_min +(x1_min<=x2_min)*x2_min;
-                    funcX_max = (x1_max>x2_max)*x1_max +(x1_max<=x2_max)*x2_max;
-                else
-                    funcX_min = (x1_min<x2_min)*x1_min +(x1_min>=x2_min)*x2_min;
-                    funcX_max = (x1_max<x2_max)*x1_max +(x1_max>=x2_max)*x2_max;
-                end
-            end
 ...
 \end{lstlisting}
+ If a common range exists, the $x$ values at the edges of the overlapping $y$ values are calculated as $funcX_min$ and $funcX_max$.
 The same calcuations are also made for the current \textbf{object} function to calculate $objX_min$ and $objX_max$. The difference beetween the \textbf{object} function and the \textbf{func} values are used to determine the distance the \textbf{object} needs to be moved towards the function \textbf{func}. The minimum distance is then saved together with the new configuration point.
 \begin{lstlisting}
 ...           
@@ -552,7 +492,8 @@ The same calcuations are also made for the current \textbf{object} function to c
     end
 ...
 \end{lstlisting}
-If the movement is along the y-coordinate a simple look at the defenition ranges of the \textbf{object} functions rules out all functions that are not in the way.
+\subsubsection{Along y-direction}
+If the movement is along the y-coordinate a simple look at the definition ranges of the \textbf{object} functions rules out all functions that are not in the way.
 If that is the case, the border is taken as the nearest function.
 \begin{lstlisting}
 ...
@@ -602,3 +543,52 @@ If there is a common range, the $objValue$s are calculatet with the common funct
    
 end
 \end{lstlisting}
+
+%
+%\subsubsection{moveFunc}
+%$[\textbf{object}]=moveFunc(\textbf{diff, dir, object})$ recalculates the function parameters stored in \textbf{object}.coeff depending on the direction \textbf{dir} and distance \textbf{diff}  the \textbf{object} needs to be moved.\\
+%Parameters:
+%\begin{itemize}
+%\item \textbf{diff}:the signed distance the object is moved.
+%\item \textbf{dir}: the dimension of $C$ to search a new node on. Signed means search backward, unsigned forward. 
+%\item \textbf{object}: the object which needs adaption.
+%\end{itemize}
+%Returns:
+%\begin{itemize}
+%\item \textbf{object}: the adapted object.
+%\end{itemize}
+%The function $moveFunc(...)$ distinguishes beetween movement in $x$- and $y$-direction.\\
+% For movement along the $x$-axis the objects functions coefficients are recalculated by substraction of \textbf{diff} from x for every function in the object. After finishing iterating over the functions, the definition range is adapted and the new anchor point is set.
+%\begin{lstlisting}
+%...
+%for function_number=1:length(object.coeff)%iterate over all functions
+%       func = object.coeff{function_number};
+%       if func(1)==0 %function is linear
+%           %b(x-d)+c = bx + ( -bd + c)
+%           func(3)=-func(2)*diff+func(3);  
+%       else %function is quadratic
+%           %a(x-d)^2 + b(x-d) + c =
+%           %ax^2 - 2adx + ad^2 + bx - bd + c =
+%           %ax^2 + (-2ad + b)x + (ad^2 - bd + c)
+%           b = -2*func(1)*diff + func(2);
+%           c = func(1)*diff^2 - diff*func(2) + func(3);
+%           func(2)=b;
+%           func(3)=c;
+%       end
+%       object.coeff{function_number}=func; %save new coefficients
+%       object.def{function_number}=object.def{function_number}+diff;% save new definition range
+%    end
+%    object.mid(1) = object.mid(1) + diff;%set new anchor point
+%...
+%\end{lstlisting}
+%Movements alogn the $y$-axis are easier, as they require to only chance the constant coefficient of a function. 
+%\begin{lstlisting}
+%...
+%for function_number=1:length(object.coeff)%iterate over all functions
+%       func = object.coeff{function_number};
+%       func(3) = func(3) - diff; %change constant coefficient
+%       object.coeff{function_number}=func;       
+%    end
+%    object.mid(2)=object.mid(2) - diff; %set net anchorpoint
+%...
+%\end{lstlisting}

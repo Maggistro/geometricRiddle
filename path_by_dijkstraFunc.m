@@ -7,7 +7,7 @@ function Path = path_by_dijkstraFunc(riddle,figureData)
 %figureData set of information for replotting the riddle on-the-fly
 
 next_collision_set = riddle.o;
-
+next_collision_set = [next_collision_set riddle.r];
 %collision_set{length(collision_set)+1} = riddle.b;
 %get size of direction vector ( 3 parameters per object) 
 directions = zeros(1,(length(riddle.o)*3)*2);
@@ -18,7 +18,7 @@ for i=1:(length(riddle.o)*3)*2
     end
 end
 
-directions = [1 -1 2 -2 3 -3 4 -4 5 -5];
+%directions = [1 -1 2 -2 3 -3 6 -6];
 
 %initial configuration vector for start and target
 start = riddle.m.mid;
@@ -50,6 +50,7 @@ collision_set{1} = next_collision_set;
 
     figureData.o = next_collision_set;
     drawMainObjectFunc(figureData);
+    
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
     unvisited_D= D+H;
@@ -59,10 +60,8 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     V(next_position)=1;
     
     
-
     %figureData.o = collision_set{next_position};
     %drawMainObjectFunc(figureData);
-    
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
         %get all nodes in front of next obstacle line
@@ -79,7 +78,7 @@ while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
                 pn_position=find(sum(abs(R - ones(size(R,1),1)*possible_next)<0.001,2)==size(R,2)); %suche position des knotens im Rand
                 if(D(pn_position)>D(next_position)+0.1) % wenn Randknoten weiter weg ist als momentaner weg
                     D(pn_position)=D(next_position)+0.1; % update für entfernung
-                    P(pn_position,:)=next; %und trage als vorgänger betrachteten knoten ein
+                    P(pn_position(1),:)=next; %und trage als vorgänger betrachteten knoten ein
                 end %wenn Randknoten näher ist ist alles ok, knoten muss nicht hinzugefügt werden
             end
         end %wenn knoten nicht erlaubt ist nicht betrachten        

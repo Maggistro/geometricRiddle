@@ -16,7 +16,8 @@ if(func)
     figureData.Target = riddle.t;
 else
     figureData.riddle = riddle;
-    figureData.Rim = riddle.r{1}.data;
+    figureData.Rim = riddle.r;
+    figureData.b = riddle.bZ;
     figureData.Target =riddle.t.data;
 end
 
