@@ -328,7 +328,7 @@ Paths = cell(10,1);
 for i=1:11
     tic;
     %set flag to true for function implementation, false for vector
-    Paths(i) = {solveRiddle(riddleBackward,false)};
+    Paths(i) = {solveRiddle(riddleBackwardFunc,true,true)};
     times(i)=toc
 end
 

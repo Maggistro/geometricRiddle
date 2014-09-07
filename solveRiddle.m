@@ -1,4 +1,4 @@
-function msg = solveRiddle(riddle,func)
+function msg = solveRiddle(riddle,func,cell)
 %solveRiddle initialise needed variables and starts search
 %func is a boolean for switching beetween function and vector
 %implementation
@@ -24,7 +24,11 @@ end
 %drawMainObject(figureData);
 
 if(func)
-    Path = path_by_dijkstraFunc(riddle,figureData);
+    if cell
+        Path = path_by_dijkstraCell(riddle,figureData);
+    else
+        Path = path_by_dijkstraFunc(riddle,figureData);
+    end
 else
     warning('off','MATLAB:rankDeficientMatrix');
     warning('off','MATLAB:singularMatrix');
