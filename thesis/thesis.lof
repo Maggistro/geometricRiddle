@@ -5,14 +5,16 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {\relax 2.1}{\ignorespaces Figure showing the calculation of the angle difference between vectors $a$ and $b$ via reference to x-axis\relax }}{8}{figure.caption.3}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces Figure showing two objects and their extended borders\relax }}{15}{figure.caption.4}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces Riddle with main object, border, target and moveable obstacle.\relax }}{33}{figure.caption.11}
-\contentsline {figure}{\numberline {\relax 5.2}{\ignorespaces Riddle with two and four movable obstacles.\relax }}{34}{figure.caption.13}
-\contentsline {figure}{\numberline {\relax 5.3}{\ignorespaces Riddle with six and eight moveable obstacles.\relax }}{35}{figure.caption.15}
-\contentsline {figure}{\numberline {\relax 5.4}{\ignorespaces Plot of the two algorithms showing the time needed to finish depending on the objects involved.\relax }}{36}{figure.caption.17}
-\contentsline {figure}{\numberline {\relax 5.5}{\ignorespaces Plot showing the ghostplanes between main object and target.\relax }}{36}{figure.caption.18}
+\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces Riddle with main object, border, target and moveable obstacle.\relax }}{36}{figure.caption.13}
+\contentsline {figure}{\numberline {\relax 5.2}{\ignorespaces Riddle with two and four movable obstacles.\relax }}{36}{figure.caption.15}
+\contentsline {figure}{\numberline {\relax 5.3}{\ignorespaces Riddle with six and eight moveable obstacles.\relax }}{37}{figure.caption.17}
+\contentsline {figure}{\numberline {\relax 5.4}{\ignorespaces Riddle which needs backward step to be solved.\relax }}{38}{figure.caption.19}
+\contentsline {figure}{\numberline {\relax 5.5}{\ignorespaces Plot of the tree algorithms showing the time needed to finish depending on the objects involved.\relax }}{39}{figure.caption.21}
+\contentsline {figure}{\numberline {\relax 5.6}{\ignorespaces Plot showing the ghostplanes between main object and target.\relax }}{39}{figure.caption.22}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 6.1}{\ignorespaces Figure showing a main object (green) with a spiral like obstacle (black) and a target area (red).\relax }}{39}{figure.caption.19}
-\contentsline {figure}{\numberline {\relax 6.2}{\ignorespaces Two objects which planes interfere\relax }}{40}{figure.caption.20}
+\contentsline {figure}{\numberline {\relax 6.1}{\ignorespaces Figure showing a main object (green) with a spiral like obstacle (black) and a target area (red).\relax }}{41}{figure.caption.23}
+\contentsline {figure}{\numberline {\relax 6.2}{\ignorespaces Two objects which planes interfere\relax }}{42}{figure.caption.24}
 \addvspace {10\p@ }

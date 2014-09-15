@@ -49,7 +49,6 @@ if(inTargetCell) %if main object, calculate connection to target
     end
 end
 
-
 for object_number=1:length(curr_collision_set) %iterate over all objects
     if(object_number==object_pos) %skip if object is moving object
         continue;

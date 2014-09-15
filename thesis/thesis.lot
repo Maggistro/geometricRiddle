@@ -5,8 +5,9 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {\relax 5.1}{\ignorespaces Time in seconds for rotation riddle and translation riddle.\relax }}{34}{table.caption.12}
-\contentsline {table}{\numberline {\relax 5.2}{\ignorespaces Time in seconds for small riddle with 2 and 4 obstacles.\relax }}{34}{table.caption.14}
-\contentsline {table}{\numberline {\relax 5.3}{\ignorespaces Time in seconds for medium riddle with 6 and 8 obstacles.\relax }}{35}{table.caption.16}
+\contentsline {table}{\numberline {\relax 5.1}{\ignorespaces Time in seconds for rotation riddle and translation riddle.\relax }}{36}{table.caption.14}
+\contentsline {table}{\numberline {\relax 5.2}{\ignorespaces Time in seconds for small riddle with 2 and 4 obstacles.\relax }}{37}{table.caption.16}
+\contentsline {table}{\numberline {\relax 5.3}{\ignorespaces Time in seconds for medium riddle with 6 and 8 obstacles.\relax }}{37}{table.caption.18}
+\contentsline {table}{\numberline {\relax 5.4}{\ignorespaces Time in seconds for counterheuristic riddle.\relax }}{38}{table.caption.20}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

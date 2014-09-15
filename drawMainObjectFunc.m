@@ -10,20 +10,26 @@ hold on;
 for objectNumber=1:length(figureData.o)
     %pick object
     temp = figureData.o{objectNumber};
+    points=[];
+    values=[];
     for func_number = 1:length(temp.coeff)
         %pick function
         func = temp.coeff{func_number};
         def = temp.def{func_number}';
-        points = def(1):0.001:def(2);
-        values = subs(poly2sym(func),points);
+        points = [points, def(1), def(2)];
+        values = [values,func(1)*def(1)*def(1) + func(2)*def(1) + func(3),...
+                        func(1)*def(2)*def(2) + func(2)*def(2) + func(3)];
         
+      
+    
+    end
         if(objectNumber==1)
             color='g';
         else
             color='b';
         end
-        plot(points,values,color);      
-    end
+        plot(points,values,color);
+        
     plot(temp.mid(1),temp.mid(2),'*');
 end
 
@@ -33,9 +39,9 @@ for func_number = 1:length(target.coeff)
     %pick function
     func = target.coeff{func_number};
     def = target.def{func_number}';
-    points = def(1):0.001:def(2);
-    values = subs(poly2sym(func),points);
-    plot(points,values,'r');
+    values =[ func(1)*def(1)*def(1) + func(2)*def(1) + func(3),...
+                        func(1)*def(2)*def(2) + func(2)*def(2) + func(3)];
+    plot(def,values,'r');
     
 end
 axis([-2,17,-2,12]);

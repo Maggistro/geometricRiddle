@@ -9,6 +9,26 @@ A level-1 auxiliary file: discussion.aux
 A level-1 auxiliary file: conclusion.aux
 The style file: acm.bst
 Database file #1: bibliography.bib
+Warning--entry type for "binTree" isn't style-file defined
+--line 36 of file bibliography.bib
+Warning--entry type for "swift" isn't style-file defined
+--line 43 of file bibliography.bib
+Warning--entry type for "potField" isn't style-file defined
+--line 50 of file bibliography.bib
+Warning--entry type for "motionAssembly" isn't style-file defined
+--line 88 of file bibliography.bib
+I was expecting a `,' or a `}'---line 93 of file bibliography.bib
+ :  
+ :  book = {Algorithmica, Volume 26, Issue 3-4, pp 577-601}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--entry type for "genAssembly" isn't style-file defined
+--line 96 of file bibliography.bib
+Warning--entry type for "pairwise" isn't style-file defined
+--line 111 of file bibliography.bib
+Warning--entry type for "sphere" isn't style-file defined
+--line 119 of file bibliography.bib
 Warning--I didn't find a database entry for "Zitat"
 Warning--to sort, need author or key in nethack
-(There were 2 warnings)
+Warning--empty journal in minkowski
+(There was 1 error message)

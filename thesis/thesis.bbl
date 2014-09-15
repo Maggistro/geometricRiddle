@@ -1,20 +1,88 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{nethack}
 Nethack.
 \newblock \\URL: \url{http://www.nethack.org/index.html}.
 
 \bibitem{ComputerScience}
-{\sc Alfred V.~Aho, J. D.~U.}
+{\sc Aho, A.~V., and Ullman, J.~D.}
 \newblock {\em Foundations of Computer Science}, vol.~C Edition.
 \newblock Computer Science Press, 1995.
+
+\bibitem{potField}
+{\sc Barraquand, J., Langlois, B., and Latombe, J.-C.}
+\newblock Numerical potential field techniques for robot path planning, 1989.
+
+\bibitem{lazyPRM}
+{\sc Bohlin, R., and Kavraki, L.~E.}
+\newblock Path planning using lazy prm.
+\newblock In {\em Proceedings of the 2000 IEEE International Conference on
+  Robotics \& Automation\/} (April 2000), IEEE.
 
 \bibitem{tool:git}
 {\sc Chacon, S.}
 \newblock {\em Pro Git}, July 2009.
 
+\bibitem{pairwise}
+{\sc Cohen, J.~D., Lin, M.~C., Manocha, D., and Ponamgi, M.}
+\newblock I-collide: An interactive and exact collision detection system for
+  large-scale enviroments, 1995.
+
+\bibitem{swift}
+{\sc Ehmann, S.~A., and Lin, M.~C.}
+\newblock Swift: Accelerated proximity queries using multi-level voronoi
+  marching, 2000.
+
+\bibitem{binTree}
+{\sc Fujimura, K., and Samet, H.}
+\newblock Path planning among moving obstacles using spatial indexing, 1988.
+
+\bibitem{motionAssembly}
+{\sc Halperin, D., Latombe, J.-C., and Wilson, R.~H.}
+\newblock A general framework for assembly planning: The motion space approach,
+  2000.
+
+\bibitem{cgNEAT}
+{\sc Hastings, E.~J., Guha, R.~K., and Stanley, K.~O.}
+\newblock Evolving content in the galactic arms race video game.
+\newblock In {\em Proceedings of the IEEE Symposium on Computational
+  Intelligence and Games (CIG09)\/} (2009), IEEE.
+
+\bibitem{hwang1992potential}
+{\sc Hwang, Y.~K., and Ahuja, N.}
+\newblock A potential field approach to path planning.
+\newblock {\em Robotics and Automation, IEEE Transactions on 8}, 1 (1992),
+  23--32.
+
+\bibitem{rta}
+{\sc Korf, R.~E.}
+\newblock Real-time heuristic search: New results*.
+\newblock In {\em AAAI-88 Proceedings\/} (1988), AAAI.
+
+\bibitem{collision}
+{\sc Lin, M.~C.}
+\newblock {\em Efficient Collision Detection for Animation and Robotics}.
+\newblock PhD thesis, University of California at Berkley, 1993.
+
+\bibitem{genAssembly}
+{\sc Lit, P.~D., Latinne, P., Rekiek, B., and Delchambre, A.}
+\newblock Assembly planning with an ordering genetic algorithm, 2001.
+
 \bibitem{tool:matlab}
 {\sc MathWorks, Inc}.
 \newblock {\em Matlab Language Reference Manual}.
+
+\bibitem{sphere}
+{\sc Palmer, I.~J., and Grimsdale, R.~L.}
+\newblock Collision detection for animation using sphere-trees., 1995.
+
+\bibitem{minkowski}
+{\sc R\&kg, A.-W.}
+\newblock Encyclopedia of mathematics.
+
+\bibitem{geoAssembly}
+{\sc Wilson, R.~H.}
+\newblock {\em On Geometric Assembly Planning}.
+\newblock PhD thesis, Stanford University, March 1992.
 
 \end{thebibliography}

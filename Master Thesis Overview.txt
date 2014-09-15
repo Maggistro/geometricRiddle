@@ -1,9 +1,3 @@
-Substitue polyeder/polyeders with polyhedron/polyhedra
-dijkstra erklärung add it with predecessor... -> insert the node predecessor
-concept definitions/defining ??
-ende concept tradoff satz erstzen.
-
-
 Introduction:
   - Elaborate use cases a bit more                                                      <-- done
   - Research current forms of collision calculation and open pathplanning       <-- done

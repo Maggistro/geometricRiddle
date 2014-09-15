@@ -1,46 +1,49 @@
 \BOOKMARK [0][]{chapter.1}{1 Introduction}{}% 1
 \BOOKMARK [1][]{section.1.1}{1.1 Motivation}{chapter.1}% 2
-\BOOKMARK [2][]{subsection.1.1.1}{1.1.1 Path planning in robotics}{section.1.1}% 3
-\BOOKMARK [2][]{subsection.1.1.2}{1.1.2 Geometric riddles in gaming}{section.1.1}% 4
+\BOOKMARK [2][]{subsection.1.1.1}{1.1.1 Path Planning in Robotics}{section.1.1}% 3
+\BOOKMARK [2][]{subsection.1.1.2}{1.1.2 Geometric Riddles in Gaming}{section.1.1}% 4
 \BOOKMARK [1][]{section.1.2}{1.2 Idea}{chapter.1}% 5
-\BOOKMARK [1][]{section.1.3}{1.3 State of the art}{chapter.1}% 6
-\BOOKMARK [2][]{subsection.1.3.1}{1.3.1 Pathplanning}{section.1.3}% 7
-\BOOKMARK [2][]{subsection.1.3.2}{1.3.2 Collision detection}{section.1.3}% 8
+\BOOKMARK [1][]{section.1.3}{1.3 State of the Art}{chapter.1}% 6
+\BOOKMARK [2][]{subsection.1.3.1}{1.3.1 Path Planning}{section.1.3}% 7
+\BOOKMARK [2][]{subsection.1.3.2}{1.3.2 Collision Detection}{section.1.3}% 8
 \BOOKMARK [2][]{subsection.1.3.3}{1.3.3 Applications}{section.1.3}% 9
-\BOOKMARK [0][]{chapter.2}{2 Enviroment and basics}{}% 10
-\BOOKMARK [1][]{section.2.1}{2.1 Programming tools}{chapter.2}% 11
+\BOOKMARK [0][]{chapter.2}{2 Enviroment and Basics}{}% 10
+\BOOKMARK [1][]{section.2.1}{2.1 Programming Tools}{chapter.2}% 11
 \BOOKMARK [1][]{section.2.2}{2.2 Basics}{chapter.2}% 12
-\BOOKMARK [2][]{subsection.2.2.1}{2.2.1 Basic vector math}{section.2.2}% 13
-\BOOKMARK [2][]{subsection.2.2.2}{2.2.2 Minkowski sum}{section.2.2}% 14
-\BOOKMARK [2][]{subsection.2.2.3}{2.2.3 convex hull}{section.2.2}% 15
-\BOOKMARK [2][]{subsection.2.2.4}{2.2.4 Pathfinding algorithms on graphs}{section.2.2}% 16
+\BOOKMARK [2][]{subsection.2.2.1}{2.2.1 Basic Vector Math}{section.2.2}% 13
+\BOOKMARK [2][]{subsection.2.2.2}{2.2.2 Minkowski Sum}{section.2.2}% 14
+\BOOKMARK [2][]{subsection.2.2.3}{2.2.3 Convex Hull}{section.2.2}% 15
+\BOOKMARK [2][]{subsection.2.2.4}{2.2.4 Pathfinding Algorithms on Graphs}{section.2.2}% 16
 \BOOKMARK [0][]{chapter.3}{3 Concept}{}% 17
-\BOOKMARK [1][]{section.3.1}{3.1 Common defenitions and representation}{chapter.3}% 18
-\BOOKMARK [2][]{subsection.3.1.1}{3.1.1 Definition of the configuration space}{section.3.1}% 19
-\BOOKMARK [2][]{subsection.3.1.2}{3.1.2 Building the configuration space}{section.3.1}% 20
-\BOOKMARK [2][]{subsection.3.1.3}{3.1.3 Objects as point list}{section.3.1}% 21
-\BOOKMARK [2][]{subsection.3.1.4}{3.1.4 Objects as function list}{section.3.1}% 22
-\BOOKMARK [0][]{chapter.4}{4 Implementation}{}% 23
-\BOOKMARK [1][]{section.4.1}{4.1 Algorithms and Functions}{chapter.4}% 24
-\BOOKMARK [2][]{subsection.4.1.1}{4.1.1 Main search loop}{section.4.1}% 25
-\BOOKMARK [2][]{subsection.4.1.2}{4.1.2 Implementation with point list}{section.4.1}% 26
-\BOOKMARK [2][]{subsection.4.1.3}{4.1.3 Implementation with function list}{section.4.1}% 27
-\BOOKMARK [0][]{chapter.5}{5 Results}{}% 28
-\BOOKMARK [1][]{section.5.1}{5.1 Rotation and Translation}{chapter.5}% 29
-\BOOKMARK [1][]{section.5.2}{5.2 Small riddles}{chapter.5}% 30
-\BOOKMARK [1][]{section.5.3}{5.3 Medium riddles}{chapter.5}% 31
-\BOOKMARK [1][]{section.5.4}{5.4 Interpretation}{chapter.5}% 32
-\BOOKMARK [0][]{chapter.6}{6 Discussion}{}% 33
-\BOOKMARK [1][]{section.6.1}{6.1 General Problems}{chapter.6}% 34
-\BOOKMARK [2][]{subsection.6.1.1}{6.1.1 Rotation steps}{section.6.1}% 35
-\BOOKMARK [1][]{section.6.2}{6.2 Problems with point list implementation}{chapter.6}% 36
-\BOOKMARK [2][]{subsection.6.2.1}{6.2.1 Invisible plains}{section.6.2}% 37
-\BOOKMARK [1][]{section.6.3}{6.3 Problems with function list implementation}{chapter.6}% 38
-\BOOKMARK [2][]{subsection.6.3.1}{6.3.1 Vertical lines}{section.6.3}% 39
-\BOOKMARK [0][]{chapter.7}{7 Conclusion}{}% 40
-\BOOKMARK [1][]{section.7.1}{7.1 Appliances and further usage}{chapter.7}% 41
-\BOOKMARK [1][]{section.7.2}{7.2 Summary}{chapter.7}% 42
-\BOOKMARK [0][]{section.7.2}{Resources}{}% 43
-\BOOKMARK [1][]{section*.21}{List of images}{section.7.2}% 44
-\BOOKMARK [1][]{appendix*.22}{List of tables}{section.7.2}% 45
-\BOOKMARK [1][]{appendix*.23}{bibliography}{section.7.2}% 46
+\BOOKMARK [1][]{section.3.1}{3.1 Common Defenitions and Representations}{chapter.3}% 18
+\BOOKMARK [2][]{subsection.3.1.1}{3.1.1 Definition of the Configuration Space}{section.3.1}% 19
+\BOOKMARK [2][]{subsection.3.1.2}{3.1.2 Building the Configuration Space}{section.3.1}% 20
+\BOOKMARK [2][]{subsection.3.1.3}{3.1.3 Dividing the Space in Cells}{section.3.1}% 21
+\BOOKMARK [2][]{subsection.3.1.4}{3.1.4 Objects as Point List}{section.3.1}% 22
+\BOOKMARK [2][]{subsection.3.1.5}{3.1.5 Objects as Function List}{section.3.1}% 23
+\BOOKMARK [0][]{chapter.4}{4 Implementation}{}% 24
+\BOOKMARK [1][]{section.4.1}{4.1 Algorithms and Functions}{chapter.4}% 25
+\BOOKMARK [2][]{subsection.4.1.1}{4.1.1 Main Search Loop}{section.4.1}% 26
+\BOOKMARK [2][]{subsection.4.1.2}{4.1.2 Implementation with Point List}{section.4.1}% 27
+\BOOKMARK [2][]{subsection.4.1.3}{4.1.3 Implementation with Function List}{section.4.1}% 28
+\BOOKMARK [0][]{chapter.5}{5 Results}{}% 29
+\BOOKMARK [1][]{section.5.1}{5.1 Measurements}{chapter.5}% 30
+\BOOKMARK [2][]{subsection.5.1.1}{5.1.1 Rotation and Translation}{section.5.1}% 31
+\BOOKMARK [2][]{subsection.5.1.2}{5.1.2 Small Riddles}{section.5.1}% 32
+\BOOKMARK [2][]{subsection.5.1.3}{5.1.3 Medium Riddles}{section.5.1}% 33
+\BOOKMARK [2][]{subsection.5.1.4}{5.1.4 Counterheuristic Riddles}{section.5.1}% 34
+\BOOKMARK [1][]{section.5.2}{5.2 Interpretation}{chapter.5}% 35
+\BOOKMARK [0][]{chapter.6}{6 Discussion}{}% 36
+\BOOKMARK [1][]{section.6.1}{6.1 General Problems}{chapter.6}% 37
+\BOOKMARK [2][]{subsection.6.1.1}{6.1.1 Rotation Steps}{section.6.1}% 38
+\BOOKMARK [1][]{section.6.2}{6.2 Problems with Point List Implementation}{chapter.6}% 39
+\BOOKMARK [2][]{subsection.6.2.1}{6.2.1 Invisible Plains}{section.6.2}% 40
+\BOOKMARK [1][]{section.6.3}{6.3 Problems with Function List Implementation}{chapter.6}% 41
+\BOOKMARK [2][]{subsection.6.3.1}{6.3.1 Vertical Lines}{section.6.3}% 42
+\BOOKMARK [0][]{chapter.7}{7 Conclusion}{}% 43
+\BOOKMARK [1][]{section.7.1}{7.1 Applications and Further Usage}{chapter.7}% 44
+\BOOKMARK [1][]{section.7.2}{7.2 Summary}{chapter.7}% 45
+\BOOKMARK [0][]{section.7.2}{Resources}{}% 46
+\BOOKMARK [1][]{section*.25}{List of Figures}{section.7.2}% 47
+\BOOKMARK [1][]{appendix*.26}{List of Tables}{section.7.2}% 48
+\BOOKMARK [1][]{appendix*.27}{Bibliography}{section.7.2}% 49

@@ -1,4 +1,4 @@
-function Path = path_by_dijkstraFunc(riddle,figureData)
+function Path = path_by_dijkstraCell(riddle,figureData)
 %path_by_dijkstra calculates the path for mainObject from start to target
 %border of the complete riddle
 %object contains ALL objects except mainobject
@@ -72,8 +72,8 @@ while(~sum(ismember(RV(:,1:3),target(1:3),'rows')))
     V(next_position)=1;
     
     
-    %figureData.o = collision_set{next_position};
-    %drawMainObjectFunc(figureData);
+    figureData.o = collision_set{next_position};
+    drawMainObjectFunc(figureData);
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
         %get all nodes in front of next obstacle line
@@ -94,6 +94,7 @@ while(~sum(ismember(RV(:,1:3),target(1:3),'rows')))
                     D(pn_position)=D(next_position)+0.1; % update für entfernung
                     P(pn_position(1),:)=oldCell; %und trage als vorgänger betrachteten knoten ein
                     RV(pn_position(1),:)=next;
+                    collision_set{pn_position(1)}=next_collision_set;
                 end %wenn Randknoten näher ist ist alles ok, knoten muss nicht hinzugefügt werden
             end
         end %wenn knoten nicht erlaubt ist nicht betrachten        

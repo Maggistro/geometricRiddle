@@ -210,6 +210,7 @@ riddleBackwardFunc.r={R1, R2, R3};
 riddleMultipleFunc.r={};
 riddleMultipleBigFunc.r={};
 riddleMultipleBiggerFunc.r={};
+riddleTwelveFunc.r={};
 
 %Obstacle O
 O1.coeff = {[0,200,-1393],[0,0,8],[0,200,-1593],[0,0,7]};
@@ -256,6 +257,56 @@ O8.def = {[5,5.005],[5.005,6.005],[6,6.005],[5,6]};
 O8.above = {-1, -1, 1 ,1};
 O8.mid=[5.5,6.5,0];
 
+%
+% NEW SET
+%
+O9.coeff = {[0,200,-1591.5],[0,0,8.5],[0,200,-1791.5],[0,0,9.5]};
+O9.def = {[8,8.005],[8.005,9.005],[9,9.005],[8,9]}; 
+O9.above = {-1, -1, 1 ,1};
+O9.mid=[8.5,9,0];
+
+
+O10.coeff = {[0,200,-1599.5],[0,0,0.5],[0,200,-1799.5],[0,0,1.5]};
+O10.def = {[8,8.005],[8.005,9.005],[9,9.005],[8,9]};  
+O10.above = {-1, -1, 1 ,1};
+O10.mid=[8.5,1,0];
+
+
+O11.coeff = {[0,200,-999.5],[0,0,0.5],[0,200,-1199.5],[0,0,1.5]};
+O11.def = {[5,5.005],[5.005,6.005],[6,6.005],[5,6]}; 
+O11.above = {-1, -1, 1 ,1};
+O11.mid=[5.5,1,0];
+
+O12.coeff = {[0,200,-991.5],[0,0,8.5],[0,200,-1191.5],[0,0,9.5]};
+O12.def = {[5,5.005],[5.005,6.005],[6,6.005],[5,6]};  
+O12.above = {-1, -1, 1 ,1};
+O12.mid=[5.5,9,0];
+
+
+O13.coeff = {[0,200,-1796],[0,0,5.5],[0,200,-1996],[0,0,4.5]};
+O13.def = {[9.0025,9.0075],[9.0075,10.0075],[10.0025,10.0075],[9.0025,10.0025]}; 
+O13.above = {-1, -1, 1 ,1};
+O13.mid=[9.5,5,0];
+
+
+O14.coeff = {[0,200,-1799],[0,0,3],[0,200,-1999],[0,0,2]};
+O14.def = {[9.005,9.01],[9.01,10.01],[10.005,10.01],[9.005,10.005]}; 
+O14.above = {-1, -1, 1 ,1};
+O14.mid=[9.5,2.5,0];
+
+O15.coeff = {[0,200,-1796],[0,0,5.5],[0,200,-1996],[0,0,4.5]};
+O15.def = {[9.0025,9.0075],[9.0075,10.0075],[10.0025,10.0075],[9.0025,10.0025]}; 
+O15.above = {-1, -1, 1 ,1};
+O15.mid=[9.5,5,0];
+
+
+O16.coeff = {[0,200,-1799],[0,0,3],[0,200,-1999],[0,0,2]};
+O16.def = {[9.005,9.01],[9.01,10.01],[10.005,10.01],[9.005,10.005]}; 
+O16.above = {-1, -1, 1 ,1};
+O16.mid=[9.5,2.5,0];
+
+
+
 OT.coeff = {[0,200,-1396],[0,0,6.5],[0,200,-1596],[0,0,3.5]};
 OT.def = {[6.9925,7.0125],[7.0125,8.0125],[7.9925,8.0125],[6.9925,7.9925]}; 
 OT.above = {-1, -1, 1 ,1};
@@ -272,6 +323,7 @@ riddleBackwardFunc.m = M;
 riddleMultipleFunc.m = M;
 riddleMultipleBigFunc.m = M;
 riddleMultipleBiggerFunc.m = M;
+riddleTwelveFunc.m = M;
 
 %All movable objects
 riddleSmallFunc.o = {M,O1,O2};
@@ -280,6 +332,7 @@ riddleBackwardFunc.o ={M};
 riddleMultipleFunc.o = {M,O1,O2,O4,O5};
 riddleMultipleBigFunc.o = {M,O1,O2,O3,O4,O5,O6};
 riddleMultipleBiggerFunc.o = {M,O1,O2,O3,O4,O5,O6,O7,O8};
+riddleTwelveFunc.o = {M,O1,O2,O3,O4,O5,O6,O7,O8,O9,O10,O11,O12};
 
 %Target T
 T.data = [12,6; 13,6; 13,8; 12,8; 12,6];
@@ -300,6 +353,7 @@ riddleBackwardFunc.t = TB;
 riddleMultipleFunc.t = T;
 riddleMultipleBigFunc.t = T;
 riddleMultipleBiggerFunc.t = T;
+riddleTwelveFunc.t = T;
 
 %Configuration space size ( main border )
 riddleSmallFunc.b =  [0,0; 0,10; 15,10; 15,0];
@@ -308,6 +362,7 @@ riddleBackwardFunc.b = [0,0; 0,10; 15,10; 15,0];
 riddleMultipleFunc.b =  [0,0; 0,10; 15,10; 15,0];
 riddleMultipleBigFunc.b = [0,0; 0,10; 15,10; 15,0];
 riddleMultipleBiggerFunc.b = [0,0; 0,10; 15,10; 15,0];
+riddleTwelveFunc.b = [0,0; 0,10; 15,10; 15,0];
 
 
 %safety distance
@@ -317,6 +372,7 @@ riddleBackwardFunc.s = 0.001;
 riddleMultipleFunc.s = 0.001;
 riddleMultipleBigFunc.s = 0.001;
 riddleMultipleBiggerFunc.s = 0.001;
+riddleTwelveFunc.s = 0.001;
 
 
 %% calling solveriddle
@@ -328,7 +384,7 @@ Paths = cell(10,1);
 for i=1:11
     tic;
     %set flag to true for function implementation, false for vector
-    Paths(i) = {solveRiddle(riddleBackwardFunc,true,true)};
+    Paths(i) = {solveRiddle(riddleTwelveFunc,true,true)};
     times(i)=toc
 end
 
@@ -341,5 +397,13 @@ plot(out(:,7),out(:,8),'blue');
 plot(out(:,10),out(:,11),'blue');
 plot(out(:,13),out(:,14),'blue');
 plot(out(:,16),out(:,17),'blue');
+plot(out(:,19),out(:,20),'blue');
+plot(out(:,22),out(:,23),'blue');
+plot(out(:,25),out(:,26),'blue');
+plot(out(:,28),out(:,29),'blue');
+plot(out(:,31),out(:,32),'blue');
+plot(out(:,34),out(:,35),'blue');
+plot(out(:,37),out(:,38),'blue');
+plot(out(:,40),out(:,41),'blue');
 axis([0 17 0 12]);
 hold off;

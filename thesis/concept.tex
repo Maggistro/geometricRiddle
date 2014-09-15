@@ -1,6 +1,6 @@
 \chapter{Concept}
-\section{Common defenitions and representation}
-\subsection{Definition of the configuration space}
+\section{Common Defenitions and Representations}
+\subsection{Definition of the Configuration Space}
 As the exact representation of our objects should not matter, we will only define the common points needed for a clear communication of the stated problem.\\
 The algorithms aim is to tell if there is a solution possible and, if so, present it. The object which needs to be moved from a starting configuration to a target configuration will be named main object M. Other movable objects are obstacles named $Ob_i$  and the stationary objects are called rims $R_i$. This will be combined to the sets $O = \{M\}  \cup \{Ob_i | i \in \mathbb{N} \} $ and $ R = \{ R_i | i \in \mathbb{N}\}$.\\
 
@@ -9,7 +9,7 @@ By substraction of the first two dimensions occupied by R from the possible spac
 But as there is the need to check for collision with ALL other objects $O' = \{O_j, | j\neq i \wedge j \in \mathbb{N}\} $ we need to increase the dimensions of all spaces $C_{O_i-R}$ by the number of objects in $O'$. Also for each set $j$ of dimensions $(x_j,y_j,\phi_j)$  added, we will need to substract the current position of the corresponding object $O_j$ from the space, such that all collision points are removed from $C_{O_i-R}$. This will give us the configuration space for object $O_i$, $C_{O_i}$.
 
 
-\subsection{Building the configuration space}
+\subsection{Building the Configuration Space}
 \label{subsec:confspace}
 To build such a configuration space, every possible configuration of every movable object needs to be calculated. Even those who are NOT valid need to be computed at least once, to check if they are valid or not.\\
 Each object A has three dimensions $(x_A,y_A,\phi_A)$, with $x$ and $y$ beeing a finite range from $r_x=[x_l, x_h]$ and $r_y=[y_l, y_h]$ defined by the stationary rims of the riddle. The rotation component $\phi$ is choosen from a set of angles $\Phi = \{ \phi | \phi \in r_\phi=[1, 360] \}$. As this would lead to an infinite amount of possible $x,y$ and $\phi$, we could allow steps only, e.g. $x,y,\phi \in \mathbb{N}$.\\
@@ -29,11 +29,24 @@ This means we would need to wait 9h to completely calculate all possible positio
 
 So the idea is to interleave search and building of the configuration space in such a way, that only the needed nodes are calculated and checked.
 But still this would be very slow if we consider implementing it on such a grid. Therefore another approach is needed.\\
+
+
+\subsection{Dividing the Space in Cells}
+\label{subsec::cells}
 Instead of taking a grid, the configuration space is divided into cells depending on the current positition of the objects. This cell division will heavily decrease the number of search nodes in the space. The drawback on the other hand is, that this division is dependent on the object representation. So instead of computing an independent configuration space for the search, the search needs to use some information from the objects. Thus a combination of a set of collision information for each point in the configuration space is calculated for each search step. This will lead to an integration of search algorithm and object representation into one main algorithm.\\
-But still a simple search graph will be obtained where the solution can then be found by searching a path for the main object M from start to target. In the following part two ways of representing the objects will be used.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{cellDivision}
+\caption{Figure showing two objects and their extended borders}
+\label{cellDivision}
+\end{figure}
+So to identify in which cell a point $p$ is in, one takes the borders of each object and extends them beyond their normal length. Doing so will split the space in 2 for each border extended. So if we say we have $n$ borders to extend, we can check if the point $p$ is under/over ( right/left ) of those borders, leading to a binary vector with each position being $1$ if $p$ is over the border, $0$ otherwise. This vector can be seen as a binary number, thus each cell on the plane can be identified by a single number $I$. In figure \ref{cellDivision} the moving objects binary vector would be $(0 1 0 1 1 1 1 1) =  95$.\\
+This only works for one point on an otherwise static field, so for each moving object, their cell position needs to be calculated seperatly. Also rotations propose a problem, because the borders of an rotated object may change the cells, but they dont need to. So if there is the need to rotate an object, there is no telling the difference beetween object $O_1$ with configuration $(x,y,0)$ and $O_2$ with configuration $(x,y,1)$ if the cells for all moving objects stay the same.\\
+Thus each possible rotation $\phi_i$ for each moving object $O_i$ with $i \in \mathbb{N} \wedge i \leq n$ is taken into account by adding their value to the cell identifier. One configuration can then be seen as $(I_1 , I_2,...,I_n,\phi_1,\phi_2,..,\phi_n)$.\\
+The exact way of checking for borders to get a simple search graph depends on the implementation. In the following part two ways of representing the objects will be used.
 
 
-\subsection{Objects as point list}
+\subsection{Objects as Point List}
 \label{subsec::pointlist}
 One of the possible ways of describing an object in a two dimensional setting would be an ordered list of corner points.  Together with an anchor point we can calculate all transformations needed.
 \subsubsection{Main steps}
@@ -60,9 +73,10 @@ Cons:
 \item The more corners an object has, the more points its convex hull with other object will have. One point more in object $O_i$ can lead to $n$ more points in $C_{O_i-O_j}$ with $n$ beeing the number of points in $O_j$. As we use the vectors connecting the points in $C_{O_i-O_j}$, $n$ more cells will arise in the search space due to those ghost planes.
 \end{itemize}
 
+In the following this algorithm will be named pList.
 
 
-\subsection{Objects as function list}
+\subsection{Objects as Function List}
 \label{subsec:functionlist}
 Another option of describing an object is the representation with functions and definition ranges. Each function is then represented as a list of coefficients $a,b,c$ describing the polynom $ax^2 + bx + c$. Also an anchor point as a reference is needed for rotating the object.\\
 
@@ -83,8 +97,16 @@ Pros:
 \end{itemize}
 Cons:
 \begin{itemize}
-\item The object transformation need a little more time as for each function the parameters need to be recalculated.
+\item Having direct points in the config space can lead to multiple nodes in the graph due to small movements that would normaly be compromised by cell representation.
 \item There is no direct way to represent a vertical line with a function. A workaround is to use a function with a extremly high gradient inside a small definition range.
 The problem is that this can lead to computational errors due to the fact that the optimal gradient would be infinite.
 \item Rotation still needs discrete steps along the config dimensions $\phi_i$, Therefore more exact calculations lead to higher need in computation power.
 \end{itemize}
+
+In the following this algorithm will be known as fList.
+
+\subsubsection{Adaption Using Cells as Sodes}
+As proposed in \ref{subsec::cells} an adaption to the algorithm $fList$ has been made in a way, that the ghostplanes still dont interfere with the movement of the objects, but the number of search nodes in the graph decrease for few object in the riddle.\\
+To do so, each point that has been found a valid next step checked for its cell. This cell information is then used as the next node in the search graph. If another step lands in the same cell, the two different positions in the cell are evaluated, and if necessery updated according to the given heuristic, to change the cells distance value to the target.This way all points in the cell amount to the same node in the graph, thus getting rid of many small movement changes.\\
+The drawback on the other hand is, that for many objects in the riddle, the amount of existing cells can lead to unnecessary updates and thus unnecessary movements as the algorithm jumps back to a previous node that now has a better value.\\ 
+In the following this algorithm will be know as fCell.

@@ -2,7 +2,7 @@
 \label{cha:Implementation}
 
 \section{Algorithms and Functions}
-\subsection{Main search loop}
+\subsection{Main Search Loop}
 As proposed in \ref{subsec:confspace}, we create the graph while searching. This requires a certain level of interleaving beetween the search algorithm and the way we work with our objects. In this example, the functions working on the objects are $oneStep(...)$ and $isValid(...)$. All of the rest is needed for the search algorithm, in this case a simple A$^\star$.
 
 \begin{lstlisting}
@@ -34,10 +34,10 @@ end
 
 $isValid(...)$ is a simple function testing the given configuration from $oneStep(...)$ against configuration space. This is done by simply checking if the configuration point is inside any convex hulls stored in the configuration space.\\
 The functions $oneStep(...)$ is now explained in detail for the representation of objects as points list and function list.
-\subsection{Implementation with point list}
+\subsection{Implementation with Point List}
 As described in \ref{subsec::pointlist} an object can be described as a list of ordered corner points. Starting from there the collision set for each object is the set of convex hulls of its collision with each other object. A cell can then be described as a valid set of collision sets for all objects.\\
 These cells form the search nodes for the pathfinding algorithm.
-\subsubsection{The function oneStep}
+\subsubsection{The Function $oneStep$}
 $[\textbf{nextNode}, \textbf{newCollSet} ]=oneStep(\textbf{node, direction, collSet,riddle, jump\_over})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
@@ -308,9 +308,9 @@ This \textbf{newCollSet} is then returned together with \textbf{nextNode}.
 %Afterwards some minor adjustments take place to remove unnecessary lines and points from the hull to reduce "ghost planes". 
 %Then the finished convex hull of the object with the choosen entity is saved. After each entity in rims is checked, the new set of convex hulls is returned.
 
-\subsection{Implementation with function list}
+\subsection{Implementation with Function List}
 The implementation as function lists \ref{subsec:functionlist} describes the configuration space in the same way as the point list. The collision set on the other hand is defined directly by the objects and their positions. After each step, the object that was moved will be updated and a copy of its set is stored as the new collision set for the configuration.
-\subsubsection{The function oneStep}
+\subsubsection{The Function $oneStep$}
 $[\textbf{nextNode}, \textbf{collision\_set} ]=oneStep(\textbf{node, direction, cur\_collision\_set,riddle})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
@@ -406,7 +406,7 @@ if inTargetCell && object_pos==1
 end
 \end{lstlisting}
 
-\subsubsection{moveToFunction}
+\subsubsection{The Function $moveToFunction$}
 $[\textbf{nextNode},\textbf{dist}]=moveFunc(\textbf{node, direction, object, border, func, def, above})$ checks if the function \textbf{func} defined in the range \textbf{def} lies in the way of the \textbf{object} trying to move in the \textbf{direction} or if the \textbf{border} needs to be used. The function calculates the configuration point \textbf{nextNode} together with the travelled distance \textbf{dist}.\\
 Parameters:
 \begin{itemize}
@@ -425,7 +425,7 @@ Returns:
 \end{itemize}
 The function $moveFunc(...)$ iterates over all functions in \textbf{object} and checks if there exists a crossing point beetween them and the function \textbf{func}.
 This point is then saved together with the distance and the point with the minimal distance is returned.\\
-\subsubsection{Along x-direction}
+\subsubsection{Along $x$-Direction}
 First the values of the function \textbf{func} are calculated and if the movement is along the x-coordinate, compared to those of the \textbf{object} functions. If no common range exists, the functions can not collide.
 \begin{lstlisting}
 ...
@@ -492,7 +492,7 @@ The same calcuations are also made for the current \textbf{object} function to c
     end
 ...
 \end{lstlisting}
-\subsubsection{Along y-direction}
+\subsubsection{Along $y$-Direction}
 If the movement is along the y-coordinate a simple look at the definition ranges of the \textbf{object} functions rules out all functions that are not in the way.
 If that is the case, the border is taken as the nearest function.
 \begin{lstlisting}
