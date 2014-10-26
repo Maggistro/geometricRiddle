@@ -96,10 +96,11 @@ figureData.pause=1;
 
 while(sum(current~=start)~=0) %solange bis zurück am anfang
      [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
-     figureData.o = collision_set{find(sum(abs(R - ones(size(R,1),1)*current)<0.001,2)==size(R,2))};
-     drawMainObjectFunc(figureData);
+     %figureData.o = collision_set{find(sum(abs(R - ones(size(R,1),1)*current)<0.001,2)==size(R,2))};
+     %drawMainObjectFunc(figureData);
      Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter
 
 end
 Path = [start;Path];
+drawPathFunc(Path,figureData,collision_set,R);

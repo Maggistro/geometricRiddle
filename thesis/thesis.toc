@@ -30,10 +30,10 @@
 \contentsline {section}{\numberline {4.1}Algorithms and Functions}{21}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Main Search Loop}{21}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {4.1.2}Implementation with Point List}{22}{subsection.4.1.2}
-\contentsline {subsubsection}{The Function $oneStep$}{22}{section*.8}
+\contentsline {subsubsection}{The Function $oneStep(...)$}{22}{section*.8}
 \contentsline {subsection}{\numberline {4.1.3}Implementation with Function List}{26}{subsection.4.1.3}
-\contentsline {subsubsection}{The Function $oneStep$}{26}{section*.9}
-\contentsline {subsubsection}{The Function $moveToFunction$}{29}{section*.10}
+\contentsline {subsubsection}{The Function $oneStep(...)$}{26}{section*.9}
+\contentsline {subsubsection}{The Function $moveToFunction(...)$}{29}{section*.10}
 \contentsline {subsubsection}{Along $x$-Direction}{30}{section*.11}
 \contentsline {subsubsection}{Along $y$-Direction}{32}{section*.12}
 \contentsline {chapter}{\numberline {5}Results}{35}{chapter.5}
@@ -46,10 +46,9 @@
 \contentsline {chapter}{\numberline {6}Discussion}{41}{chapter.6}
 \contentsline {section}{\numberline {6.1}General Problems}{41}{section.6.1}
 \contentsline {subsection}{\numberline {6.1.1}Rotation Steps}{41}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Problems with Point List Implementation}{42}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}Invisible Plains}{42}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.1.2}Missing Heuristic}{42}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Problems with Point List Implementation}{43}{section.6.2}
 \contentsline {section}{\numberline {6.3}Problems with Function List Implementation}{43}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}Vertical Lines}{43}{subsection.6.3.1}
 \contentsline {chapter}{\numberline {7}Conclusion}{45}{chapter.7}
 \contentsline {section}{\numberline {7.1}Applications and Further Usage}{45}{section.7.1}
 \contentsline {section}{\numberline {7.2}Summary}{45}{section.7.2}

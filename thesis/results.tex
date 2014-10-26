@@ -1,5 +1,5 @@
 \chapter{Results}
-If we apply the finished algorithm to various test data sets, we can get an impression of what the program is capable of.
+If the finished algorithm is applied to various test data sets, an impression of what the program is capable of can be obtained.
 For each riddle beeing solved, the algorithms are executed a number of times to calculate an average runtime.\\
 In both cases A$^\star$ was used as the search algorithm on the resulting graph. As a distance measurement the heuristic in form of the 2-norm of the vector between current position and target was added to the stepcount with each step weighting 0.1 units. The starting distance to beetween main object and target 10.1980 units.
 \section{Measurements}
@@ -87,6 +87,7 @@ fCell & 49.1205 & 51.2846 & 50.3155 & 95.5828 & 106.6468 & 100.63497\\
 %\end{table}
 
 \subsection{Counterheuristic Riddles}
+\label{subsec:counterheuristic}
 This riddle is build to test the search algorithms heuristic in combination cell identification.\\
 \begin{figure}[H]
 \centering
@@ -116,22 +117,22 @@ fList with cells & 24.036 & 27.8225 & 25.001 \\
 % time for riddleB with cell function implementation
 
 \section{Interpretation}
-As we can see the algorithm working with functions is much faster. But still it scales with an increasing amount of objects to work with.
-If we plot these two against each other we see an exponential grow depending on the number of objects involved for the pList algorithm.
+From the data it can be seen, that the algorithm working with functions is much faster. But still it scales with an increasing amount of objects to work with.
+If a plot of these two against each other is done, an exponential grow depending on the number of objects involved for the pList algorithm can be assumed.
 The fList algorithms still scale with the number of objects, but are more dependent on the initial positioning of the objects.
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{pointAgainstFuncAgainstCell.png}
 \caption{ Plot of the tree algorithms showing the time needed to finish depending on the objects involved.}
 \end{figure}
-It can easily be seen, that the algorithm pList with point list representation scales extremely bad with an increasing number of objects. This is due to the fact that not only the objects in the direct way beetween target and starting point are considered, but also the extended vectors of objects that are not in the way. This leads to increased number of cells to search through.
+It can easily be seen, that the algorithm pList with point list representation scales bad with an increasing number of objects. This is due to the fact that not only the objects in the direct way beetween target and starting point are considered, but also the extended vectors of objects that are not in the way. This leads to increased number of cells to search through.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth, height=250pt]{ghostplanesStep}
-\caption{Plot showing the ghostplanes between main object and target.}
+\caption{Plot showing the ghos tplanes between main object and target.}
 \end{figure}
-In this plot we can see that there are 6 ghostplanes, extending from the borders of the obstacles in blue, beetween the main object in green and the target in red. Due to this $6\cdot2 = 12$ unnecessary steps need to be calculated before the final step, as per plane we calculate a position in front and behind before evaluating which position is better.\\
+In this plot there are 6 ghost planes, extending from the borders of the obstacles in blue, beetween the main object in green and the target in red. Due to this, $6\cdot2 = 12$ unnecessary steps need to be calculated before the final step. Per plane a calculation of the positions in front and behind is executed, only afterwards the two position are evaluated with help of the search heuristik.\\
 If this scenario is given to the algorithm $fList$ ( $fCell$ ) with functions, it would simply check if the obstacles on the bottom are in the way. And as that is not the case, no unecessary steps would arise and the algorithm woud finish in 1 step.\\
 \newline
 Concerning the counterheuristic riddle the data shows that the algorithm $fCell$ is around $1400$ times faster than the simpler $fList$ algorithm. The algorithm with $pList$ is not listed here, as it takes more than $16h = 57600$ to finish. The calculation was abonded at that time.\\
-Comparing the two algorithms $fList$ and $fCel$l, it can be seen that $fList$ is faster for normal calculations with many objects, but fails if the heuristik is bad in the pathplanning. \\
+Comparing the two algorithms $fList$ and $fCel$l, it can be seen that $fList$ is faster for normal calculations with many objects, but fails if the heuristic is bad in the pathplanning. \\
 $fCel$l on the other hand reduces the number of cells, thus decreasing the number of steps for the pathplanning. This shortens the path in a way, such that fewer steps in the wrong direction need to be taken to find the target. So for a general purpose algorithm, $fCell$ would be the best choice as it takes only a small penalty for more objects added compared to $fList$, but can deal better with hard riddles.

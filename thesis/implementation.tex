@@ -3,7 +3,7 @@
 
 \section{Algorithms and Functions}
 \subsection{Main Search Loop}
-As proposed in \ref{subsec:confspace}, we create the graph while searching. This requires a certain level of interleaving beetween the search algorithm and the way we work with our objects. In this example, the functions working on the objects are $oneStep(...)$ and $isValid(...)$. All of the rest is needed for the search algorithm, in this case a simple A$^\star$.
+As proposed in \ref{subsec:confspace}, the graph is created while searching. This requires a certain level of interleaving beetween the search algorithm and the way the objects are represented. In this example, the functions working on the objects are $oneStep(...)$ and $isValid(...)$. All of the rest is needed for the search algorithm, in this case a simple A$^\star$.
 
 \begin{lstlisting}
 %while target is not in rim
@@ -32,17 +32,17 @@ while(~ismember(target,R))
 end
 \end{lstlisting}
 
-$isValid(...)$ is a simple function testing the given configuration from $oneStep(...)$ against configuration space. This is done by simply checking if the configuration point is inside any convex hulls stored in the configuration space.\\
-The functions $oneStep(...)$ is now explained in detail for the representation of objects as points list and function list.
+$isValid(...)$ is a short function testing the given configuration from $oneStep(...)$ against configuration space. This is done by checking if the configuration point is inside any convex hulls stored in the configuration space.\\
+The function $oneStep(...)$ is now explained in detail for the representation of objects as points list and function list.
 \subsection{Implementation with Point List}
 As described in \ref{subsec::pointlist} an object can be described as a list of ordered corner points. Starting from there the collision set for each object is the set of convex hulls of its collision with each other object. A cell can then be described as a valid set of collision sets for all objects.\\
 These cells form the search nodes for the pathfinding algorithm.
-\subsubsection{The Function $oneStep$}
-$[\textbf{nextNode}, \textbf{newCollSet} ]=oneStep(\textbf{node, direction, collSet,riddle, jump\_over})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
+\subsubsection{The Function $oneStep(...)$}
+$[\textbf{nextNode}, \textbf{newCollSet} ]=oneStep(\textbf{node, direction, collSet,riddle, jump\_over})$  provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
 \item \textbf{node}: a point in the configurationspace $C$ used as the starting point.
-\item \textbf{direction}: the dimension of $C$ to search a new node on. Signed means search backward, unsigned forward. 
+\item \textbf{direction}: the dimension of $C$ to search a new node in. Signed means search backward, unsigned forward. 
 \item \textbf{collSet}: $i$ sets of $n-1$ sized sets giving the collision sets $C_{O_i-O_j}$ per object $O_i$ for all $n$ objects.
 \item \textbf{riddle}: the original set of information for the starting riddle. Needed for recalculation of collSets.
 \item \textbf{jump\_over}: flag for signaling if next node should be on the rim of current cell ( jump\_over = -1), or in the next cell ( jump\_over = 1).
@@ -54,7 +54,7 @@ Returns:
 \end{itemize}
 The fucntion can be divided in two different step types: rotation and translation. \\
 All rotations are executed by changing the dimension \textbf{direction}  depending on the sign of \textbf{direction} by one step. The size of the step is determined 
-by the needed accuracy. The function rotateObject rotates all cornerPoints of the object around its anchor point.\\
+by the needed accuracy. The function $rotateObject$ rotates all cornerPoints of the object around its anchor point.\\
 \begin{lstlisting}
 ...
     tempAdd = zeros(1,length(node)); %build mask for step in rotation direction
@@ -73,8 +73,8 @@ by the needed accuracy. The function rotateObject rotates all cornerPoints of th
     end
     return; % and return
 \end{lstlisting}
-On the other side stands the translation step. As our goal is to identify the next cell in the dimension \textbf{direction}, we iterate over all convex hulls stored in \textbf{collSet} for the object that needs changing and extend their borders. A jump over/to the nearest border in a given direction equals a jump into the next / to the border of the cell.\\
-First two points are taken from the convex hull (named points) to recalculate the vector. Due to the fact that each object only resides in a 2 dimensional space, by solving a linear equation the crossing points on the dimension that is NOT our search dimension $direction$ can be obtained, so that the point in this direction can be calculated.
+On the other side stands the translation step. As the goal is to identify the next cell in the dimension \textbf{direction}, iterating over all convex hulls stored in \textbf{collSet} for the object that needs changing is done to extend their borders. A jump over/to the nearest border in a given direction equals a jump into the next/to the border of the cell.\\
+First two points are taken from the convex hull ( named points ) to recalculate the vector. Due to the fact that each object only resides in a 2 dimensional space, by solving a linear equation the crossing points on the dimension that is NOT on the search dimension $direction$ can be obtained, so that the point in this direction can be calculated.
 \begin{lstlisting}
 ...
         %calculate line from points
@@ -105,7 +105,7 @@ First two points are taken from the convex hull (named points) to recalculate th
             p = offset + x(1,1)*vector;%get point on same x
         end
  \end{lstlisting}
-Before we calculate this point, we check if we already reached our target cell by trying to get a non-intercepted connection from the current \textbf{node} to the target node taken from \textbf{riddle}. The flag needs to be checked for ALL vectors.       
+Before the point is calculated, a check if the target cell has been reached is done by trying to get a non-intercepted connection from the current \textbf{node} to the target node taken from \textbf{riddle}. The flag needs to be checked for ALL vectors.       
 \begin{lstlisting}
     %check if point is in same cell as target
         if(inTargetCell)
@@ -120,7 +120,7 @@ Before we calculate this point, we check if we already reached our target cell b
             end    
         end
 \end{lstlisting}
-If all checks out, we calculate the vector from \textbf{node} to the crossing point on the border. If the sign of the vector along the dimension \textbf{direction} equals that of \textbf{direction} a distance is calculated and, if lower than the current minimum, stored together with a possible new node \textbf{nextNode}.
+If all checks out, the vector from \textbf{node} to the crossing point on the border is calculated. If the sign of the vector along the dimension \textbf{direction} equals that of \textbf{direction} a distance is calculated and, if lower than the current minimum, stored together with a possible new node \textbf{nextNode}.
 This next node is choosen depending on the flag \textbf{jump\_over} to either be directly in front or behind the point on the border.
 \begin{lstlisting}
         %vector from node to temp point on line
@@ -144,21 +144,21 @@ This next node is choosen depending on the flag \textbf{jump\_over} to either be
         
 ...
 \end{lstlisting}
-Now after this loop has finished, we have found either a new minimum in the searching direction or we are inside the same cell as the target. \\
-If we are in the same cell as the target, we just set the main object $M$ to the targets configuration and return.
+Now after this loop has finished, either a new minimum in the searching direction has been found or the target cell has been reached. \\
+If the target cell has been reached, the main object $M$ is set to the targets configuration and the function returns.
 \begin{lstlisting}
 if inTargetCell && object_pos==1
     nextNode(1:3) = riddle.t.mid;
     return
 end
 \end{lstlisting}
-If we found a new minimum, the collision sets need to be adapted. For that we recalculate the new configuration state \textbf{nextNode} of our objects with the help of $changeOneObject(...)$.
+If a new minimum has been found, the collision sets need to be adapted. For that a recalculation the new configuration state \textbf{nextNode} of the objects with the help of $changeOneObject(...)$ is performed.
 \begin{lstlisting}
    for object=1:length(riddle.o)
         riddle.o{object} = changeOneObject(nextNode((object-1)*3+1:object*3),riddle.o{object});    
     end
 \end{lstlisting}
-Afterwards we iterate over the newly generated objects and recalculate the collision sets per object with $getRims(...)$.
+Afterwards iterating over the newly generated objects  is needed to recalculate the collision sets per object with $getRims(...)$.
 \begin{lstlisting}
 for object=1:length(riddle.o)
         temp = riddle.o;
@@ -310,7 +310,7 @@ This \textbf{newCollSet} is then returned together with \textbf{nextNode}.
 
 \subsection{Implementation with Function List}
 The implementation as function lists \ref{subsec:functionlist} describes the configuration space in the same way as the point list. The collision set on the other hand is defined directly by the objects and their positions. After each step, the object that was moved will be updated and a copy of its set is stored as the new collision set for the configuration.
-\subsubsection{The Function $oneStep$}
+\subsubsection{The Function $oneStep(...)$}
 $[\textbf{nextNode}, \textbf{collision\_set} ]=oneStep(\textbf{node, direction, cur\_collision\_set,riddle})$ is the function that provides us with the next node in a specific direction and an updated collision set for that node. This new collision set fits to the new point in the configuration space at the position of the next node.\\
 Parameters:
 \begin{itemize}
@@ -391,8 +391,8 @@ if(inTargetCell) %if main object, calculate connection to target
 end
 ...
 \end{lstlisting}
-Then inside the loop this function is check for collision with the choosen function $func$.\\
-After that if a node with the closest distance was choosen the collision set is recalculated. If not $moveFunc(...)$ moves the object to the border of \textbf{riddle}.
+Then inside the loop this function checks for collision with the choosen function $func$.\\
+After that, if a node with the closest distance was choosen the collision set is recalculated. If not $moveFunc(...)$ moves the object to the border of \textbf{riddle}.
 And if the object can be moved to the target without collision, the target will be set as the next node and the function returns.
 \begin{lstlisting}
 ...
@@ -406,17 +406,17 @@ if inTargetCell && object_pos==1
 end
 \end{lstlisting}
 
-\subsubsection{The Function $moveToFunction$}
+\subsubsection{The Function $moveToFunction(...)$}
 $[\textbf{nextNode},\textbf{dist}]=moveFunc(\textbf{node, direction, object, border, func, def, above})$ checks if the function \textbf{func} defined in the range \textbf{def} lies in the way of the \textbf{object} trying to move in the \textbf{direction} or if the \textbf{border} needs to be used. The function calculates the configuration point \textbf{nextNode} together with the travelled distance \textbf{dist}.\\
 Parameters:
 \begin{itemize}
 \item \textbf{node}: the current node the movement should be executed from.
 \item \textbf{direction}: the dimension of $C$ to search a new node on. Signed means search backward, unsigned forward. 
-\item \textbf{object}: the object which wants to be moved.
+\item \textbf{object}: the object which should be to be moved.
 \item \textbf{border}: the border of the riddle.
 \item \textbf{func}: the function which could be laying in the way.
 \item \textbf{def}: the definition range of the function.
-\item \textbf{above}: wether the object the function \textbf{func} borders lies above or below \textbf{func}
+\item \textbf{above}: wether the object the function \textbf{func} borders lies above or below \textbf{func}.
 \end{itemize}
 Returns:
 \begin{itemize}
@@ -426,7 +426,7 @@ Returns:
 The function $moveFunc(...)$ iterates over all functions in \textbf{object} and checks if there exists a crossing point beetween them and the function \textbf{func}.
 This point is then saved together with the distance and the point with the minimal distance is returned.\\
 \subsubsection{Along $x$-Direction}
-First the values of the function \textbf{func} are calculated and if the movement is along the x-coordinate, compared to those of the \textbf{object} functions. If no common range exists, the functions can not collide.
+First the values of the function \textbf{func} are calculated and if the movement is along the x-coordinate, compared to those of the \textbf{object} functions. If no common range exists, the functions cannot collide.
 \begin{lstlisting}
 ...
 %calculate funcValue at ends of defenition range

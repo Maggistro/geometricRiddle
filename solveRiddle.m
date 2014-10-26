@@ -25,7 +25,11 @@ end
 
 if(func)
     if cell
+%        tempObjects = riddle.o;
+%        riddle.o = riddle.o(1);
         Path = path_by_dijkstraCell(riddle,figureData);
+%        riddle.o = tempObjects;
+%        Path = path_by_dijkstraCell(riddle,figureData,Path);
     else
         Path = path_by_dijkstraFunc(riddle,figureData);
     end

@@ -52,6 +52,11 @@ Path=[];
 collision_set=cell(1,1000);
 collision_set{1} = next_collision_set;
 
+    figureData.collision = next_collision_set;
+    figureData.current = start;
+    figureData.start = start;
+    drawMainObject(figureData);
+
 while(~sum(ismember(R(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
     unvisited_D= D+H;
@@ -125,6 +130,6 @@ while(sum(current~=start)~=0) %solange bis zurück am anfang
     [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
     Path=[current;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter
-
 end
 Path = [start;Path];
+drawPath(Path,figureData);

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.23)  14 SEP 2014 23:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.23)  16 SEP 2014 21:38
 entering extended mode
 **C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/thesis.t
 ex
@@ -1089,18 +1089,18 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count158
 
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\titlepage
-.tex <Logo_Uni_Luebeck_300dpi.png, id=198, 284.5029pt x 113.7048pt>
+.tex <Logo_Uni_Luebeck_300dpi.png, id=194, 284.5029pt x 113.7048pt>
 File: Logo_Uni_Luebeck_300dpi.png Graphic file (type png)
 
 <use Logo_Uni_Luebeck_300dpi.png>
 Package pdftex.def Info: Logo_Uni_Luebeck_300dpi.png used on input line 16.
 (pdftex.def)             Requested size: 227.62204pt x 90.97089pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 26.
+LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 
 (G:\Anwendungen\Miktex\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 26.
+LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 
 (G:\Anwendungen\Miktex\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -1164,19 +1164,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<circleRiddle.png, id=288, 747.79375pt x 1056.94875pt>
+<circleRiddle.png, id=283, 747.79375pt x 1056.94875pt>
 File: circleRiddle.png Graphic file (type png)
  <use circleRiddle.png>
 Package pdftex.def Info: circleRiddle.png used on input line 21.
 (pdftex.def)             Requested size: 74.78375pt x 105.70107pt.
 
-<boxRiddle.png, id=289, 747.79375pt x 1056.94875pt>
+<boxRiddle.png, id=284, 747.79375pt x 1056.94875pt>
 File: boxRiddle.png Graphic file (type png)
  <use boxRiddle.png>
 Package pdftex.def Info: boxRiddle.png used on input line 22.
 (pdftex.def)             Requested size: 74.78375pt x 105.70107pt.
 
-<mixedRiddle.png, id=290, 747.79375pt x 1056.94875pt>
+<mixedRiddle.png, id=285, 747.79375pt x 1056.94875pt>
 File: mixedRiddle.png Graphic file (type png)
  <use mixedRiddle.png>
 Package pdftex.def Info: mixedRiddle.png used on input line 23.
@@ -1216,7 +1216,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<VectorDegree.png, id=368, 422.32782pt x 316.18124pt>
+<VectorDegree.png, id=363, 422.32782pt x 316.18124pt>
 File: VectorDegree.png Graphic file (type png)
  <use VectorDegree.png>
 Package pdftex.def Info: VectorDegree.png used on input line 37.
@@ -1258,7 +1258,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--32
 
  []
 
-<cellDivision.png, id=402, 690.58pt x 606.265pt>
+<cellDivision.png, id=397, 690.58pt x 606.265pt>
 File: cellDivision.png Graphic file (type png)
  <use cellDivision.png>
 Package pdftex.def Info: cellDivision.png used on input line 39.
@@ -1274,10 +1274,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--82
 
  []
 
-[17])
+[17]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18]
+ [18])
 [19] [20
 
 
@@ -1299,7 +1299,13 @@ LaTeX Font Info:    Font shape `OT1/txtt/bx/n' in size <9> not available
 
 
 
-] [22]
+]
+Overfull \hbox (1.55876pt too wide) in paragraph at lines 41--44
+$\OT1/cmr/m/n/10.95 [[]\OML/cmm/m/it/10.95 ; []\OT1/cmr/m/n/10.95 ] = \OML/cmm/
+m/it/10.95 oneStep\OT1/cmr/m/n/10.95 ([])$ pro-vides
+ []
+
+[22]
 Underfull \hbox (badness 10000) in paragraph at lines 55--58
 
  []
@@ -1339,7 +1345,7 @@ Underfull \vbox (badness 1122) has occurred while \output is active []
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\results.t
 ex
 Chapter 5.
-<rotRiddle.png, id=814, 422.32782pt x 316.18124pt>
+<rotRiddle.png, id=809, 422.32782pt x 316.18124pt>
 File: rotRiddle.png Graphic file (type png)
  <use rotRiddle.png>
 Package pdftex.def Info: rotRiddle.png used on input line 12.
@@ -1352,13 +1358,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<riddle2.png, id=819, 422.32782pt x 316.18124pt>
+<riddle2.png, id=814, 422.32782pt x 316.18124pt>
 File: riddle2.png Graphic file (type png)
  <use riddle2.png>
 Package pdftex.def Info: riddle2.png used on input line 31.
 (pdftex.def)             Requested size: 211.16339pt x 158.09023pt.
 
-<riddle4.png, id=820, 422.32782pt x 316.18124pt>
+<riddle4.png, id=815, 422.32782pt x 316.18124pt>
 File: riddle4.png Graphic file (type png)
  <use riddle4.png>
 Package pdftex.def Info: riddle4.png used on input line 32.
@@ -1367,13 +1373,13 @@ Package pdftex.def Info: riddle4.png used on input line 32.
 iddle.png (PNG copy)> <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricR
 iddle/thesis/riddle2.png (PNG copy)> <C:/Users/Maggistro/Documents/Uni/masterar
 beit/geometricRiddle/thesis/riddle4.png (PNG copy)>]
-<riddle6.png, id=828, 422.32782pt x 316.18124pt>
+<riddle6.png, id=823, 422.32782pt x 316.18124pt>
 File: riddle6.png Graphic file (type png)
  <use riddle6.png>
 Package pdftex.def Info: riddle6.png used on input line 54.
 (pdftex.def)             Requested size: 211.16339pt x 158.09023pt.
 
-<riddle8.png, id=829, 422.32782pt x 316.18124pt>
+<riddle8.png, id=824, 422.32782pt x 316.18124pt>
 File: riddle8.png Graphic file (type png)
  <use riddle8.png>
 Package pdftex.def Info: riddle8.png used on input line 55.
@@ -1383,13 +1389,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 52--57
 
  []
 
-<riddleB.png, id=830, 422.32782pt x 316.18124pt>
+<riddleB.png, id=825, 422.32782pt x 316.18124pt>
 File: riddleB.png Graphic file (type png)
  <use riddleB.png>
-Package pdftex.def Info: riddleB.png used on input line 93.
+Package pdftex.def Info: riddleB.png used on input line 94.
 (pdftex.def)             Requested size: 211.16339pt x 158.09023pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--95
+Underfull \hbox (badness 10000) in paragraph at lines 91--96
 
  []
 
@@ -1399,25 +1405,25 @@ Underfull \vbox (badness 7869) has occurred while \output is active []
  [37 <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/ridd
 le6.png (PNG copy)> <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRid
 dle/thesis/riddle8.png (PNG copy)>]
-<pointAgainstFuncAgainstCell.png, id=839, 779.16093pt x 286.06876pt>
+<pointAgainstFuncAgainstCell.png, id=834, 779.16093pt x 286.06876pt>
 File: pointAgainstFuncAgainstCell.png Graphic file (type png)
 
 <use pointAgainstFuncAgainstCell.png>
-Package pdftex.def Info: pointAgainstFuncAgainstCell.png used on input line 123
+Package pdftex.def Info: pointAgainstFuncAgainstCell.png used on input line 124
 .
 (pdftex.def)             Requested size: 455.24411pt x 167.1422pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [38 <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/ridd
-leB.png (PNG copy)>] <ghostplanesStep.png, id=846, 422.32782pt x 316.18124pt>
+leB.png (PNG copy)>] <ghostplanesStep.png, id=841, 422.32782pt x 316.18124pt>
 File: ghostplanesStep.png Graphic file (type png)
 
 <use ghostplanesStep.png>
-Package pdftex.def Info: ghostplanesStep.png used on input line 129.
+Package pdftex.def Info: ghostplanesStep.png used on input line 130.
 (pdftex.def)             Requested size: 455.2566pt x 250.00237pt.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 132--51
+Underfull \hbox (badness 10000) in paragraph at lines 133--51
 
  []
 
@@ -1427,7 +1433,7 @@ arbeit/geometricRiddle/thesis/ghostplanesStep.png (PNG copy)>] [40]
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\discussio
 n.tex
 Chapter 6.
-<endlessRot.png, id=857, 348.30125pt x 303.1325pt>
+<endlessRot.png, id=852, 348.30125pt x 303.1325pt>
 File: endlessRot.png Graphic file (type png)
  <use endlessRot.png>
 Package pdftex.def Info: endlessRot.png used on input line 9.
@@ -1442,31 +1448,31 @@ Package pdftex.def Info: endlessRot.png used on input line 9.
 
 
  <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/endlessR
-ot.png>] <ghostplanes.png, id=866, 1064.97874pt x 592.2125pt>
+ot.png>] <ghostplanes.png, id=862, 1064.97874pt x 592.2125pt>
 File: ghostplanes.png Graphic file (type png)
 
 <use ghostplanes.png>
-Package pdftex.def Info: ghostplanes.png used on input line 23.
+Package pdftex.def Info: ghostplanes.png used on input line 28.
 (pdftex.def)             Requested size: 319.4961pt x 177.66512pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 20--25
+Underfull \hbox (badness 10000) in paragraph at lines 25--30
 
  []
 
 
-Underfull \vbox (badness 3919) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [42 <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/ghos
-tplanes.png>]) [43] [44
-
-
-
-
-]
+ [42]
+[43 <C:/Users/Maggistro/Documents/Uni/masterarbeit/geometricRiddle/thesis/ghost
+planes.png>]) [44]
 (C:\Users\Maggistro\Documents\Uni\masterarbeit\geometricRiddle\thesis\conclusio
 n.tex
 Chapter 7.
 ) [45
+
+
+
+
 
 
 
@@ -1541,16 +1547,16 @@ n.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 96.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 96.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: D3E3B70D5D243DEC552A9C8FD8A9BF32;3512.
+(rerunfilecheck)             Checksum: 45FA7C24A37CB923F470A1095592E532;3439.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14414 strings out of 494045
- 212684 string characters out of 3150792
- 571954 words of memory out of 3000000
+ 14413 strings out of 494045
+ 212675 string characters out of 3150792
+ 571008 words of memory out of 3000000
  16929 multiletter control sequences out of 15000+200000
  15957 words of font info for 58 fonts, out of 3000000 for 9000
  718 hyphenation exceptions out of 8191
@@ -1574,9 +1580,9 @@ s/msam10.pfb><G:/Anwendungen/Miktex/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><G:/Anwendungen/Miktex/fonts/type1/public/txfonts/txbtt.pfb><G:/Anwendungen
 /Miktex/fonts/type1/public/txfonts/txtt.pfb><G:/Anwendungen/Miktex/fonts/type1/
 public/txfonts/txtt.pfb>
-Output written on thesis.pdf (58 pages, 653988 bytes).
+Output written on thesis.pdf (58 pages, 655727 bytes).
 PDF statistics:
- 1104 PDF objects out of 1200 (max. 8388607)
- 462 named destinations out of 1000 (max. 500000)
- 473 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1100 PDF objects out of 1200 (max. 8388607)
+ 461 named destinations out of 1000 (max. 500000)
+ 465 words of extra memory for PDF output out of 10000 (max. 10000000)
 

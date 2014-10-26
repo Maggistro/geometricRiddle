@@ -24,13 +24,13 @@ For the minkowski sum and convex hull \cite{minkowski} should give more informat
 If the objects are represented as a list of corner points, vector math comes in handy when describing the borders of the object.
 Let A be a simple object defined by the following list:
 \begin{align*}
-A = 	&( 0 , 0 ;2 , 0 ;2, 2; 0, 2)	
+A &= 	( 0 , 0 ;2 , 0 ;2, 2; 0, 2)	
 \end{align*}
 
 Each pair x,y defines one corner of A and the points are ordered to travel along the border of A counterclockwise.
 The lines connecting these points will be called the borders of A. They are calculated by substracting the points from each other such that the vectors point along the border clockwise. This leads to:
 \begin{align*}
-A_{vec} = 	&( 2 , 0 ; 0 ,2 ;-2, 0; 0, -2)	
+A_{vec} &= 	( 2 , 0 ; 0 ,2 ;-2, 0; 0, -2)	
 \end{align*}
 
 \begin{figure}[H]
@@ -55,7 +55,7 @@ The minkowski sum is needed to calculate the convex hull beetween two polyhedra 
 $A$ and $B$ are a set of points in 2 dimensional space defining a convex polyhedron. 
 
 \subsection{Convex Hull} %collision representation with points
-Furthermore we define the center of these objects to be $M_A = (1,1)$ and $M_B = (0.5 , 1)$.
+Furthermore the center or anchor point of these objects are defined as $M_A = (1,1)$ and $M_B = (0.5 , 1)$.
 The convex hull for A to B is calculated with the minkowski sum of A' and B' with
 \begin{align*}
 A'  &= \{ -(\mathbf{a} - M_A) |\mathbf{a} \in A \}\\
@@ -80,7 +80,7 @@ C_{temp_shifted} &= \begin{matrix}
 		&1.5, &-0.5; &2.5, &-0.5; &2.5, &0.5; &1.5, &0.5)
 		\end{matrix}\\
 \end{align*}
-Each line represents one point of A with the points of B added. By choosing the outer points from $C_{temp}$ and put them in $C$, such that no point from $C_{temp}$ is still outside $C$  we will get an object C which defines the space around B which the object A can not enter or they will collide. The points can be choosen by searching for the combinations of minimum/maximum $x$ and $y$ coordinates in C.
+Each line represents one point of $A$ with the points of $B$ added. By choosing the outer points from $C_{temp}$ and put them in $C$, such that no point from $C_{temp}$ is still outside $C$  the resulting object $C$ defines the space around $B$ which the object $A$ can not enter or they will collide. The points can be choosen by searching for the combinations of minimum/maximum $x$ and $y$ coordinates in $C$.
 \begin{align*}
 C = (-0.5, -0.5; 2.5, -0.5; 2.5, 2.5; -0.5, 2.5)
 \end{align*}

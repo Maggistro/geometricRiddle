@@ -2,6 +2,7 @@ function [ nextNode, collision_set ] = oneStepFunc( node,direction,curr_collisio
 %calculates the next node and adapted collision_set in the given direction starting with the
 %curr_collision_set,node and the static information in riddle
 object_pos=floor((abs(direction)-1)/3) + 1 ;
+collision_set = curr_collision_set;
 
 %% handle rotation
 if mod(abs(direction),3) == 0
@@ -144,14 +145,16 @@ for object_number=1:length(curr_collision_set) %iterate over all objects
     end
 end
 
-%% build new collision set from chosen node
-curr_collision_set{object_pos}=moveFunc(min_dist,direction,curr_collision_set{object_pos});
-collision_set = curr_collision_set;
-
 if inTargetCell
     nextNode(1:3) = riddle.t.mid;
     return
 end
+
+%% build new collision set from chosen node
+curr_collision_set{object_pos}=moveFunc(min_dist,direction,curr_collision_set{object_pos});
+collision_set = curr_collision_set;
+
+
 
 
 end

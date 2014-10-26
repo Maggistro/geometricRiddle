@@ -1,4 +1,4 @@
-function Path = path_by_dijkstraCell(riddle,figureData)
+function Path = path_by_dijkstraCell(riddle,figureData,varargin)
 %path_by_dijkstra calculates the path for mainObject from start to target
 %border of the complete riddle
 %object contains ALL objects except mainobject
@@ -56,11 +56,14 @@ Path=[];
 %collision set
 collision_set=cell(1,1000);
 collision_set{1} = next_collision_set;
+%check for path parameter
+if nargin==1
+    pathVec = pathToVec(path)
+end
 
 
-
-    %figureData.o = next_collision_set;
-    %drawMainObjectFunc(figureData);
+    figureData.o = next_collision_set;
+    drawMainObjectFunc(figureData);
     
 while(~sum(ismember(RV(:,1:3),target(1:3),'rows')))
     %Wähleo nächsten noch unbesuchten knoten nach Heuristik/Weglänge
@@ -72,8 +75,8 @@ while(~sum(ismember(RV(:,1:3),target(1:3),'rows')))
     V(next_position)=1;
     
     
-    figureData.o = collision_set{next_position};
-    drawMainObjectFunc(figureData);
+    %figureData.o = collision_set{next_position};
+    %drawMainObjectFunc(figureData);
     %Rand von next berechnen
     for i=1:length(directions) % für jede Richtung auf x,y
         %get all nodes in front of next obstacle line
@@ -111,13 +114,17 @@ current = R(temp==1,:);
 current = current(1,:);
 %figureData.pause=1;
 
+Pathset = [];
 while(sum(current~=startCell)~=0) %solange bis zurück am anfang
+
      [~,temp]=ismember(current,R,'rows'); %suche position des knotens im Rand
-     %figureData.o = collision_set{find(sum(abs(R - ones(size(R,1),1)*current)<0.001,2)==size(R,2))};
-     %drawMainObjectFunc(figureData);
+     figureData.o = collision_set{find(sum(abs(R - ones(size(R,1),1)*current)<0.001,2)==size(R,2))};
+     drawMainObjectFunc(figureData);
      node=RV(temp,:);
      Path=[node;Path]; % füge zum pfad hinzu
     current = P(temp,:); % mache bei pre weiter
-
+    Pathset = [{figureData.o},Pathset];
 end
 Path = [start;Path];
+Pathset = [{collision_set{1}},Pathset];
+drawPathFuncCell(Pathset,figureData);

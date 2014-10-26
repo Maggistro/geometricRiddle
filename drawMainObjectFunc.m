@@ -10,26 +10,29 @@ hold on;
 for objectNumber=1:length(figureData.o)
     %pick object
     temp = figureData.o{objectNumber};
-    points=[];
-    values=[];
-    for func_number = 1:length(temp.coeff)
+    %if(objectNumber==2)
+    %    
+    %temp = rotateFunc([figureData.o{objectNumber}.mid(1:2) -15],figureData.o{objectNumber});
+    %end
+
+    for func_number = 1:length(temp.coeff)   
+        points=[];
+        values=[];
         %pick function
         func = temp.coeff{func_number};
         def = temp.def{func_number}';
         points = [points, def(1), def(2)];
         values = [values,func(1)*def(1)*def(1) + func(2)*def(1) + func(3),...
-                        func(1)*def(2)*def(2) + func(2)*def(2) + func(3)];
-        
-      
-    
-    end
+                        func(1)*def(2)*def(2) + func(2)*def(2) + func(3)];   
+ 
         if(objectNumber==1)
             color='g';
         else
             color='b';
         end
         plot(points,values,color);
-        
+    end
+    
     plot(temp.mid(1),temp.mid(2),'*');
 end
 
