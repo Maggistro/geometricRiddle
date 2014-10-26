@@ -165,14 +165,14 @@ Wir entfernen das Raster und erhalten dadurch eine unendliche Menge an mögliche
 \item Die Anzahl der Knoten auf dem Pfad Ergebnispfad ist geringer 
 \end{itemize}
 \end{frame}
-
-\begin{frame}
-\frametitle{Schrittweise aufbauen des Suchraumes ohne Raster}
-\begin{figure}
-\centering
-\includegraphics[scale=0.3]{../thesis/riddle2}
-\end{figure}
-\end{frame}
+%
+%\begin{frame}
+%\frametitle{Schrittweise aufbauen des Suchraumes ohne Raster}
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.3]{../thesis/riddle2}
+%\end{figure}
+%\end{frame}
 
 
 \begin{frame}
@@ -203,11 +203,8 @@ Wir fügen eine Einteilung des Raumes in Zellen hinzu, welche zwar die Menge an 
 
 \section{Kantenrepräsentation mit Vektoren}
 \begin{frame}
-\frametitle{Kanten als Vectoren}
-Da die Objekte aus sortierten Listen $O_{E}$ der Ecken bestehen, sind die Vektoren der Kanten $O_{K}$ einfach zu berechnen aus:
-\begin{align*}
-O_{K}[i] = O_{E}[i+1] - O_{E}[i] 
-\end{align*}
+\frametitle{Kanten als Vektoren}
+Da die Objekte aus sortierten Listen der Ecken bestehen, sind die Vektoren der Kanten einfach zu berechnen aus der Differenz der Eckpunkte. Hierfür wird keine Veränderung der Objekte benötigt.
 \end{frame}
 
 \begin{frame}
@@ -220,18 +217,18 @@ Aufstellen der Konvexen Hülle aus den Ecken des momentan bewegten Objektes und 
 \end{figure}
 \end{frame}
 
+%\begin{frame}
+%\frametitle{Kollisionsberechnung mittels Konvexer Hülle II}
+%Der Vektor bestehend aus der Objektmitte als Aufpunkt und dem Richtungsvektor der Bewegung wird nun auf Schnittpunkte mit den Berechneten Vektoren der Konvexen Hüllen überprüft.
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.1]{../thesis/riddleWHull}
+%\end{figure}
+%\end{frame}
+
 \begin{frame}
 \frametitle{Kollisionsberechnung mittels Konvexer Hülle II}
 Der Vektor bestehend aus der Objektmitte als Aufpunkt und dem Richtungsvektor der Bewegung wird nun auf Schnittpunkte mit den Berechneten Vektoren der Konvexen Hüllen überprüft.
-\begin{figure}
-\centering
-\includegraphics[scale=0.1]{../thesis/riddleWHull}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Darstellung der Zellen}
-Zellen sind die Verlängerung der Kantenvektoren der Konvexen Hülle.\\
 \begin{figure}
 \centering
 \includegraphics[scale=0.1]{../thesis/riddle2HullCell}
